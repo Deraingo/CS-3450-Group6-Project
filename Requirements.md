@@ -1,44 +1,90 @@
 ***DOCUMENT IN PROGRESS***
-***I WILL MAKE THIS SO MUCH PRETTIER and more organized I PROMISE***
 
-Verde Cars (Rent-a-Car)
+# Verde Cars Rent-A-Car
 
-requirements: 3 car types ($10 small, $50 medium, $100 large) (all only green)
-person at the till offers customer insurance
-	customer can accept or deny insurance
-	if they deny insurance, person at the till pushes a button that says to low-jack the car
-	if a car is late the site will display the late fee to the till worker
-		the site also puts a notification on the user page saying they owe a late fee and giving them the option to pay
-	COULD: if the user doesn't pay (the late fee), they can't rent again until they pay
+## Introduction and Context
+This site is for Verde Cars, a rental car business that rents out only green cars. Customers must have an account with the site in order to rent a car. When renting a car, a customer can choose either a $10 car, a $50 car, or a $100 car.
+
+QUESTION: DO WE WANT CUSTOMERS TO BE ABLE TO RENT MORE THAN ONE CAR AT A TIME?
+
+## Users and their Goals (does this also mean the things they can do on the site?)
+### Customer
+Can rent a green car, either from the $10, $50, or $100 category, for 1+ full days.
+Are given a QR code to show to the person at the till when they go to get their car. (Note to developers: could use an API to do this.) 
+<!-- NOTE: PROFE SAID THIS ^^^ FEATURE IS A 'COULD' WHEN WE WERE BRAINSTORMING AS A CLASS, SO WE COULD PUT THIS IN FUTURE FEATURES IF WE WANT -->
+When they return the car, they show that same QR code to the person at the till to check the car back in.
+If they return the car late, the site will display a notification to them saying that they owe a late fee, and giving them an option to pay the fee (a button to push, probably).
+Can add more money to their account.
+Can report that their car has broken down (which will send the retrieval specialist to get the car) and type in the address they're at.
+
+### Person at the till
+Checks in customers (verifies that they're the right person, verifies what  car they've rented, gets them the keys and the car, checks the car in/out).
+Can offer the customer "insurance" for $50.
+If the customer denies the "insurance," the person at the till pushes a button that says to LoJack the car.
+If a customer returns their car late, the site will display the late fee to the till worker for them to remind the customer about it.
+Can log the amount of hours they've worked.
+<!-- Paid $15/hr -->
+
+<!-- Profe said that the till person's page will probably look like a bunch of checkboxes -->
+
+### Automobile Retrieval specialist
+Can see what address a stuck customer is at.
+Can log the amount of hours they've worked.
+<!-- SHOULD WE HAVE A PAGE WHERE THEY CHECK OUT A NEW CAR FOR THE CUSTOMER AND CHECK IN THE LOJACKED CAR? -->
+<!-- Paid $15/hr -->
+
+### Admin
+<!-- Can add a new vehicle. (Profe said we could give the admin a library of pictures to choose from of new cars to add.) -->
+Can see how much money is owed to every employee.
+Has a button to mass-pay all employees, but the option to opt-out any of the individual employees from beging paid.
+Can promote/demote other users to any position (including admin).
+
+
+## Functional Requirements (what the system must do)
+Keep track of money in users' accounts, as well as how much money the company has earned, how much is owed to employees, and how much is in the employees' accounts.
+The system has four different types of users (customer, till worker, retrieval specialist, and admin). When a user logs in (logging in is the way the site authenticates users) they can see different pages depending on the type of user they are.
+Keep track of what day it is and which cars are already being rented that day.
+Keep track of the rental period for each car that gets rented.
+The system calculates how much money is owed to each employee based on how many hours they've worked.
+Fine a user if they return their car late.
+<!-- Late return fee is twice the price of the rental. -->
+
+<!-- People who sign on are customers by default-->
+
+<!-- Display today's date, and an option to display what the site would look like on another day -->
+
+<!-- Stop a customer from renting a car if they don't have enough money for it. -->
+
+<!-- When a customer does a search, it should only show them the cars that are available to rent, but it /can/ show cars that the customer can't afford. -->
+
+<!-- 
+Insurance:
+Costs $50.00
+A customer can opt-out of buying insurance when they rent a car.
+If they opt-out, the person at the till will secretly have the car LoJacked and it will break down.
+If a car breaks down, the customer will have to pay $300 for the retrieval specialist to bring the customer a new car and take the broken one back.
+
+On the page where a user reports a car break-down, they could have the option of submitting an ethics violation to the better business buero about the insurance and LoJack situation if they want. The message would just go back to the company and get deleted though.
+-->
+
+## Non-functional Requirements (general properties of the system)
+
+## Future Features
+If the user gets a late fee and doesn't pay, they can't rent a car again until they pay their fee.
+Employees get a discount on car rentals.
+The system keeps track of available parking spaces at the shop so the retrieval specialist knows where they can park the retrieved cars.
+
+## Glossary
+
+
+## Here are the requirements we've identified so far that aren't organized yet: vvv
 login for the till worker that takes them to their own page
+
+(non-functional requirement? vvv)
 at the beginning of the day, the program looks through all the checked-out cars and if any are overdue it fines them
 
 customer page:
-	- get a qr code (use an API for this) when you check out a car to show the person at the till
-	- use that same qr code to check in the car when they're done
-	- be able to reserve cars by the day
 	- can only rent a car if it's available
-
-person will log into the page
-depending on the permissions the person has, they can see various pages on the site
-
-
-diff. types of users: admin, employee (till worker, retrieval specialist), customer
-authentication for those users
-
-employees put in the hours they've worked (by hand)
-system calculates how much money that would amount to
-admin has a page that shows how much money is owed every employee
-	admin has a mass-pay button to pay everybody, but the option of opting out an individual employee
-	can promote/demote other users to different positions
-COULD: employees get a car discount
-	
-
-
-COULD: retrieval specialist parks the retrieved cars
-	the site keeps track of available parking spaces
-
-money system (admin pays, people can add more money)
 
 USER:
 	user page has a drop-down menu of different things they can do:
