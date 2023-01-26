@@ -1,17 +1,12 @@
-***DOCUMENT IN PROGRESS***
-
 # Verde Cars Rent-A-Car
 
 ## Introduction and Context
 This site is for Verde Cars, a rental car business that rents out only green cars. Customers must have an account with the site in order to rent a car. When renting a car, a customer can choose either a $10 car, a $50 car, or a $100 car.
 
-QUESTION: DO WE WANT CUSTOMERS TO BE ABLE TO RENT MORE THAN ONE CAR AT A TIME?
-
 ## Users and their Goals
 ### Customer
 * Can rent a green car, either from the $10, $50, or $100 category, for 1+ full days. 
-<!-- NOTE: PROFE SAID THIS ^^^ FEATURE IS A 'COULD' WHEN WE WERE BRAINSTORMING AS A CLASS, SO WE COULD PUT THIS IN FUTURE FEATURES IF WE WANT -->
-* When they return the car, they show that same QR code to the person at the till to check the car back in.
+* When they return the car, they show their check-out code to the person at the till to check the car back in.
 * If they return the car late, the site will display a notification to them saying that they owe a late fee, and giving them an option to pay the fee (a button to push, probably).
 * Can add more money to their account.
 * Can report that their car has broken down (which will send the retrieval specialist to get the car) and type in the address they're at.
@@ -78,19 +73,6 @@ QUESTION: DO WE WANT CUSTOMERS TO BE ABLE TO RENT MORE THAN ONE CAR AT A TIME?
 * The system keeps track of available parking spaces at the shop so the retrieval specialist knows where they can park the retrieved cars.
 * (Could) Are given a QR code to show to the person at the till when they go to get their car. (Note to developers: could use an API to do this.)
 Customers can check out more than one car.
+<!-- * Customers can rent more than one car at a time -->
+
 ## Glossary
-
-
-## Here are the requirements we've identified so far that aren't organized yet: vvv
-login for the till worker that takes them to their own page
-
-(non-functional requirement? vvv)
-at the beginning of the day, the program looks through all the checked-out cars and if any are overdue it fines them
-
-customer page:
-	- can only rent a car if it's available
-
-USER:
-	user page has a drop-down menu of different things they can do:
-		add money to their account
-		
