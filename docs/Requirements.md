@@ -25,9 +25,11 @@ This site is for Verde Cars, a rental car business that rents out only green car
 
 ### Automobile Retrieval specialist
 1. Can see what address a stuck customer is at.
-2. Can log the amount of hours they've worked.
-3. Can check out cars to give customers a replacement
-4. Paid $15/hr 
+2. Can notify customer that they're on their way to pick up car.
+3. Can report a car as having been picked up and taken back to the shop.
+5. Can check out cars to give customers a replacement
+6. 4. Can log the amount of hours they've worked.
+7. Paid $15/hr 
 
 ### Admin
 1. Can add a new vehicle. (Profe said we could give the admin a library of pictures to choose from of new cars to add.)
