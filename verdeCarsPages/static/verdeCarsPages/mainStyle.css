@@ -1,0 +1,63 @@
+body{
+    margin: 0;
+    width: 100%;
+}
+.header-buttons{
+    background-color: #90BE6D;
+    color: #f8f7f9;
+    text-decoration: none;
+    width: unset;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-right: 220px;
+    text-align: center;
+    display: block;
+}
+.header-container{
+    width: 100%;
+}
+.header-link{
+    position: relative;
+    color:  #f8f7f9;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+.footer{
+    background-color: #90BE6D;
+    color: #f8f7f9;
+    text-decoration: none;
+    padding: 30px;
+    display: block;
+    height: auto;
+}
+.header-link:hover{
+    background-color: #2C4A45;
+}
+.user-interface{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    display: flex;
+    overflow: visible;
+}
+.anchor-option{
+    display: inline-block;
+
+}
+.anchor-option .drop-btn{
+    font-size: 18px;
+    border: none;
+    outline: none;
+    color: white;
+    padding: 15px;
+    background-color: transparent;
+    font-family: inherit;
+}
+.login-menu-btn:hover{
+    background-color: #2C4A45;
+}
+a:-webkit-any-link{
+    text-decoration: none;
+}
