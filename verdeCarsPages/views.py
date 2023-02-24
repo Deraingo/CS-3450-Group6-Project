@@ -19,7 +19,7 @@ def login(request):
         form = UserForm(request.POST or None)
         if form.is_valid():
             form.save
-        return render(request, 'verdeCarsPages/join.html', {})
+        return render(request, 'verdeCarsPages/login.html', {})
         
     else:
         return render(request, 'verdeCarsPages/login.html', {})
