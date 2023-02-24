@@ -15,10 +15,10 @@ def index(request):
 def login(request):
     if request.method == "POST":
         # If the user posts something, either take what they filled out
-        # and turn it into a Form object, or if the form was empty, pass in None
-        form = UserForm(request.POST or None)
+        # and turn it into a UserForm object, or if the form was empty, pass in None
+        form = UserForm(request.POST or None)  
         if form.is_valid():
-            form.save
+            form.save()
         return render(request, 'verdeCarsPages/login.html', {})
         
     else:
