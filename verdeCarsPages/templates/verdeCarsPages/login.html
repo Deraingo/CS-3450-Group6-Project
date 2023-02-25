@@ -1,4 +1,11 @@
 {% load static %}
+
+<!-- This all needs prettying up! 
+    For example, the buttons will have to be changed to fit the theme of the website,
+    and same with the header text.
+    But the bare-bones functioning is down for creating an account. -->
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,34 +38,38 @@
         </div>
     </nav>
 
-    <div class="main-body">
+
+    <div class="mx-auto" style="width: 75%;">
         <h1>Login</h1>
         <br/>
-        <form>
+        <form method="POST" 
+        action="
+            {% if LoginUsername == John %}
+                {% url 'verdeCarsPages:index' %}
+            {% else %}
+                {% url 'verdeCarsPages:login' %}
+            {% endif %}
+        ">
+            {% csrf_token %}
             <div class="form-group">
               <label>Username</label>
-              <input type="text" class="form-control" id="Username" placeholder="">
+              <input type="text" class="form-control" name="LoginUsername" placeholder="">
             </div>
             <div class="form-group">
               <label>Password</label>
-              <input type="password" class="form-control" id="Password" placeholder="">
+              <input type="password" class="form-control" name="LoginPassword" placeholder="">
             </div>
-            <!-- <div class="form-check">
-              <input type="checkbox" class="form-check-input" id="exampleCheck1">
-              <label class="form-check-label" for="exampleCheck1">Check me out</label>
-            </div> -->
             <br/>
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
 
-          <br/>
-          <!-- {% block content %} -->
+          <br/>  <!-- There's probably a better way of spacing things than using <br/>, but this is how it is for now -->
           <h1>Don't have an account?</h1>
           <h3>Make one!</h3>
           <br/>
 
-          <form method="POST" action="{% url 'verdeCarsPages:login' %}">
-            {% csrf_token %}
+          <form method="POST" action="{% url 'verdeCarsPages:login' %}">  <!-- Return to the same page when the form is submitted -->
+            {% csrf_token %}  <!-- This is to keep out bots or something like that -->
             <div class="form-group">
                 <label>First Name</label>
                 <input type="text" class="form-control" name="fname" placeholder="">
@@ -78,8 +89,6 @@
               <br/>
               <button type="submit" class="btn btn-primary">Submit</button>
           </form>
-          <!-- {% endblock %} -->
-
     </div>
     
     <div class="footer">
