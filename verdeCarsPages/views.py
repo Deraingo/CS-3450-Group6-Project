@@ -22,4 +22,4 @@ def login(request):
         return render(request, 'verdeCarsPages/login.html', {'all': allUsers})  # Pass allUsers into the page so that it can be used for authentication later
         
     else:
-        return render(request, 'verdeCarsPages/login.html', {})
+        return render(request, 'verdeCarsPages/login.html', {'all': allUsers})

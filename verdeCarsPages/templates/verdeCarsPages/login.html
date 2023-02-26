@@ -38,18 +38,19 @@
         </div>
     </nav>
 
+    {% for item in all %}
+        <b>{{ item.fname }} {{ item.lname }} ({{ item.userType }})</b><br/>
+        user: {{ item.usernm }}<br/>
+        pass: {{ item.passwd }}<br/><br/>
+        <hr>
+    {% endfor %}
 
     <div class="mx-auto" style="width: 75%;">
         <h1>Login</h1>
         <br/>
+
         <form method="POST" 
-        action="
-            {% if LoginUsername == John %}
-                {% url 'verdeCarsPages:index' %}
-            {% else %}
-                {% url 'verdeCarsPages:login' %}
-            {% endif %}
-        ">
+        action="{% url 'verdeCarsPages:login' %}">
             {% csrf_token %}
             <div class="form-group">
               <label>Username</label>
