@@ -68,7 +68,7 @@ a:-webkit-any-link{
     /* height: 45px; */
     padding: 1%;
     margin: 1.5%;
-    width: 35%;
+    width: 60%;
     background-color: #ABE37D;
     color: #f8f7f9
 }
@@ -80,13 +80,13 @@ a:-webkit-any-link{
     padding: 1%;
     margin: 1.5%;
     margin-bottom: 3%;
-    width: 50%;
+    width: 100%;
     background-color: #ABE37D;
     color: #f8f7f9
 }
 
 .retrieval-img {
-    width: 50%;
+    width: 100%;
     max-height: 300px;
     /* clip-path: rect(0px, 0px, 300px, 0px); */
     margin: 1.5%;
@@ -97,11 +97,11 @@ a:-webkit-any-link{
 /* .retrieval-item1 {
     grid-area: header;
 } */
-.retrieval-item2 {
+.retrieval-left {
     grid-area: picture;
 }
 
-.retrieval-item3 {
+.retrieval-right {
     grid-area: info;
 }
 
@@ -112,5 +112,6 @@ a:-webkit-any-link{
 .retrieval-grid-container {
     display: grid;
     grid-template-areas:
-        'picture picture info info';
+        'picture info';
+    padding: 1.5%;
 }
