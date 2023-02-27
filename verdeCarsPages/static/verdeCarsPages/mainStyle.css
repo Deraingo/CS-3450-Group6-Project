@@ -93,17 +93,16 @@ a:-webkit-any-link{
 }
 
 .retrieval-left {
-    grid-area: picture;
+    grid-column: 1;
 }
 
 .retrieval-right {
-    grid-area: info;
+    grid-column: 2;
 }
 
 .retrieval-grid-container {
     display: grid;
-    grid-template-areas:
-        'picture info';
+    grid-template-columns: 50% 50%;
     padding: 1.5%;
     gap: 3%;
 }
