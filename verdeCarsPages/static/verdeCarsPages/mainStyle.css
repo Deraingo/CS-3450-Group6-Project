@@ -78,3 +78,9 @@ body{
 a:-webkit-any-link{
     text-decoration: none;
 }
+.row{
+    margin-right: 0px;
+    margin-left: 0px;
+    height: 100%;
+    z-index: 1;
+}
