@@ -116,3 +116,14 @@ a:-webkit-any-link{
     display: inline-block;
     margin-left: 40px;
 }
+
+.retrieval-button {
+    border-radius: 4px;
+    background-color: #90BE6D;
+    color: white;
+    border: none;
+}
+
+.retrieval-button:hover {
+    background-color: #2C4A45;
+}
