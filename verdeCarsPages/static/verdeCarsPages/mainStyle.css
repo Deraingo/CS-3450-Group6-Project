@@ -79,7 +79,7 @@ a:-webkit-any-link{
     /* height: 45px; */
     padding: 1%;
     margin: 1.5%;
-    margin-bottom: 3%;
+    margin-top: 3%;
     width: 100%;
     background-color: #ABE37D;
     color: #f8f7f9
@@ -87,16 +87,11 @@ a:-webkit-any-link{
 
 .retrieval-img {
     width: 100%;
-    max-height: 300px;
-    /* clip-path: rect(0px, 0px, 300px, 0px); */
+    height: 300px;
     margin: 1.5%;
     margin-bottom: 0%;
-    /* overflow: hidden; */
 }
 
-/* .retrieval-item1 {
-    grid-area: header;
-} */
 .retrieval-left {
     grid-area: picture;
 }
@@ -105,13 +100,20 @@ a:-webkit-any-link{
     grid-area: info;
 }
 
-/* .retrieval-item4 {
-    grid-area: footer;
-} */
-
 .retrieval-grid-container {
     display: grid;
     grid-template-areas:
         'picture info';
     padding: 1.5%;
+    gap: 3%;
+}
+
+.retrieval-paragraph {
+    margin-left: 3%;
+    width: 60%;
+}
+
+.tab {
+    display: inline-block;
+    margin-left: 40px;
 }
