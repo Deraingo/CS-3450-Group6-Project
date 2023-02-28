@@ -9,3 +9,9 @@ from datetime import datetime
 # Create your views here.
 def index(request):
     return render(request, 'verdeCarsPages/index.html')
+
+def reservecar(request):
+    return render(request, 'verdeCarsPages/reserve-car.html')
+
+def checkoutConfirmation(request):
+    return render(request, 'verdeCarsPages/checkout-confirmation.html')
