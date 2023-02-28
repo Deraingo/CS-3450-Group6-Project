@@ -91,14 +91,39 @@ a:-webkit-any-link{
 
 .green-box-photo-caption {
     display: flexbox;
-    /* width: fit-content; */
-    /* height: 45px; */
     padding: 1%;
     margin: 1.5%;
     margin-top: 3%;
     width: 100%;
     background-color: #ABE37D;
     color: #f8f7f9
+}
+
+.retrieval-button {
+    border-radius: 4px;
+    background-color: #90BE6D;
+    color: white;
+    border: none;
+}
+
+.retrieval-button:hover {
+    background-color: #2C4A45;
+}
+
+.login-form {
+    padding: 1%;
+    margin: 1.5%;
+    width: 100%;
+}
+
+.login-left {
+    grid-column: 1;
+    margin: 10%;
+}
+
+.login-right {
+    grid-column: 2;
+    margin: 10%;
 }
 
 .retrieval-img {
@@ -149,3 +174,4 @@ a:-webkit-any-link{
     height: 100%;
     z-index: 1;
 }
+

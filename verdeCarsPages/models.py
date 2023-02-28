@@ -5,11 +5,11 @@ class User(models.Model):
     lname = models.CharField(max_length=50)
     usernm = models.CharField(max_length=50)
     passwd = models.CharField(max_length=50)
-    userType = models.CharField(max_length=50)
-    money = models.DecimalField(decimal_places=2, max_digits=50)
+    userType = models.CharField(max_length=50, default="Customer")
+    money = models.FloatField(default=0.0)
 
 class Car(models.Model):
-    cost = models.DecimalField(decimal_places=2, max_digits=50)
+    cost = models.FloatField()
     availability = models.BooleanField()
     rentalStart = models.DateTimeField()
     rentalEnd = models.DateTimeField()
