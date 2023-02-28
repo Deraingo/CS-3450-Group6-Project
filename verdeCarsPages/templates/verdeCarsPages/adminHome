@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+{ % load static % }
+  <link rel="stylesheet" href="mainStyle.css">
+</head>
+<body>
+<div class="header">
+<nav class="header-container">
+        <div class="header-buttons">
+            <a class="header-link" href="/index">Home</a>
+            <a class="header-link" href="/index">PlaceHolder</a>
+            <a class="header-link" href="/index">PlaceHolder</a>
+            <a class="header-link" href="/index">PlaceHolder</a>
+            <a class="header-link" href="/index">PlaceHolder</a>
+        </div>
+        <div class="user-interface">
+            <div class="login-button anchor-option">            
+                <a class="drop-btn login-menu-btn" href="">Login</a>
+            </div>
+        </div>
+    </nav>
+</div>
+
+{% for user in user_set %}
+        <p>{{user.lname}}, {{user.fname}}</p>
+ {% endfor %}
+ 
+</body>
+</html>
