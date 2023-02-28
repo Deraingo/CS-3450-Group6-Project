@@ -38,58 +38,54 @@
         </div>
     </nav>
 
-    {% for item in all %}
-        <b>{{ item.fname }} {{ item.lname }} ({{ item.userType }})</b><br/>
-        user: {{ item.usernm }}<br/>
-        pass: {{ item.passwd }}<br/><br/>
-        <hr>
-    {% endfor %}
-
-    <div class="mx-auto" style="width: 75%;">
-        <h1>Login</h1>
-        <br/>
-
-        <form method="POST" 
-        action="{% url 'verdeCarsPages:login' %}">
-            {% csrf_token %}
-            <div class="form-group">
-              <label>Username</label>
-              <input type="text" class="form-control" name="LoginUsername" placeholder="">
+    <div class="login-grid-container">
+        <div class="login-left">
+            <div class="green-box-photo-caption">
+                <h2>Login</h1> 
             </div>
-            <div class="form-group">
-              <label>Password</label>
-              <input type="password" class="form-control" name="LoginPassword" placeholder="">
+            <br>
+            <form class="login-form" method="POST" action="{% url 'verdeCarsPages:login' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                        <label>Username</label>
+                    <input type="text" class="form-control" name="LoginUsername" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" name="LoginPassword" placeholder="">
+                </div>
+                <br>
+                <button type="submit" class="retrieval-button">Submit</button>
+            </form>    
+        </div>
+        
+        <div class="login-right">
+            <div class="green-box-photo-caption">
+                <h3>Don't have an account? Make one!</h3>
             </div>
-            <br/>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </form>
-
-          <br/>  <!-- There's probably a better way of spacing things than using <br/>, but this is how it is for now -->
-          <h1>Don't have an account?</h1>
-          <h3>Make one!</h3>
-          <br/>
-
-          <form method="POST" action="{% url 'verdeCarsPages:login' %}">  <!-- Return to the same page when the form is submitted -->
-            {% csrf_token %}  <!-- This is to keep out bots or something like that -->
-            <div class="form-group">
-                <label>First Name</label>
-                <input type="text" class="form-control" name="fname" placeholder="">
-              </div>
-              <div class="form-group">
-                  <label>Last Name</label>
-                  <input type="text" class="form-control" name="lname" placeholder="">
-              </div>
-              <div class="form-group">
-                  <label>Username</label>
-                  <input type="text" class="form-control" name="usernm" placeholder="">
-              </div>
-              <div class="form-group">
-                <label>Password</label>
-                <input type="password" class="form-control" name="passwd" placeholder="">
-              </div>
-              <br/>
-              <button type="submit" class="btn btn-primary">Submit</button>
-          </form>
+            <br>
+            <form class="login-form" method="POST" action="{% url 'verdeCarsPages:login' %}">  <!-- Return to the same page when the form is submitted -->
+                {% csrf_token %}  <!-- This is to keep out bots or something like that -->
+                <div class="form-group">
+                    <label>First Name</label>
+                    <input type="text" class="form-control" name="fname" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <input type="text" class="form-control" name="lname" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" class="form-control" name="usernm" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" name="passwd" placeholder="">
+                </div>
+                <br>
+                <button type="submit" class="retrieval-button">Submit</button>
+            </form>
+        </div>
     </div>
     
     <div class="footer">

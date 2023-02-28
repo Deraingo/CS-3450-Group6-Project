@@ -61,3 +61,62 @@ body{
 a:-webkit-any-link{
     text-decoration: none;
 }
+
+.green-box {
+    display: flexbox;
+    /* width: fit-content; */
+    /* height: 45px; */
+    padding: 1%;
+    margin: 1.5%;
+    width: 60%;
+    background-color: #ABE37D;
+    color: #f8f7f9
+}
+
+.green-box-photo-caption {
+    display: flexbox;
+    /* width: fit-content; */
+    /* height: 45px; */
+    padding: 1%;
+    margin: 1.5%;
+    margin-top: 3%;
+    width: 100%;
+    background-color: #ABE37D;
+    color: #f8f7f9
+}
+
+.retrieval-button {
+    border-radius: 4px;
+    background-color: #90BE6D;
+    color: white;
+    border: none;
+}
+
+.retrieval-button:hover {
+    background-color: #2C4A45;
+}
+
+.login-form {
+    padding: 1%;
+    margin: 1.5%;
+    width: 100%;
+}
+
+.login-left {
+    grid-column: 1;
+    /* align-items: center; */
+    margin: 10%;
+}
+
+.login-right {
+    grid-column: 2;
+    /* align-items: center; */
+    margin: 10%;
+}
+
+.login-grid-container {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    padding: 1.5%;
+    gap: 3%;
+}
