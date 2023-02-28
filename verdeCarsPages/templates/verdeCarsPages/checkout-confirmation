@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="mainStyle.css">
+</head>
+<body>
+<div class="header">
+<nav class="header-container">
+        <div class="header-buttons">
+            <a class="header-link" href="/index">Home</a>
+            <a class="header-link" href="/index">PlaceHolder</a>
+            <a class="header-link" href="/index">PlaceHolder</a>
+            <a class="header-link" href="/index">PlaceHolder</a>
+            <a class="header-link" href="/index">PlaceHolder</a>
+        </div>
+        <div class="user-interface">
+            <div class="login-button anchor-option">            
+                <a class="drop-btn login-menu-btn" href="">Login</a>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<h1>Congratulations!</h1>
+<p>You have successfully reserved {{}}</p>
+<p>Your confirmation code is {{}}. Please give this code to the till worker when you go to pick up the car.</p>
+</body>
+</html>
