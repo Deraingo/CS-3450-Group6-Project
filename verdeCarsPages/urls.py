@@ -7,5 +7,6 @@ app_name = 'verdeCarsPages'
 urlpatterns = [
     path('', views.index, name='index'),
     path('index/', views.index, name='index'),
+    path('retrievalPage/', views.retrievalPage, name='retrievalPage'),
     path('catalog/', views.catalog, name='catalog'),
 ]
