@@ -13,6 +13,7 @@ from .forms import UserForm
 def index(request):
     return render(request, 'verdeCarsPages/index.html')
 
+
 def login(request):
     allUsers = User.objects.all
     if request.method == "POST":
@@ -23,3 +24,15 @@ def login(request):
         
     else:
         return render(request, 'verdeCarsPages/login.html', {'all': allUsers})
+
+def reservecar(request):
+    return render(request, 'verdeCarsPages/reserve-car.html')
+
+def checkoutConfirmation(request):
+    return render(request, 'verdeCarsPages/checkout-confirmation.html')
+
+def retrievalPage(request):
+    return render(request, 'verdeCarsPages/retrievalPage.html')
+
+def catalog(request):
+    return render(request, 'verdeCarsPages/catalog.html')
