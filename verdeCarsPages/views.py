@@ -15,3 +15,10 @@ def reservecar(request):
 
 def checkoutConfirmation(request):
     return render(request, 'verdeCarsPages/checkout-confirmation.html')
+
+def retrievalPage(request):
+    return render(request, 'verdeCarsPages/retrievalPage.html')
+
+def catalog(request):
+    return render(request, 'verdeCarsPages/catalog.html')
+

@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="Resume Site" />
+    <meta name="author" content="Group 6 CS3450 USU- 2023" />
+    <meta name="language" content="en" />
+    <meta name="robots" content="follow, all" />
+    <meta name="revisit-after" content="5 days" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link type="text/css" href="{% static 'verdeCarsPages/mainStyle.css' %}" rel="stylesheet" />
+    <link type="text/css" href="{% static 'verdeCarsPages/catalog.css' %}" rel="stylesheet" />
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Catalog</title>
+</head>
+<body>
+    <nav class="header-container">
+        <div class="header-buttons">
+            <a class="header-link" href="/index">Home</a>
+            <a class="header-link current-page" href="/index">Catalog</a>
+            <a class="header-link" href="/index">PlaceHolder</a>
+            <a class="header-link" href="/index">PlaceHolder</a>
+            <a class="header-link" href="/index">PlaceHolder</a>
+        </div>
+        <div class="user-interface">
+            <div class="login-button anchor-option">            
+                <a class="drop-btn login-menu-btn" href="">Login</a>
+            </div>
+        </div>
+    </nav>
+    <div class="main-body">
+        <div class="row no-gutter">
+            <div class="col-sm-1">
+                <div class="price-ranges">
+                    <p>Price Range</p>
+                    <input type="checkbox" id="low-range" name="low-range">
+                    <label for="low-range">$50 - $74</label><br>
+                    <input type="checkbox" id="med-range" name="med-range">
+                    <label for="med-range">$75 - $99</label><br>
+                    <input type="checkbox" id="high-range" name="high-range">
+                    <label for="high-range">$100 - $175</label><br>
+                </div>
+            </div>
+            <div class="col-sm-11">
+                <h1 class="verde-header" id="price-range">$50 - $74</h1>
+                <h1 class="verde-header" id="price-range">$75 - $99</h1>
+                <h1 class="verde-header" id="price-range">$100 - $175</h1>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <div class="footer">
+    </div>
+
+</body>
+</html>
