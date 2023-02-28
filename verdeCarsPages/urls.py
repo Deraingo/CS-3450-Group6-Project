@@ -6,7 +6,7 @@ from . import views
 app_name = 'verdeCarsPages'
 urlpatterns = [
     path('', views.index, name='index'),
-    path('index/', views.index, name='index')
-    path('reserve-car.html', views.reservecar, name='reservecar'),
-    path('checkout-confirmation.html', views.checkoutConfirmation, name='checkoutConfirmation')
+    path('index/', views.index, name='index'),
+    path('reserve-car/', views.reservecar, name='reservecar'),
+    path('checkout-confirmation/', views.checkoutConfirmation, name='checkoutConfirmation')
 ]
