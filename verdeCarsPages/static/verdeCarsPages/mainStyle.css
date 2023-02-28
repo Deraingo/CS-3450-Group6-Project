@@ -24,6 +24,22 @@ body{
     padding-left: 50px;
     padding-right: 50px;
 }
+.main-body{
+    width: 100%;
+    transition: .3s;
+}
+.current-page{
+    background-color: #2C4A45
+}
+.verde-header{
+    width: 100%;
+    text-align: center;
+    padding: 0px;
+    background-color: #ABE37D;
+    color: white;
+    font-size: 2rem;
+    line-height: 3rem;
+}
 .footer{
     background-color: #90BE6D;
     color: #f8f7f9;
@@ -34,6 +50,7 @@ body{
 }
 .header-link:hover{
     background-color: #2C4A45;
+    transition: 0.5s;
 }
 .user-interface{
     position: absolute;
@@ -60,4 +77,10 @@ body{
 }
 a:-webkit-any-link{
     text-decoration: none;
+}
+.row{
+    margin-right: 0px;
+    margin-left: 0px;
+    height: 100%;
+    z-index: 1;
 }

@@ -9,3 +9,6 @@ from datetime import datetime
 # Create your views here.
 def index(request):
     return render(request, 'verdeCarsPages/index.html')
+
+def catalog(request):
+    return render(request, 'verdeCarsPages/catalog.html')
