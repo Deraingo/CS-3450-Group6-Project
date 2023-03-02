@@ -3,4 +3,32 @@
     background-color: #EDEDED;
     height: 100%;
     width: 100%;
+    left: 0;
+}
+.car-images{
+    width: 300px;
+    height: 200px;
+    display: inline-block;
+    object-fit: cover;
+    cursor: pointer;
+}
+.car-details{
+    display: inline-block;
+    padding-right: 20px;
+}
+.hide{
+    display: none;
+}
+#rent-button{
+    outline: none;
+    border: none;
+    background-color: #90BE6D;
+    text-decoration: none;
+    margin: 2px;
+    width: 100%;
+    color: white;
+}
+#rent-button:hover{
+    background-color: #2C4A45;
+    transition: 0.5s;
 }

@@ -1,0 +1,17 @@
+.column1 {
+    padding: 150px;
+    float: left;
+    width: 55%;
+  }
+  
+  .column2 {
+    padding: 150px;
+    float: left;
+    width: 45%;
+  }
+  
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }

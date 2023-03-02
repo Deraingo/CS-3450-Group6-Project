@@ -36,3 +36,6 @@ def retrievalPage(request):
 
 def catalog(request):
     return render(request, 'verdeCarsPages/catalog.html')
+
+def adminHome(request):
+    return render(request, 'verdeCarsPages/adminHome.html')
