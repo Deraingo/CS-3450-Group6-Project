@@ -58,8 +58,8 @@
 </style>
 
 
-<img src="https://i.pinimg.com/originals/1a/33/7d/1a337d45cf423f64fce45544d9382401.jpg">
-<p>Model:Year: Price:</p></div>
+<img src="{% static 'verdeCarsPages/images/greenCar1.jpg' %}">
+<p>Model:Placeholder Year:Placeholder Price:Placeholder</p></div>
 <div class="column2">
 <p>Please read and agree to our terms and conditions:</p>
     <ul>
@@ -80,7 +80,7 @@ by insurance will be the responsibility of the customer</li>
 <p>Billing address: <br/> </p> 
 <input type="text">
 <br/><br/><br/>
- <button type="button" id="reserve" disabled>Reserve</button> </div>
+ <button onclick = "confirmation()" type="button" id="reserve" disabled>Reserve</button> </div>
  <br/>
  </div> 
 <script>
@@ -93,6 +93,10 @@ by insurance will be the responsibility of the customer</li>
          }
          
      }
+    
+    function confirmation() {
+        window.location='/checkout-confirmation';
+    }
      </script>
       
      
