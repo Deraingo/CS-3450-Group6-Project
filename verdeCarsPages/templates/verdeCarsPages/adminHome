@@ -1,8 +1,16 @@
+{% load static % }
 <!DOCTYPE html>
 <html>
 <head>
-{ % load static % }
-  <link rel="stylesheet" href="mainStyle.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="Verde Cars" />
+    <meta name="author" content="Group 6 CS3450 USU- 2023" />
+    <meta name="language" content="en" />
+    <meta name="robots" content="follow, all" />
+    <meta name="revisit-after" content="5 days" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="mainStyle.css">
+    <title>Admin</title>
 </head>
 <body>
 <div class="header">
