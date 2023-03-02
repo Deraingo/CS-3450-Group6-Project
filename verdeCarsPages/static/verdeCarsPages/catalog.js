@@ -54,6 +54,9 @@ function rent(){
     var content = document.getElementsByClassName("car-images");
     var rentCar = document.createElement("div");
     var rentButton = document.createElement("button")
+    rentButton.addEventListener("click", function(){
+        window.location.href = "/reserve-car"
+    })
     rentButton.innerHTML = "Rent Vehicle"
     rentButton.id = "rent-button"
     rentCar.appendChild(rentButton);
