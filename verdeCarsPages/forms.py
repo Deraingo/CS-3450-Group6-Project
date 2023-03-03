@@ -6,3 +6,7 @@ class UserForm(forms.ModelForm):
         model = User
         fields = ['fname', 'lname', 'usernm', 'passwd']
         exclude = ['userType', 'money']  # These have default values and are not entered when creating an account
+
+class LoginForm(forms.Form):
+    class Meta:
+        fields = ['LoginUsername', 'LoginPassword']
