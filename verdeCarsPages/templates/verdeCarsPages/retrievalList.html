@@ -29,8 +29,10 @@
     </nav>
 
     {% for item in all %}
-        <bold>Make: </bold>{{ item.Make }}
-        <bold>Model: </bold>{{ item.Model }}
+    <br>
+        Make: {{ item.make }}<br/>
+        Model: {{ item.model }}<br/>
+        <hr>
     {% endfor %}
 
     <div class="footer">
