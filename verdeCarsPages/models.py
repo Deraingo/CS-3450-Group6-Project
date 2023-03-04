@@ -1,3 +1,4 @@
+from datetime import date
 from django.db import models
 
 class User(models.Model):
@@ -18,8 +19,8 @@ class Car(models.Model):
     model = models.CharField(max_length=50, default="")
     year = models.CharField(max_length=4, default="0000")
     cost = models.FloatField()
-    rentalStart = models.DateField()
-    rentalEnd = models.DateField()
+    rentalStart = models.DateTimeField()
+    rentalEnd = models.DateTimeField()
     checkoutCode = models.IntegerField()
     stranded = models.BooleanField(default=False)
     imageURL = models.CharField(max_length=1000, default="")
