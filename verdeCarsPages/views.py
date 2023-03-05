@@ -13,35 +13,41 @@ from .forms import UserForm, LoginForm
 def index(request):
     return render(request, 'verdeCarsPages/index.html')
 
-def login(request, form_id):
+def login(request):
     allUsers = User.objects.all
 
     user_form = UserForm()
     login_form = LoginForm()
+
+    context = {
+        'create_user_form': user_form,
+        'login_form': login_form,
+        'all': allUsers,
+    }
+
     if request.method == "POST":
         if 'create_user' in request.POST:
             user_form = UserForm()
             if user_form.is_valid():
                 user_form.save()
-                return render(request, 'verdeCarsPages/login.html', {'all': allUsers})
-        # if 'enter_login' in request.POST:
-        #     login_form = LoginForm()
-        #     if login_form.is_valid():
-        #         login_form.save()
-        #         return render(request, 'verdeCarsPages/login.html', {'all': allUsers})
+                return render(request, 'verdeCarsPages/login.html', context=context)
+        
+        if 'enter_username' in request.POST and 'enter_password' in request.POST:
+            login_form = LoginForm()
+            if login_form.is_valid():
+                user_data = login_form.cleaned_data.get("enter_username")
+                pass_data = login_form.cleaned_data.get("enter_password")
+                # if login_form.enter_username == 'Mary':
 
-    context = {
-        'create_user_form': user_form,
-        'login_form': login_form,
-    }
-        # form = LoginForm(request.POST or None)
-        # if form.is_valid():
-        #     form.save()
-        # form = UserForm(request.POST or None)  # Pass in 'None' if the user entered nothing into the form
-        # if form.is_valid():
-        #     form.save()
-    #     return render(request, 'verdeCarsPages/login.html', {'all': allUsers})  # Pass allUsers into the page so that it can be used for authentication later
+                context = {
+                    'create_user_form': user_form,
+                    'login_form': login_form,
+                    'all': allUsers,
+                    'user_data': user_data,
+                    'pass_data': pass_data,
+                }
 
-    # else:
-    
+                return render(request, 'verdeCarsPages/index.html/', context=context)
+
     return render(request, 'verdeCarsPages/login.html', context=context)
+    

@@ -45,6 +45,9 @@
         <hr>
     {% endfor %}
 
+    {{ user_data }}
+    {{ pass_data }}
+
 <!--        {% with found=False %}
                 {% for item in all %}
                     {% if item.fname == 'Jane' %}
@@ -59,33 +62,44 @@
 
 
     <div class="login-grid-container">
+        {% block content %}
         <div class="login-left">
             <div class="green-box-photo-caption">
                 <h2>Login</h1> 
             </div>
             <br>
-            <form class="login-form" method="POST" action="/login/">
-                {% csrf_token %}
+            <form class="login-form" method="POST" action="/login/" id="formLogin"> <!--prolly could delete the action here-->
                 <div class="form-group">
+                    <p>
+                        Username: 
+                        {{ login_form.enter_username }}
+                    </p>
+                    <p>
+                        Password: 
+                        {{ login_form.enter_password }}
+                    </p>
+                    {% csrf_token %}
+                </div>
+                <!-- <div class="form-group">
                     <label>Username</label>
                     <input type="text" class="form-control" name="LoginUsername" placeholder="">
                 </div>
                 <div class="form-group">
                     <label>Password</label>
                     <input type="password" class="form-control" name="LoginPassword" placeholder="">
-                </div>
+                </div> -->
                 <br>
                 <button type="submit" class="retrieval-button">Submit</button>
             </form>    
         </div>
-
         
         <div class="login-right">
             <div class="green-box-photo-caption">
                 <h3>Don't have an account? Make one!</h3>
             </div>
             <br>
-            <form class="login-form" method="POST" action="{% url 'verdeCarsPages:login' %}">  <!-- Return to the same page when the form is submitted -->
+            <form class="login-form" method="POST" action="{% url 'verdeCarsPages:login' %}" id="formUser">  <!-- Return to the same page when the form is submitted -->
+                {{ user_form.as_p }}
                 {% csrf_token %}  <!-- This is to keep out bots or something like that -->
                 <div class="form-group">
                     <label>First Name</label>
@@ -107,6 +121,7 @@
                 <button type="submit" class="retrieval-button">Submit</button>
             </form>
         </div>
+        {% endblock content %}
     </div>
     
     <div class="footer">

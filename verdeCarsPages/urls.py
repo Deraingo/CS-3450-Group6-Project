@@ -8,4 +8,5 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('index/', views.index, name='index'),
     path('login/', views.login, name='login'),
+    path('login/<int:form_id>/edit', views.login, name='login'),
 ]

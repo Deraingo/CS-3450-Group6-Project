@@ -9,7 +9,12 @@ class UserForm(forms.ModelForm):
         exclude = ['userType', 'money']  # These have default values and are not entered when creating an account
 
 class LoginForm(forms.Form):
-    enter_login = forms.BooleanField(initial=True)
+    # enter_login = forms.BooleanField(initial=True)
+    enter_username = forms.CharField()
+    # enter_username.label = "Username"
+
+    enter_password = forms.CharField()
+    # enter_password.label = "Password"
 
     class Meta:
         fields = ['LoginUsername', 'LoginPassword']
