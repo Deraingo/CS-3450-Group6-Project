@@ -9,6 +9,8 @@ class User(models.Model):
     userType = models.CharField(max_length=50, default="Customer")
     money = models.FloatField(default=0.0)
 
+
+
 class Car(models.Model):
     cost = models.FloatField()
     availability = models.BooleanField()
@@ -16,3 +18,5 @@ class Car(models.Model):
     rentalEnd = models.DateTimeField()
     checkoutCode = models.IntegerField()
     stranded = models.BooleanField()
+
+    

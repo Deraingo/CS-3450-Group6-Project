@@ -64,13 +64,13 @@
     <div class="login-grid-container">
         {% block content %}
         <div class="login-left">
-            <!-- <div class="green-box-photo-caption">
+            <div class="green-box-photo-caption">
                 <h2>Login</h1> 
             </div>
             <br>
             <form class="login-form" method="POST" id="formLogin">
                 {% csrf_token %}
-                {{ form.login_user.as_hidden }}
+                {{ login_form.login_user.as_hidden }}
                 <div class="form-group">
                     <label>Username</label>
                     <input type="text" class="form-control" name="usernm" placeholder="">
@@ -81,7 +81,7 @@
                 </div>
                 <br>
                 <button type="submit" class="retrieval-button">Submit</button>
-            </form> -->
+            </form>
         </div>
         
         <div class="login-right">

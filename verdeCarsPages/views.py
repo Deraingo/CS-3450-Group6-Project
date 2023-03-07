@@ -15,7 +15,6 @@ def index(request):
 
 def login(request):
     allUsers = User.objects.all
-
     user_form = UserForm()
     login_form = LoginForm()
 
@@ -26,26 +25,29 @@ def login(request):
     }
 
     if request.method == "POST":
-        # if 'login_user' in request.POST:
-        #     return render(request, 'verdeCarsPages/index.html', context=context)
+        if 'login_user' in request.POST:
             
-        # login_form = LoginForm()
-        # if login_form.is_valid():
-        #     user_data = login_form.cleaned_data.get("enter_username")
-        #     pass_data = login_form.cleaned_data.get("enter_password")
-        #     if user_data in allUsers:
-        #         return render(request, 'verdeCarsPages/index.html', context=context)
+            new_login_form = LoginForm(request.POST or None)
+            if new_login_form.is_valid():
+                user_data = new_login_form.cleaned_data.get('usernm')
+                pass_data = new_login_form.cleaned_data.get('passwd')
+                for savedUser in User.objects.all():
+                    if user_data == savedUser.usernm and pass_data == savedUser.passwd:
+                        savedUserType = savedUser.userType
+                        # FOR ALL: SEND THE USER TO THE HOMEPAGE OF THEIR RESPECTIVE USER TYPE
+                        return render(request, 'verdeCarsPages/index.html', context=context) # delete this and replace it with the homepage for their user type :)
+            # else:
+            #     return render(request, 'verdeCarsPages/login.html', context=context)
         
         if 'create_user' in request.POST:
-            # return render(request, 'verdeCarsPages/index.html', context=context)
 
             new_user_form = UserForm(request.POST or None)
             if new_user_form.is_valid():
                 new_user_form.save()
-                return render(request, 'verdeCarsPages/login.html', context=context)
+            #     return render(request, 'verdeCarsPages/login.html', context=context)
 
-            else:
-                return render(request, 'verdeCarsPages/index.html', context=context)
+            # else:
+            #     return render(request, 'verdeCarsPages/login.html', context=context)
 
     return render(request, 'verdeCarsPages/login.html', context=context)
     
