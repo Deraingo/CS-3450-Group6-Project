@@ -39,7 +39,7 @@ def login(request):
         if 'create_user' in request.POST:
             # return render(request, 'verdeCarsPages/index.html', context=context)
 
-            new_user_form = UserForm()
+            new_user_form = UserForm(request.POST or None)
             if new_user_form.is_valid():
                 new_user_form.save()
                 return render(request, 'verdeCarsPages/login.html', context=context)
