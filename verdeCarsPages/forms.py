@@ -4,7 +4,7 @@ class UserForm(forms.ModelForm):
     create_user = forms.BooleanField(initial=True)
     class Meta:
         model = User
-        fields = ['fname', 'lname', 'usernm', 'passwd']
+        fields = ['fname', 'lname', 'phoneNumber', 'usernm', 'passwd']
         exclude = ['userType', 'money']  # These have default values and are not entered when creating an account
 
 # class LoginForm(forms.Form):
