@@ -20,34 +20,32 @@ def login(request):
     login_form = LoginForm()
 
     context = {
-        'create_user_form': user_form,
+        'user_form': user_form,
         'login_form': login_form,
         'all': allUsers,
     }
 
     if request.method == "POST":
-        if 'create_user' in request.POST:
-            user_form = UserForm()
-            if user_form.is_valid():
-                user_form.save()
-                return render(request, 'verdeCarsPages/login.html', context=context)
+        # if 'login_user' in request.POST:
+        #     return render(request, 'verdeCarsPages/index.html', context=context)
+            
+        # login_form = LoginForm()
+        # if login_form.is_valid():
+        #     user_data = login_form.cleaned_data.get("enter_username")
+        #     pass_data = login_form.cleaned_data.get("enter_password")
+        #     if user_data in allUsers:
+        #         return render(request, 'verdeCarsPages/index.html', context=context)
         
-        if 'enter_username' in request.POST and 'enter_password' in request.POST:
-            login_form = LoginForm()
-            if login_form.is_valid():
-                user_data = login_form.cleaned_data.get("enter_username")
-                pass_data = login_form.cleaned_data.get("enter_password")
-                # if login_form.enter_username == 'Mary':
+        if 'create_user' in request.POST:
+            # return render(request, 'verdeCarsPages/index.html', context=context)
 
-                context = {
-                    'create_user_form': user_form,
-                    'login_form': login_form,
-                    'all': allUsers,
-                    'user_data': user_data,
-                    'pass_data': pass_data,
-                }
+            new_user_form = UserForm()
+            if new_user_form.is_valid():
+                new_user_form.save()
+                return render(request, 'verdeCarsPages/login.html', context=context)
 
-                return render(request, 'verdeCarsPages/index.html/', context=context)
+            else:
+                return render(request, 'verdeCarsPages/index.html', context=context)
 
     return render(request, 'verdeCarsPages/login.html', context=context)
     

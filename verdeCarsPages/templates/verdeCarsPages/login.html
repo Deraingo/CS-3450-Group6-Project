@@ -45,8 +45,8 @@
         <hr>
     {% endfor %}
 
-    {{ user_data }}
-    {{ pass_data }}
+    <!-- {{ user_data }}
+    {{ pass_data }} -->
 
 <!--        {% with found=False %}
                 {% for item in all %}
@@ -64,33 +64,24 @@
     <div class="login-grid-container">
         {% block content %}
         <div class="login-left">
-            <div class="green-box-photo-caption">
+            <!-- <div class="green-box-photo-caption">
                 <h2>Login</h1> 
             </div>
             <br>
-            <form class="login-form" method="POST" action="/login/" id="formLogin"> <!--prolly could delete the action here-->
+            <form class="login-form" method="POST" id="formLogin">
+                {% csrf_token %}
+                {{ form.login_user.as_hidden }}
                 <div class="form-group">
-                    <p>
-                        Username: 
-                        {{ login_form.enter_username }}
-                    </p>
-                    <p>
-                        Password: 
-                        {{ login_form.enter_password }}
-                    </p>
-                    {% csrf_token %}
-                </div>
-                <!-- <div class="form-group">
                     <label>Username</label>
-                    <input type="text" class="form-control" name="LoginUsername" placeholder="">
+                    <input type="text" class="form-control" name="usernm" placeholder="">
                 </div>
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" class="form-control" name="LoginPassword" placeholder="">
-                </div> -->
+                    <input type="password" class="form-control" name="passwd" placeholder="">
+                </div>
                 <br>
                 <button type="submit" class="retrieval-button">Submit</button>
-            </form>    
+            </form> -->
         </div>
         
         <div class="login-right">
@@ -98,9 +89,9 @@
                 <h3>Don't have an account? Make one!</h3>
             </div>
             <br>
-            <form class="login-form" method="POST" action="{% url 'verdeCarsPages:login' %}" id="formUser">  <!-- Return to the same page when the form is submitted -->
-                {{ user_form.as_p }}
+            <form class="login-form" method="POST" id="formUser">  <!-- Return to the same page when the form is submitted -->
                 {% csrf_token %}  <!-- This is to keep out bots or something like that -->
+                {{ user_form.create_user.as_hidden }}
                 <div class="form-group">
                     <label>First Name</label>
                     <input type="text" class="form-control" name="fname" placeholder="">
@@ -121,8 +112,9 @@
                 <button type="submit" class="retrieval-button">Submit</button>
             </form>
         </div>
-        {% endblock content %}
     </div>
+    {% endblock content %}
+
     
     <div class="footer">
     </div>

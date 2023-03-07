@@ -1,6 +1,5 @@
 from django import forms
-from .models import User, Car
-
+from .models import User
 class UserForm(forms.ModelForm):
     create_user = forms.BooleanField(initial=True)
     class Meta:
@@ -8,13 +7,20 @@ class UserForm(forms.ModelForm):
         fields = ['fname', 'lname', 'usernm', 'passwd']
         exclude = ['userType', 'money']  # These have default values and are not entered when creating an account
 
-class LoginForm(forms.Form):
-    # enter_login = forms.BooleanField(initial=True)
-    enter_username = forms.CharField()
-    # enter_username.label = "Username"
+# class LoginForm(forms.Form):
+#     # enter_login = forms.BooleanField(initial=True)
+#     enter_username = forms.CharField()
+#     # enter_username.label = "Username"
 
-    enter_password = forms.CharField()
-    # enter_password.label = "Password"
+#     enter_password = forms.CharField()
+#     # enter_password.label = "Password"
 
+#     class Meta:
+#         fields = ['LoginUsername', 'LoginPassword']
+
+class LoginForm(forms.ModelForm):
+    login_user = forms.BooleanField(initial=True)
     class Meta:
-        fields = ['LoginUsername', 'LoginPassword']
+        model = User
+        fields = ['usernm', 'passwd']
+        exclude = ['fname', 'lname', 'userType', 'money']
