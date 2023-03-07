@@ -1,11 +1,5 @@
 {% load static %}
 
-<!-- This all needs prettying up! 
-    For example, the buttons will have to be changed to fit the theme of the website,
-    and same with the header text.
-    But the bare-bones functioning is down for creating an account. -->
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,29 +32,6 @@
         </div>
     </nav>
 
-    {% for item in all %}
-        <b>{{ item.fname }} {{ item.lname }} ({{ item.userType }})</b><br/>
-        user: {{ item.usernm }}<br/>
-        pass: {{ item.passwd }}<br/><br/>
-        <hr>
-    {% endfor %}
-
-    <!-- {{ user_data }}
-    {{ pass_data }} -->
-
-<!--        {% with found=False %}
-                {% for item in all %}
-                    {% if item.fname == 'Jane' %}
-                        found=True
-                    {% endif %}
-                {% endfor %}
-                {% if found == True %}
-                    {% url 'verdeCarsPages:index' %}
-                {% endif %}
-            {% endwith %}
-         -->
-
-
     <div class="login-grid-container">
         {% block content %}
         <div class="login-left">
@@ -91,14 +62,14 @@
             <br>
             <form class="login-form" method="POST" id="formUser">  <!-- Return to the same page when the form is submitted -->
                 {% csrf_token %}  <!-- This is to keep out bots or something like that -->
-                {{ user_form.create_user.as_hidden }}
+                {{ user_form.create_user.as_hidden }}  <!-- To help identify the form when a POST request is made -->
                 <div class="form-group">
                     <label>First Name</label>
-                    <input type="text" class="form-control" name="fname" placeholder="">
+                    <input type="text" class="form-control" name="fname" placeholder="John">
                 </div>
                 <div class="form-group">
                     <label>Last Name</label>
-                    <input type="text" class="form-control" name="lname" placeholder="">
+                    <input type="text" class="form-control" name="lname" placeholder="Doe">
                 </div>
                 <div class="form-group">
                     <label>Phone Number</label>
@@ -106,11 +77,11 @@
                 </div>
                 <div class="form-group">
                     <label>Username</label>
-                    <input type="text" class="form-control" name="usernm" placeholder="">
+                    <input type="text" class="form-control" name="usernm" placeholder="john123">
                 </div>
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" class="form-control" name="passwd" placeholder="">
+                    <input type="password" class="form-control" name="passwd" placeholder="something secure">
                 </div>
                 <br>
                 <button type="submit" class="retrieval-button">Submit</button>
