@@ -1,0 +1,26 @@
+p {
+    font-size: 18px;
+}
+a:-webkit-any-link{
+    text-decoration: none;
+}
+.get-started{
+    outline: none;
+    border: none;
+    background-color: #90BE6D;
+    text-decoration: none;
+    margin: 2px;
+    width: 100%;
+    padding: 25px;
+    color: white;
+    height: 100%;
+}
+.get-started:hover{
+    background-color: #2C4A45;
+    transition: 0.5s;
+}
+.lets-get-started{
+    width: 25%;
+    margin: 10px;
+    padding: 50px;
+}

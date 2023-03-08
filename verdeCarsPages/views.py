@@ -13,6 +13,7 @@ from .forms import UserForm, LoginForm
 def index(request):
     return render(request, 'verdeCarsPages/index.html')
 
+
 def login(request):
     allUsers = User.objects.all
     user_form = UserForm()
@@ -51,3 +52,25 @@ def login(request):
 
     return render(request, 'verdeCarsPages/login.html', context=context)
     
+    else:
+        return render(request, 'verdeCarsPages/login.html', {'all': allUsers})
+
+def reservecar(request):
+    return render(request, 'verdeCarsPages/reserve-car.html')
+
+def checkoutConfirmation(request):
+    return render(request, 'verdeCarsPages/checkout-confirmation.html')
+
+def retrievalPage(request):
+    return render(request, 'verdeCarsPages/retrievalPage.html')
+
+def catalog(request):
+    return render(request, 'verdeCarsPages/catalog.html')
+
+def retrievalList(request):
+    allCars = Car.objects.all
+    return render(request, 'verdeCarsPages/retrievalList.html', {'all': allCars})
+
+def adminHome(request):
+    return render(request, 'verdeCarsPages/adminHome.html')
+

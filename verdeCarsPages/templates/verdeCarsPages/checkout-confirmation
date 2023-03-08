@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="Verde Cars" />
+    <meta name="author" content="Group 6 CS3450 USU- 2023" />
+    <meta name="language" content="en" />
+    <meta name="robots" content="follow, all" />
+    <meta name="revisit-after" content="5 days" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link type="text/css" href= "{% static 'verdeCarsPages/mainStyle.css' %}"rel="stylesheet" />
+    <title>Checkout</title>
+</head>
+<body>
+<div class="header">
+<nav class="header-container">
+        <div class="header-buttons">
+            <a class="header-link" href="/index">Home</a>
+            <a class="header-link" href="/index">PlaceHolder</a>
+            <a class="header-link" href="/index">PlaceHolder</a>
+            <a class="header-link" href="/index">PlaceHolder</a>
+            <a class="header-link" href="/index">PlaceHolder</a>
+        </div>
+        <div class="user-interface">
+            <div class="login-button anchor-option">            
+                <a class="drop-btn login-menu-btn" href="">Login</a>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<h1>Congratulations!</h1>
+<p>You have successfully reserved {{}}</p>
+<p>Your confirmation code is {{}}. Please give this code to the till worker when you go to pick up the car.</p>
+</body>
+</html>
