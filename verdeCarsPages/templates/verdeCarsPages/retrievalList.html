@@ -29,15 +29,13 @@
         </div>
     </nav>
 
-    {% for item in all %}
-        {% if item.stranded == True %}
+    {% for item in strandedCars %}
         <div class="retrieval-list">
             {{ item.make }} {{ item.model }}<br/>
             {{ item.strandedAddress }}<br/>
             <br/>
-            <button class="retrieval-button" id="{{ item.checkoutCode }}" action="{% url 'verdeCarsPages:retrievalPage' item.checkoutCode %}">Details</button>
+            <button class="retrieval-button">Details</button>
         </div>
-        {% endif %}
     {% endfor %}
 
     <div class="footer">
