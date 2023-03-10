@@ -65,8 +65,8 @@ def catalog(request):
     return render(request, 'verdeCarsPages/catalog.html')
 
 def retrievalList(request):
-    allCars = Car.objects.all
-    return render(request, 'verdeCarsPages/retrievalList.html', {'all': allCars})
+    strandedCars = Car.objects.filter(stranded=True)
+    return render(request, 'verdeCarsPages/retrievalList.html', {'strandedCars': strandedCars})
 
 def adminHome(request):
     return render(request, 'verdeCarsPages/adminHome.html')
