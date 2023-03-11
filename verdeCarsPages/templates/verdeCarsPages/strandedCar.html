@@ -32,9 +32,9 @@
             <div class="green-box">
                 <button class="retrieval-button">&lt; Back to List</button>
             </div>
-            <img src="https://images.unsplash.com/photo-1587978559983-eab3e6e0a5b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fGdyZWVuJTIwY2FyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=600&q=60" alt="Green Car" class="retrieval-img">
+            <img src="{{ car.imageURL }}" alt="Green Car" class="retrieval-img">
             <div class="green-box-photo-caption">
-                <p><bold>Make: </bold>Somethin<bold><span class="tab"></span> Model: </bold>Somethin</p>
+                <p><bold>Make: </bold>{{ car.make }}<bold><span class="tab"></span> Model: </bold>{{ car.model }}</p>
             </div>
         </div>
         

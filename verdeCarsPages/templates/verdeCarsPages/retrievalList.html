@@ -29,14 +29,15 @@
         </div>
     </nav>
 
-    {% for item in strandedCars %}
-        <div class="retrieval-list">
-            {{ item.make }} {{ item.model }}<br/>
-            {{ item.strandedAddress }}<br/>
-            <br/>
-            <button class="retrieval-button">Details</button>
-        </div>
-    {% endfor %}
+    {% if strandedCars %}
+        {% for item in strandedCars %}
+            <div class="retrieval-list">
+                <a href="{% url 'verdeCarsPages:strandedCar' item.id %}">{{ item.make }} {{ item.model }}</a><br/>
+                {{ item.strandedAddress }}<br/>
+                <br/>
+            </div>
+        {% endfor %}
+    {% endif %}
 
     <div class="footer">
     </div>
