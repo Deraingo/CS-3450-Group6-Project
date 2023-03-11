@@ -30,7 +30,7 @@
     <div class="retrieval-grid-container">
         <div class="retrieval-left">
             <div class="green-box">
-                <button class="retrieval-button">&lt; Back to List</button>
+                <a href="{% url 'verdeCarsPages:retrievalList' %}">&lt; Back to List</a>
             </div>
             <img src="{{ car.imageURL }}" alt="Green Car" class="retrieval-img">
             <div class="green-box-photo-caption">
