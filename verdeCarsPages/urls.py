@@ -14,5 +14,6 @@ urlpatterns = [
     path('<int:car_id>/', views.strandedCar, name='strandedCar'),
     path('catalog/', views.catalog, name='catalog'),
     path('retrievalList/', views.retrievalList, name='retrievalList'),
+    path('retrievalHome/', views.retrievalHome, name='retrievalHome'),
     path('adminHome/', views.adminHome, name='adminHome'),
 ]
