@@ -43,6 +43,9 @@ def retrievalList(request):
     strandedCars = Car.objects.filter(stranded=True)
     return render(request, 'verdeCarsPages/retrievalList.html', {'strandedCars': strandedCars})
 
+def retrievalHome(request):
+    return render(request, 'verdeCarsPages/retrievalHome.html')
+
 def adminHome(request):
     return render(request, 'verdeCarsPages/adminHome.html')
 
