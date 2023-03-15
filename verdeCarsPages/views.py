@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from datetime import datetime
 from .models import User, Car
-from .forms import UserForm
+from .forms import UserForm, LoginForm
 
 
 def index(request):
@@ -16,12 +16,42 @@ def index(request):
 
 def login(request):
     allUsers = User.objects.all
+    user_form = UserForm()
+    login_form = LoginForm()
+
+    context = {
+        'user_form': user_form,
+        'login_form': login_form,
+        'all': allUsers,
+    }
+
     if request.method == "POST":
-        form = UserForm(request.POST or None)  # Pass in 'None' if the user entered nothing into the form
-        if form.is_valid():
-            form.save()
-        return render(request, 'verdeCarsPages/login.html', {'all': allUsers})  # Pass allUsers into the page so that it can be used for authentication later
+        if 'login_user' in request.POST:
+            
+            new_login_form = LoginForm(request.POST or None)
+            if new_login_form.is_valid():
+                user_data = new_login_form.cleaned_data.get('usernm')
+                pass_data = new_login_form.cleaned_data.get('passwd')
+                for savedUser in User.objects.all():
+                    if user_data == savedUser.usernm and pass_data == savedUser.passwd:
+                        savedUserType = savedUser.userType
+                        # FOR ALL: SEND THE USER TO THE HOMEPAGE OF THEIR RESPECTIVE USER TYPE
+                        return render(request, 'verdeCarsPages/index.html', context=context) # delete this and replace it with the homepage for their user type :)
+            # else:
+            #     return render(request, 'verdeCarsPages/login.html', context=context)
         
+        if 'create_user' in request.POST:
+
+            new_user_form = UserForm(request.POST or None)
+            if new_user_form.is_valid():
+                new_user_form.save()
+            #     return render(request, 'verdeCarsPages/login.html', context=context)
+
+            # else:
+            #     return render(request, 'verdeCarsPages/login.html', context=context)
+
+    return render(request, 'verdeCarsPages/login.html', context=context)
+    
     else:
         return render(request, 'verdeCarsPages/login.html', {'all': allUsers})
 
@@ -37,5 +67,10 @@ def retrievalPage(request):
 def catalog(request):
     return render(request, 'verdeCarsPages/catalog.html')
 
+def retrievalList(request):
+    allCars = Car.objects.all
+    return render(request, 'verdeCarsPages/retrievalList.html', {'all': allCars})
+
 def adminHome(request):
     return render(request, 'verdeCarsPages/adminHome.html')
+

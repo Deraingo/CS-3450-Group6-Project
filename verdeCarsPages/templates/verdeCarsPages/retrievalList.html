@@ -1,9 +1,9 @@
-{% load static % }
+{% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="description" content="Verde Cars" />
+    <meta name="description" content="Resume Site" />
     <meta name="author" content="Group 6 CS3450 USU- 2023" />
     <meta name="language" content="en" />
     <meta name="robots" content="follow, all" />
@@ -12,30 +12,31 @@
     <link type="text/css" href="{% static 'verdeCarsPages/mainStyle.css' %}" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-    <title>users</title>
-    <link rel="stylesheet" href="mainStyle.css">
+    <title>Home</title>
 </head>
 <body>
-<div class="header">
-<nav class="header-container">
+    <nav class="header-container">
         <div class="header-buttons">
-            <a class="header-link" href="/index">Home</a>
-            <a class="header-link" href="/index">PlaceHolder</a>
-            <a class="header-link" href="/index">PlaceHolder</a>
-            <a class="header-link" href="/index">PlaceHolder</a>
-            <a class="header-link" href="/index">PlaceHolder</a>
+            <a class="header-link" href="/index">Log Hours</a>
+            <a class="header-link" href="/index">Car Pickup</a>
+            <a class="header-link" href="/index">Checkout Replacement</a>
         </div>
         <div class="user-interface">
             <div class="login-button anchor-option">            
-                <a class="drop-btn login-menu-btn" href="">Login</a>
+                <a class="drop-btn login-menu-btn" href="">Logout</a>
             </div>
         </div>
     </nav>
-</div>
 
-{% for user in user_set %}
-        <p>{{user.lname}}, {{user.fname}}</p>
- {% endfor %}
- 
+    {% for item in all %}
+    <br>
+        Make: {{ item.make }}<br/>
+        Model: {{ item.model }}<br/>
+        <hr>
+    {% endfor %}
+
+    <div class="footer">
+    </div>
+
 </body>
 </html>
