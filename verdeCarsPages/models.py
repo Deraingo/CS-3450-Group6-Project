@@ -25,6 +25,7 @@ class Car(models.Model):
     stranded = models.BooleanField(default=False)
     strandedAddress = models.CharField(max_length=50, default="")
     imageURL = models.CharField(max_length=1000, default="")
+    # renter = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
 
     def __str__(self):
         return self.make + " " + self.model + ", " + str(self.year)
