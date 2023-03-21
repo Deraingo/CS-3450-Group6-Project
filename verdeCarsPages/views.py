@@ -55,7 +55,8 @@ def login(request):
     else:
         return render(request, 'verdeCarsPages/login.html', {'all': allUsers})
 
-def reservecar(request):
+def reservecar(request, car_id):
+    car = get_object_or_404(Car, pk=car_id)
     return render(request, 'verdeCarsPages/reserve-car.html')
 
 def checkoutConfirmation(request):
