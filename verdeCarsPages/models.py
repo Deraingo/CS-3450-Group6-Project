@@ -29,6 +29,7 @@ class Car(models.Model):
     checkoutCode = models.IntegerField()
     stranded = models.BooleanField()
     stranded = models.BooleanField(default=False)
+    strandedAddress = models.CharField(max_length=50, default="")
     imageURL = models.CharField(max_length=1000, default="")
 
     def __str__(self):
