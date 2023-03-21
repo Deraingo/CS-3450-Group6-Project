@@ -33,7 +33,7 @@
                 <a href="{% url 'verdeCarsPages:retrievalList' %}">&lt; Back to List</a>
             </div>
             <img src="{{ car.imageURL }}" alt="Green Car" class="retrieval-img">
-            <div class="green-box-photo-caption">
+            <div class="green-box-photo-caption-dark">
                 <p><bold>Make: </bold>{{ car.make }}<bold><span class="tab"></span> Model: </bold>{{ car.model }}</p>
             </div>
         </div>
@@ -42,16 +42,16 @@
             <p class="retrieval-paragraph">
                 <button class="retrieval-button">Notify</button> customer that help is on the way
             </p>
-            <div class="green-box">
+            <div class="green-box-dark">
                 <p>Customer Information</p>
             </div>
             <div class="retrieval-paragraph">
-                <p><bold>Name: </bold>John Doe</p>
-                <p><bold>Email: </bold>john.doe@gmail.com</p>
-                <p><bold>Checkout code: </bold>4375</p>
-                <p><bold>Address: </bold>123 E 456 N City, State 12345</p>
+                <p><bold>Name: </bold>{{ user.fname }} {{ user.lname }}</p>
+                <p><bold>Phone Number: </bold>{{ user.phoneNumber }}</p>
+                <p><bold>Checkout code: </bold>{{ user.checkoutCode }}</p>
+                <p><bold>Address: </bold>{{ car.strandedAddress }}</p>
             </div>
-            <div class="green-box">
+            <div class="green-box-dark">
                 <p>Retrieval</p>
             </div>
             <div class="retrieval-paragraph">
