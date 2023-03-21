@@ -51,9 +51,6 @@ def login(request):
             #     return render(request, 'verdeCarsPages/login.html', context=context)
 
     return render(request, 'verdeCarsPages/login.html', context=context)
-    
-    else:
-        return render(request, 'verdeCarsPages/login.html', {'all': allUsers})
 
 def reservecar(request):
     return render(request, 'verdeCarsPages/reserve-car.html')
