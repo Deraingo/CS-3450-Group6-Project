@@ -37,18 +37,12 @@ def login(request):
                         savedUserType = savedUser.userType
                         # FOR ALL: SEND THE USER TO THE HOMEPAGE OF THEIR RESPECTIVE USER TYPE
                         return render(request, 'verdeCarsPages/index.html', context=context) # delete this and replace it with the homepage for their user type :)
-            # else:
-            #     return render(request, 'verdeCarsPages/login.html', context=context)
         
         if 'create_user' in request.POST:
 
             new_user_form = UserForm(request.POST or None)
             if new_user_form.is_valid():
                 new_user_form.save()
-            #     return render(request, 'verdeCarsPages/login.html', context=context)
-
-            # else:
-            #     return render(request, 'verdeCarsPages/login.html', context=context)
 
     return render(request, 'verdeCarsPages/login.html', context=context)
 
@@ -60,7 +54,9 @@ def checkoutConfirmation(request):
 
 def strandedCar(request, car_id):
     car = get_object_or_404(Car, pk=car_id)
-    context = {'car': car}
+    carCheckout = car.checkoutCode    
+    user = User.objects.filter(checkoutCode=carCheckout)
+    context = {'car': car, 'user': user}
     return render(request, 'verdeCarsPages/strandedCar.html', context)
 
 def catalog(request):
