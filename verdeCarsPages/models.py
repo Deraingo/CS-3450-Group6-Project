@@ -10,6 +10,8 @@ class User(models.Model):
     userType = models.CharField(max_length=50, default="Customer")
     money = models.FloatField(default=0.0)
     phoneNumber = models.CharField(max_length=10, default="000-000-0000")
+    hoursWorked = models.IntegerField(default=0)
+    checkoutCode = models.IntegerField(default=0000)
 
     def __str__(self):
         return self.fname + " " + self.lname + " (" + self.userType + ")"
