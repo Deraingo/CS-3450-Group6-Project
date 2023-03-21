@@ -11,9 +11,4 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='car',
-            name='renter',
-            field=models.ForeignKey(default=None, on_delete=django.db.models.deletion.CASCADE, to='verdeCarsPages.user'),
-        ),
     ]
