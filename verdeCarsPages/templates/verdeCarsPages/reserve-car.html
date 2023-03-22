@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,25 +18,21 @@
 </head>
 <body>
     <div class="header">
-<nav class="header-container">
-    <div class="header-buttons">
-        <a class="header-link" href="/index">Home</a>
-        <a class="header-link" href="/index">Catalog</a>
-        <a class="header-link" href="/index">PlaceHolder</a>
-        <a class="header-link" href="/index">PlaceHolder</a>
-        <a class="header-link" href="/index">PlaceHolder</a>
-    </div>
-    <div class="user-interface">
-        <div class="login-button anchor-option">            
-            <a class="drop-btn login-menu-btn" href="">Login</a>
-        </div>
-        <div class="user-interface">
-            <div class="login-button anchor-option">            
-                <a class="drop-btn login-menu-btn" href="">Login</a>
+        <nav class="header-container">
+            <div class="header-buttons">
+                <a class="header-link" href="/index">Home</a>
+                <a class="header-link" href="/catalog">Catalog</a>
+                <a class="header-link" href="/index">PlaceHolder</a>
+                <a class="header-link" href="/index">PlaceHolder</a>
+                <a class="header-link" href="/index">PlaceHolder</a>
             </div>
-        </div>
-    </nav>
-</div>
+            <div class="user-interface">
+                <div class="login-button anchor-option">
+                    <a class="drop-btn login-menu-btn" href="">Login</a>
+                </div>
+            </div>
+        </nav>
+    </div>
 
  <div class="row">
   <div class="column1">
@@ -61,7 +59,7 @@
 
 
 <img src="{% static 'verdeCarsPages/images/greenCar1.jpg' %}">
-<p>Model:Placeholder Year:Placeholder Price:Placeholder</p></div>
+<p>Model:Placeholder Year:Placeholder Price:{{car.cost}}}</p></div>
 <div class="column2">
 <p>Please read and agree to our terms and conditions:</p>
     <ul>
@@ -78,45 +76,16 @@ by insurance will be the responsibility of the customer</li>
        value="2018-07-22"
        min="2018-01-01" max="2018-12-31">
 <P>Payment information:</P>
-<input type="number">
+<input type="number" id="money">
 <p>Billing address: <br/> </p> 
 <input type="text">
 <br/><br/><br/>
- <button onclick = "confirmation()" type="button" id="reserve" disabled>Reserve</button> </div>
- <br/>
+ <button class="retrieval-button" onclick = "confirmPayment()" type="button" id="reserve" disabled>Reserve</button> 
+     <p id="error"></p>
+     </div>
  </div> 
-    </div>
-</nav>
+    
 
-<div class="row">
-    <div class="column1"> 
-        <img src="https://i.pinimg.com/originals/1a/33/7d/1a337d45cf423f64fce45544d9382401.jpg">
-        <p>Model:{{}}Year: {{}}Price: {{}}</p>
-    </div>
-    <div class="column2">
-        <p>Please read and agree to our terms and conditions:
-            <ul>
-        <li>A late fee will be charged if customer fails
-        to return the car on time</li>
-        <li>Any accidents or breakdowns not covered
-        by insurance will be the responsibility of the customer</li>
-        </ul>
-        </p>
-        <input type="checkbox" id="agree" name="agree" value="" onclick="enableButton()">
-        <label for="agree"> I agree to the terms and conditions</label><br>
-        <p><br/> Date of reservation:</p>
-        <input type="date" id="start" name="trip-start"
-            value="2018-07-22"
-            min="2018-01-01" max="2018-12-31">
-        <P>Payment information:</P>
-        <input type="number">
-        <p>Billing address: <br/> </p> 
-        <input type="text">
-        <br/><br/><br/>
-        <button type="button" id="reserve" disabled>Reserve</button> 
-    </div>
-    <br/>
-</div> 
 <script>
     function enableButton() {
         if (document.getElementById("reserve").disabled != true) {
@@ -131,8 +100,26 @@ by insurance will be the responsibility of the customer</li>
     function confirmation() {
         window.location='/checkout-confirmation';
     }
-     </script>
-    }
+    
+    function confirmPayment() {
+            if (document.getElementById("money").value == "") {
+                document.getElementById("error").textContent = "Please enter in valid payment information.";
+                console.log("error");
+            } 
+            else if (document.getElementById("money").value == "") {
+                document.getElementById("error").textContent = "You do not have enough money to rent the car. Please add more money to your account and try again.";
+                console.log("error");
+            } 
+            else if (document.getElementById("money").value == "") {
+                document.getElementById("error").textContent = "Please enter in enough to pay for the car.";
+                console.log("error");
+            } 
+            else {
+                confirmation();
+            }
+        }
+  
+
 </script>     
 </body>
 </html> 
