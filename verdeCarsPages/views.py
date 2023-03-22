@@ -50,10 +50,9 @@ def login(request):
             # else:
             #     return render(request, 'verdeCarsPages/login.html', context=context)
 
-        return render(request, 'verdeCarsPages/login.html', context=context)
-    
-    else:
-        return render(request, 'verdeCarsPages/login.html', {'all': allUsers})
+
+    return render(request, 'verdeCarsPages/login.html', context=context)
+
 
 def reservecar(request, car_id):
     car = get_object_or_404(Car, pk=car_id)
@@ -62,15 +61,20 @@ def reservecar(request, car_id):
 def checkoutConfirmation(request):
     return render(request, 'verdeCarsPages/checkout-confirmation.html')
 
-def retrievalPage(request):
-    return render(request, 'verdeCarsPages/retrievalPage.html')
+def strandedCar(request, car_id):
+    car = get_object_or_404(Car, pk=car_id)
+    context = {'car': car}
+    return render(request, 'verdeCarsPages/strandedCar.html', context)
 
 def catalog(request):
     return render(request, 'verdeCarsPages/catalog.html')
 
 def retrievalList(request):
-    allCars = Car.objects.all
-    return render(request, 'verdeCarsPages/retrievalList.html', {'all': allCars})
+    strandedCars = Car.objects.filter(stranded=True)
+    return render(request, 'verdeCarsPages/retrievalList.html', {'strandedCars': strandedCars})
+
+def retrievalHome(request):
+    return render(request, 'verdeCarsPages/retrievalHome.html')
 
 def adminHome(request):
     #user_set = User.objects.all
