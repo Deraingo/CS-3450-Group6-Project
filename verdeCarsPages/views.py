@@ -36,7 +36,7 @@ def login(request):
                     if user_data == savedUser.usernm and pass_data == savedUser.passwd:
                         savedUserType = savedUser.userType
                         # FOR ALL: SEND THE USER TO THE HOMEPAGE OF THEIR RESPECTIVE USER TYPE
-                        return render(request, 'verdeCarsPages/index.html', context=context) # delete this and replace it with the homepage for their user type :)
+            return render(request, 'verdeCarsPages/index.html', context=context) # delete this and replace it with the homepage for their user type :)
             # else:
             #     return render(request, 'verdeCarsPages/login.html', context=context)
         
@@ -50,9 +50,12 @@ def login(request):
             # else:
             #     return render(request, 'verdeCarsPages/login.html', context=context)
 
+
     return render(request, 'verdeCarsPages/login.html', context=context)
 
-def reservecar(request):
+
+def reservecar(request, car_id):
+    car = get_object_or_404(Car, pk=car_id)
     return render(request, 'verdeCarsPages/reserve-car.html')
 
 def checkoutConfirmation(request):
@@ -74,5 +77,12 @@ def retrievalHome(request):
     return render(request, 'verdeCarsPages/retrievalHome.html')
 
 def adminHome(request):
-    return render(request, 'verdeCarsPages/adminHome.html')
+    #user_set = User.objects.all
+    context = {
+        'customer_set': User.objects.filter(userType='Customer'),
+        'admin_set': User.objects.filter(userType='Customer'),
+        'cust_service_set': User.objects.filter(userType='Customer'),
+        'retrieval_set': User.objects.filter(userType='Customer'),
+    }
+    return render(request, 'verdeCarsPages/adminHome.html', context)
 
