@@ -55,9 +55,14 @@ def checkoutConfirmation(request):
 
 def strandedCar(request, car_id):
     car = get_object_or_404(Car, pk=car_id)
-    carCheckout = car.checkoutCode    
-    user = User.objects.filter(checkoutCode=carCheckout)
-    context = {'car': car, 'user': user}
+    # carCheckout = car.checkoutCode    
+    userData = User.objects.filter(checkoutCode=str(car.checkoutCode)).values()
+    # user = get_object_or_404(User, pk=userID)
+    # userID = userData["id"]
+    # userList = []
+    # for item in userData:
+    #     userList.append(item)
+    context = {'car': car, 'userData': userData}
     return render(request, 'verdeCarsPages/strandedCar.html', context)
 
 def catalog(request):

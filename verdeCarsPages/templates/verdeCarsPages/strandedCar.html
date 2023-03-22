@@ -45,12 +45,14 @@
             <div class="green-box-dark">
                 <p>Customer Information</p>
             </div>
+            {% for user in userData %}
             <div class="retrieval-paragraph">
                 <p><bold>Name: </bold>{{ user.fname }} {{ user.lname }}</p>
                 <p><bold>Phone Number: </bold>{{ user.phoneNumber }}</p>
                 <p><bold>Checkout code: </bold>{{ user.checkoutCode }}</p>
                 <p><bold>Address: </bold>{{ car.strandedAddress }}</p>
             </div>
+            {% endfor %}
             <div class="green-box-dark">
                 <p>Retrieval</p>
             </div>
@@ -63,7 +65,6 @@
             </div>
         </div>
     </div>
-
 
     <div class="footer">
     </div>
