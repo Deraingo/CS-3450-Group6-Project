@@ -1,4 +1,4 @@
-{% load static % }
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,8 +33,23 @@
     </nav>
 </div>
 
-{% for user in user_set %}
-        <p>{{user.lname}}, {{user.fname}}</p>
+<h2>Admins</h2>
+{% for user in admin_set %}
+        <p>{{user.lname}}, {{user.fname}}, {{user.userType}}</p>
+ {% endfor %}    
+    
+<h2>Employees</h2>
+{% for user in retrieval_set %}
+        <p>{{user.lname}}, {{user.fname}}, {{user.userType}} Hours worked:  <button class="pay" type="button">Pay</button> </p>
+    
+ {% endfor %}
+{% for user in cust_service_set %}
+        <p>{{user.lname}}, {{user.fname}}, {{user.userType}} Hours worked: <button class="pay" type="button">Pay</button> </p>
+ {% endfor %}
+    
+<h2>Customers</h2>
+{% for user in customer_set %}
+        <p>{{user.lname}}, {{user.fname}}, {{user.userType}}</p>
  {% endfor %}
  
 </body>
