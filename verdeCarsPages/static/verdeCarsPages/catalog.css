@@ -32,3 +32,6 @@
     background-color: #2C4A45;
     transition: 0.5s;
 }
+#car-name{
+    display: inline;
+}

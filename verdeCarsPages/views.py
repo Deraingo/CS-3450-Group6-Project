@@ -50,7 +50,7 @@ def login(request):
             # else:
             #     return render(request, 'verdeCarsPages/login.html', context=context)
 
-    return render(request, 'verdeCarsPages/login.html', context=context)
+        return render(request, 'verdeCarsPages/login.html', context=context)
     
     else:
         return render(request, 'verdeCarsPages/login.html', {'all': allUsers})
@@ -65,6 +65,10 @@ def retrievalPage(request):
     return render(request, 'verdeCarsPages/retrievalPage.html')
 
 def catalog(request):
+    hondaCivic = Car.objects.create(make="Honda", model="Civic", year=2009, cost=50.00)
+    toyotaCarolla = Car.objects.create(make="Toyota", model="Carolla", year=2009, cost=50.00)
+    toyotaCamry = Car.objects.create(make="Toyota", model="Camry", year=2008, cost=50.00)
+    toyotaSupra = Car.objects.create(make="Toyota", model="Supra", year=2009, cost=50.00)
     return render(request, 'verdeCarsPages/catalog.html')
 
 def retrievalList(request):
