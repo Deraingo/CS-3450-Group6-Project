@@ -84,5 +84,12 @@ def adminHome(request):
         'cust_service_set': User.objects.filter(userType='Customer'),
         'retrieval_set': User.objects.filter(userType='Customer'),
     }
+    if request.method == "POST":
+        identity = request.POST['identity']
+        u = User.objects.get(id=identity)
+        u.money=u.money+(u.hoursWorked*10)
+        u.hoursWorked=0
+        u.save()
     return render(request, 'verdeCarsPages/adminHome.html', context)
+ 
 
