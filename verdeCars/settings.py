@@ -24,8 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: don't run with debug turned on in production!
 #test
-# SECRET_KEY = 
-
+# SECRET_KEY 
 DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -106,7 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+APPEND_SLASH = False
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
