@@ -58,8 +58,8 @@
 </style>
 
 
-<img src="{% static 'verdeCarsPages/images/greenCar1.jpg' %}">
-<p>Model:Placeholder Year:Placeholder Price:{{car.cost}}}</p></div>
+<img src= {{car.imageURL}}>
+<p>Model:{{car.model}} Year:{{car.year}} Price:{{car.cost}}</p></div>
 <div class="column2">
 <p>Please read and agree to our terms and conditions:</p>
     <ul>
@@ -68,9 +68,27 @@ to return the car on time</li>
 <li>Any accidents or breakdowns not covered
 by insurance will be the responsibility of the customer</li>
 </ul>
+    
+
 
 <input type="checkbox" id="agree" name="agree" value="" onclick="enableButton()">
 <label for="agree"> I agree to the terms and conditions</label><br>
+<form action="{% url 'verdeCarsPages:checkout-confirmation' car.id %}" method="post">
+    {% csrf_token %}
+    <fieldset>
+        <label for="author">Your name:</label><br>
+        <input type="text" name="author" id="author">
+    </fieldset>
+    <fieldset>
+        <label for="email">Payment Information:</label><br>
+        <input type="number" name="payment" id="payment">
+    </fieldset>
+    <fieldset>
+        <label for="content">Billing address</label><br>
+        <input type="text" name="content" id="content">
+    </fieldset>
+        <input type="submit" value="Reserve">
+</form>
 <p><br/> Date of reservation:</p>
 <input type="date" id="start" name="trip-start"
        value="2018-07-22"
