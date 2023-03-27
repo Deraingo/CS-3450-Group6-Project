@@ -30,6 +30,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/verdeCarsPages/media')
 
 
 # Application definition
@@ -104,7 +106,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+APPEND_SLASH = False
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 

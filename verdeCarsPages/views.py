@@ -65,14 +65,11 @@ def retrievalPage(request):
     return render(request, 'verdeCarsPages/retrievalPage.html')
 
 def catalog(request):
-    hondaCivic = Car.objects.create(make="Honda", model="Civic", year=2009, cost=50.00)
-    toyotaCarolla = Car.objects.create(make="Toyota", model="Carolla", year=2009, cost=50.00)
-    toyotaCamry = Car.objects.create(make="Toyota", model="Camry", year=2008, cost=50.00)
-    toyotaSupra = Car.objects.create(make="Toyota", model="Supra", year=2009, cost=50.00)
-    return render(request, 'verdeCarsPages/catalog.html')
+    cars = Car.objects.all()
+    return render(request, 'verdeCarsPages/catalog.html', {'cars': cars})
 
 def retrievalList(request):
-    allCars = Car.objects.all
+    allCars = Car.objects.all()
     return render(request, 'verdeCarsPages/retrievalList.html', {'all': allCars})
 
 def adminHome(request):

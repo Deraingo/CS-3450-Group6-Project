@@ -9,7 +9,7 @@ window.onload = function(){
 
     function rent(){
         var submitRental = document.createElement("form");
-        submitRental.action = "/reserve-car";
+        submitRental.action = "/reserve-car/";
         submitRental.method = "POST";
         var content = document.getElementsByClassName("car-images");
         var rentCar = document.createElement("div");
@@ -17,6 +17,9 @@ window.onload = function(){
         rentButton.type = "submit";
         rentButton.innerHTML = "Rent Vehicle";
         rentButton.id = "rent-button";
+
+
+        
         rentCar.appendChild(submitRental);
         submitRental.appendChild(rentButton);
         var i;
