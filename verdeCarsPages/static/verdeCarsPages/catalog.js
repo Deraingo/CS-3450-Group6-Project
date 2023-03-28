@@ -1,4 +1,5 @@
 window.onload = function(){
+    var csrftoken = getCookie('csrftoken');
     var lowRange = document.getElementById("low-range");
     var medRange = document.getElementById("med-range");
     var higRange = document.getElementById("high-range");  
@@ -7,34 +8,86 @@ window.onload = function(){
     medRange.addEventListener("click", setPriceRange);
     higRange.addEventListener("click", setPriceRange);
 
-    function rent(){
+    function rent(carMake, carModel, carYear, carPrice){
         var submitRental = document.createElement("form");
         submitRental.action = "/reserve-car/";
         submitRental.method = "POST";
-        var content = document.getElementsByClassName("car-images");
-        var rentCar = document.createElement("div");
+
+        var csrfInput = document.createElement("input");
+        csrfInput.type = "hidden";
+        csrfInput.name = "csrfmiddlewaretoken";
+        csrfInput.value = csrftoken;
+
+        var makeInput = document.createElement("input");
+        makeInput.type = "hidden";
+        makeInput.name = "make";
+        makeInput.value = carMake;
+
+        var modelInput = document.createElement("input");
+        modelInput.type = "hidden";
+        modelInput.name = "model";
+        modelInput.value = carModel;
+
+        var yearInput = document.createElement("input");
+        yearInput.type = "hidden";
+        yearInput.name = "year";
+        yearInput.value = carYear;
+
+        var priceInput = document.createElement("input");
+        priceInput.type = "hidden";
+        priceInput.name = "price";
+        priceInput.value = carPrice;
+
         var rentButton = document.createElement("button");
         rentButton.type = "submit";
         rentButton.innerHTML = "Rent Vehicle";
         rentButton.id = "rent-button";
 
+        submitRental.appendChild(csrfInput);
+        submitRental.appendChild(makeInput);
+        submitRental.appendChild(modelInput);
+        submitRental.appendChild(yearInput);
+        submitRental.appendChild(priceInput);
+        submitRental.appendChild(rentButton);;
 
-        
-        rentCar.appendChild(submitRental);
-        submitRental.appendChild(rentButton);
+        var content = document.getElementsByClassName("car-images");
         var i;
         for (i = 0; i < content.length; i++) {
           content[i].addEventListener("click", function () {
+            var carMake = this.dataset.make;
+            var carModel = this.dataset.model;
+            var carYear = this.dataset.year;
+            var carPrice = this.dataset.price;
+            rent(carMake, carModel, carYear, carPrice);
+
             this.classList.toggle("active");
             var openContent = this.nextElementSibling;
-            if (openContent.contains(rentCar)) {
+            if (openContent.contains(submitRental)) {
               openContent.removeChild(rentButton);
             } else {
-              openContent.appendChild(rentCar);
+              openContent.appendChild(submitRental);
             }
           });
         }
     }
+
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    
+    
 
     function setPriceRange(){   
         var medHeader = document.getElementById("med-range-div");
