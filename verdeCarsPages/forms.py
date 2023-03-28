@@ -24,3 +24,9 @@ class LoginForm(forms.ModelForm):
         model = User
         fields = ['usernm', 'passwd']
         exclude = ['fname', 'lname', 'userType', 'money']
+
+class UpdateStranded(forms.Form):
+    update_stranded = forms.BooleanField(initial=True)
+
+class ClockHours(forms.Form):
+    hours = forms.IntegerField()
