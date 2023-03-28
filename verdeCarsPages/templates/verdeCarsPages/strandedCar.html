@@ -40,7 +40,7 @@
         
         <div class="retrieval-right">
             <p class="retrieval-paragraph">
-                <button class="retrieval-button">Notify</button> customer that help is on the way
+                <button class="retrieval-button" method="POST" id="notifyUser">Notify</button> customer that help is on the way
             </p>
             <div class="green-box-dark">
                 <p>Customer Information</p>
@@ -61,7 +61,10 @@
                     By selecting the button below, I verify that the car has been 
                     retrieved and returned to the rental store.
                 </p>
-                <button class="retrieval-button" action="">Retrieved</button>
+                <form method="POST" id="updateRetrieved">
+                    {% csrf_token %}
+                    <button type="submit" class="retrieval-button">Retrieved</button>
+                </form>
             </div>
         </div>
     </div>
