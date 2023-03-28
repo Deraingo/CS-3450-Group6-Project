@@ -36,7 +36,9 @@ def login(request):
                     if user_data == savedUser.usernm and pass_data == savedUser.passwd:
                         savedUserType = savedUser.userType
                         # FOR ALL: SEND THE USER TO THE HOMEPAGE OF THEIR RESPECTIVE USER TYPE
-                        return render(request, 'verdeCarsPages/index.html', context=context) # delete this and replace it with the homepage for their user type :)
+            return render(request, 'verdeCarsPages/index.html', context=context) # delete this and replace it with the homepage for their user type :)
+            # else:
+            #     return render(request, 'verdeCarsPages/login.html', context=context)
         
         if 'create_user' in request.POST:
 
@@ -44,9 +46,12 @@ def login(request):
             if new_user_form.is_valid():
                 new_user_form.save()
 
+
     return render(request, 'verdeCarsPages/login.html', context=context)
 
+
 def reservecar(request):
+    car = get_object_or_404(Car, pk=car_id)
     return render(request, 'verdeCarsPages/reserve-car.html')
 
 def checkoutConfirmation(request):
@@ -81,5 +86,19 @@ def retrievalHome(request):
     return render(request, 'verdeCarsPages/retrievalHome.html', context)
 
 def adminHome(request):
-    return render(request, 'verdeCarsPages/adminHome.html')
+    #user_set = User.objects.all
+    context = {
+        'customer_set': User.objects.filter(userType='Customer'),
+        'admin_set': User.objects.filter(userType='Customer'),
+        'cust_service_set': User.objects.filter(userType='Customer Service'),
+        'retrieval_set': User.objects.filter(userType='Customer'),
+    }
+    if request.method == "POST":
+        identity = request.POST['identity']
+        u = User.objects.get(id=identity)
+        u.money=u.money+(u.hoursWorked*10)
+        u.hoursWorked=0
+        u.save()
+    return render(request, 'verdeCarsPages/adminHome.html', context)
+ 
 
