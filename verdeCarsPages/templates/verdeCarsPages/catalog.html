@@ -54,57 +54,73 @@
                     <div class="car-details">
                         <img class="car-images" src="{% static 'verdeCarsPages/media/HondaCivic.jpg' %}">
                         <div class="car-info">
-                            <div class="car-name">
-                                <b>Car Make And Name: </b> Honda, Civic
-                            </div>
-                            <div class="car-year">
-                                <b>Year: </b> 2009
-                            </div>
-                            <div class="car-price">
-                                <b>Price: </b> $50
-                            </div>
+                            {% for car in cars %}
+                                {% if car.make == 'Honda' and car.model == 'Civic' and car.year == '2009' %}
+                                    <div id="car-name">
+                                        <b>Car Make And Name: </b> {{car.make}}, {{car.model}}
+                                    </div>
+                                    <div id="car-year">
+                                        <b>Year: </b> {{car.year}}
+                                    </div>
+                                    <div id="car-price">
+                                        <b>Price: </b> ${{car.cost}}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
                         </div>
                     </div>
                     <div class="car-details">
                         <img class="car-images" src="{% static 'verdeCarsPages/media/carolla.jpg' %}">
                         <div class="car-info">
-                            <div class="car-name">
-                                <b>Car Make And Name: </b> Toyota, Carolla
-                            </div>
-                            <div class="car-year">
-                                <b>Year: </b> 2009
-                            </div>
-                            <div class="car-price">
-                                <b>Price: </b> $50
-                            </div>
+                            {% for car in cars %}
+                                {% if car.make == 'Toyota' and car.model == 'Carolla' and car.year == '2009' %}
+                                    <div id="car-name">
+                                        <b>Car Make And Name: </b> {{car.make}}, {{car.model}}
+                                    </div>
+                                    <div id="car-year">
+                                        <b>Year: </b> {{car.year}}
+                                    </div>
+                                    <div id="car-price">
+                                        <b>Price: </b> ${{car.cost}}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
                         </div>
                     </div>
                     <div class="car-details">
                         <img class="car-images" src="{% static 'verdeCarsPages/media/camry.jpg' %}">
                         <div class="car-info">
-                            <div class="car-name">
-                                <b>Car Make And Name: </b> Toyota, Camry
-                            </div>
-                            <div class="car-year">
-                                <b>Year: </b> 2008
-                            </div>
-                            <div class="car-price">
-                                <b>Price: </b> $50
-                            </div>
+                            {% for car in cars %}
+                                {% if car.make == 'Toyota' and car.model == 'Camry' and car.year == '2008' %}
+                                    <div id="car-name">
+                                        <b>Car Make And Name: </b> {{car.make}}, {{car.model}}
+                                    </div>
+                                    <div id="car-year">
+                                        <b>Year: </b> {{car.year}}
+                                    </div>
+                                    <div id="car-price">
+                                        <b>Price: </b> ${{car.cost}}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
                         </div>
                     </div>
                     <div class="car-details">
                         <img class="car-images" src="{% static 'verdeCarsPages/media/supra.jpg' %}">
                         <div class="car-info">
-                            <div class="car-name">
-                                <b>Car Make And Name: </b> Toyota, Supra
-                            </div>
-                            <div class="car-year">
-                                <b>Year: </b> 2009
-                            </div>
-                            <div class="car-price">
-                                <b>Price: </b> $50
-                            </div>
+                            {% for car in cars %}
+                                {% if car.make == 'Toyota' and car.model == 'Supra' and car.year == '2009' %}
+                                    <div id="car-name">
+                                        <b>Car Make And Name: </b> {{car.make}}, {{car.model}}
+                                    </div>
+                                    <div id="car-year">
+                                        <b>Year: </b> {{car.year}}
+                                    </div>
+                                    <div id="car-price">
+                                        <b>Price: </b> ${{car.cost}}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -113,57 +129,73 @@
                     <div class="car-details">
                         <img class="car-images" src="{% static 'verdeCarsPages/media/civic2022.jpg' %}">
                         <div class="car-info">
-                            <div class="car-name">
-                                <b>Car Make And Name: </b> Honda, Civic
-                            </div>
-                            <div class="car-year">
-                                <b>Year: </b> 2022
-                            </div>
-                            <div class="car-price">
-                                <b>Price: </b> $75
-                            </div>
+                            {% for car in cars %}
+                                {% if car.make == 'Honda' and car.model == 'Civic' and car.year == '2022' %}
+                                    <div id="car-name">
+                                        <b>Car Make And Name: </b> {{car.make}}, {{car.model}}
+                                    </div>
+                                    <div id="car-year">
+                                        <b>Year: </b> {{car.year}}
+                                    </div>
+                                    <div id="car-price">
+                                        <b>Price: </b> ${{car.cost}}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
                         </div>
                     </div>
                     <div class="car-details">
                         <img class="car-images" src="{% static 'verdeCarsPages/media/skyline.jpg' %}">
                         <div class="car-info">
-                            <div class="car-name">
-                                <b>Car Make And Name: </b> Nissan, Skyline
-                            </div>
-                            <div class="car-year">
-                                <b>Year: </b> 2012
-                            </div>
-                            <div class="car-price">
-                                <b>Price: </b> $75
-                            </div>
+                            {% for car in cars %}
+                                {% if car.make == 'Nissan' and car.model == 'Skyline' and car.year == '2012' %}
+                                    <div id="car-name">
+                                        <b>Car Make And Name: </b> {{car.make}}, {{car.model}}
+                                    </div>
+                                    <div id="car-year">
+                                        <b>Year: </b> {{car.year}}
+                                    </div>
+                                    <div id="car-price">
+                                        <b>Price: </b> ${{car.cost}}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
                         </div>
                     </div>
                     <div class="car-details">
                         <img class="car-images" src="{% static 'verdeCarsPages/media/mustang.jpg' %}">
                         <div class="car-info">
-                            <div class="car-name">
-                                <b>Car Make And Name: </b> Ford, Mustang
-                            </div>
-                            <div class="car-year">
-                                <b>Year: </b> 2022
-                            </div>
-                            <div class="car-price">
-                                <b>Price: </b> $75
-                            </div>
+                            {% for car in cars %}
+                                {% if car.make == 'Fordd' and car.model == 'Mustang' and car.year == '2022' %}
+                                    <div id="car-name">
+                                        <b>Car Make And Name: </b> {{car.make}}, {{car.model}}
+                                    </div>
+                                    <div id="car-year">
+                                        <b>Year: </b> {{car.year}}
+                                    </div>
+                                    <div id="car-price">
+                                        <b>Price: </b> ${{car.cost}}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
                         </div>
                     </div>
                     <div class="car-details">
                         <img class="car-images" src="{% static 'verdeCarsPages/media/audiRs5.jpg' %}">
                         <div class="car-info">
-                            <div class="car-name">
-                                <b>Car Make And Name: </b> Audi, RS5
-                            </div>
-                            <div class="car-year">
-                                <b>Year: </b> 2022
-                            </div>
-                            <div class="car-price">
-                                <b>Price: </b> $75
-                            </div>
+                            {% for car in cars %}
+                                {% if car.make == 'Audi' and car.model == 'RS5' and car.year == '2022' %}
+                                    <div id="car-name">
+                                        <b>Car Make And Name: </b> {{car.make}}, {{car.model}}
+                                    </div>
+                                    <div id="car-year">
+                                        <b>Year: </b> {{car.year}}
+                                    </div>
+                                    <div id="car-price">
+                                        <b>Price: </b> ${{car.cost}}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -172,68 +204,80 @@
                     <div class="car-details">
                         <img class="car-images" src="{% static 'verdeCarsPages/media/lambo.jpg' %}">
                         <div class="car-info">
-                            <div class="car-name">
-                                <b>Car Make And Name: </b> Lamborghini, Huracan
-                            </div>
-                            <div class="car-year">
-                                <b>Year: </b> 2021
-                            </div>
-                            <div class="car-price">
-                                <b>Price: </b> $100
-                            </div>
+                            {% for car in cars %}
+                                {% if car.make == 'Lamborghini' and car.model == 'Huracan' and car.year == '2021' %}
+                                    <div id="car-name">
+                                        <b>Car Make And Name: </b> {{car.make}}, {{car.model}}
+                                    </div>
+                                    <div id="car-year">
+                                        <b>Year: </b> {{car.year}}
+                                    </div>
+                                    <div id="car-price">
+                                        <b>Price: </b> ${{car.cost}}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
                         </div>
                     </div>
                     <div class="car-details">
                         <img class="car-images" src="{% static 'verdeCarsPages/media/mercedesAmgGtr.jpg' %}">
                         <div class="car-info">
-                            <div class="car-name">
-                                <b>Car Make And Name: </b> Mercedes, GTR AMG
-                            </div>
-                            <div class="car-year">
-                                <b>Year: </b> 2019
-                            </div>
-                            <div class="car-price">
-                                <b>Price: </b> $100
-                            </div>
+                            {% for car in cars %}
+                                {% if car.make == 'Mercedes' and car.model == 'GTR AMG' and car.year == '2019' %}
+                                    <div id="car-name">
+                                        <b>Car Make And Name: </b> {{car.make}}, {{car.model}}
+                                    </div>
+                                    <div id="car-year">
+                                        <b>Year: </b> {{car.year}}
+                                    </div>
+                                    <div id="car-price">
+                                        <b>Price: </b> ${{car.cost}}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
                         </div>
                     </div>
                     <div class="car-details">
                         <img class="car-images" src="{% static 'verdeCarsPages/media/porscheTaycan.jpg' %}">
                         <div class="car-info">
-                            <div class="car-name">
-                                <b>Car Make And Name: </b> Porsche, Taycan
-                            </div>
-                            <div class="car-year">
-                                <b>Year: </b> 2022
-                            </div>
-                            <div class="car-price">
-                                <b>Price: </b> $110
-                            </div>
+                            {% for car in cars %}
+                                {% if car.make == 'Porsche' and car.model == 'Taycan' and car.year == '2022' %}
+                                    <div id="car-name">
+                                        <b>Car Make And Name: </b> {{car.make}}, {{car.model}}
+                                    </div>
+                                    <div id="car-year">
+                                        <b>Year: </b> {{car.year}}
+                                    </div>
+                                    <div id="car-price">
+                                        <b>Price: </b> ${{car.cost}}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
                         </div>
                     </div>
                     <div class="car-details">
                         <img class="car-images" src="{% static 'verdeCarsPages/media/ferarri.jpg' %}">
                         <div class="car-info">
-                            <div class="car-name">
-                                <b>Car Make And Name: </b> Ferarri
-                            </div>
-                            <div class="car-year">
-                                <b>Year: </b> 2022
-                            </div>
-                            <div class="car-price">
-                                <b>Price: </b> $150
-                            </div>
+                            {% for car in cars %}
+                                {% if car.make == 'Ferarri' and car.model == '296 GTS' and car.year == '2022' %}
+                                    <div id="car-name">
+                                        <b>Car Make And Name: </b> {{car.make}}, {{car.model}}
+                                    </div>
+                                    <div id="car-year">
+                                        <b>Year: </b> {{car.year}}
+                                    </div>
+                                    <div id="car-price">
+                                        <b>Price: </b> ${{car.cost}}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    
-
     <div class="footer">
     </div>
-
 </body>
 </html>
