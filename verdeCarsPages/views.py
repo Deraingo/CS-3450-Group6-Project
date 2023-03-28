@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from datetime import datetime
 from .models import User, Car
-from .forms import UserForm, LoginForm
+from .forms import UserForm, LoginForm, UpdateStranded
 
 
 def index(request):
@@ -55,13 +55,14 @@ def checkoutConfirmation(request):
 def strandedCar(request, car_id):
     car = get_object_or_404(Car, pk=car_id)
     userData = User.objects.filter(checkoutCode=str(car.checkoutCode)).values()
-    context = {'car': car, 'userData': userData}
+    updateStranded = UpdateStranded()
+    context = {'car': car, 'userData': userData, 'updateStranded' : updateStranded}
 
     if request.method == "POST":
-        if 'notifyUser' in request.POST:
-            pass
+        # if 'notifyUser' in request.POST:
+        #     pass
 
-        if 'updateRetrieved' in request.POST:
+        if 'update_stranded' in request.POST:
             car.stranded = False
             car.save(update_fields=['stranded'])
 
