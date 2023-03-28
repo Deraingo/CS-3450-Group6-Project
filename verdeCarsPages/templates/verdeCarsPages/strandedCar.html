@@ -63,6 +63,7 @@
                 </p>
                 <form method="POST" id="updateRetrieved">
                     {% csrf_token %}
+                    {{ updateStranded.update_stranded.as_hidden }}
                     <button type="submit" class="retrieval-button">Retrieved</button>
                 </form>
             </div>
