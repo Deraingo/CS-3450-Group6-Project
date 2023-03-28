@@ -89,6 +89,15 @@ a:-webkit-any-link{
     color: #f8f7f9
 }
 
+.green-box-dark {
+    display: flexbox;
+    padding: 1%;
+    margin: 1.5%;
+    width: 60%;
+    background-color: #90BE6D;
+    color: #f8f7f9
+}
+
 .green-box-photo-caption {
     display: flexbox;
     padding: 1%;
@@ -99,10 +108,20 @@ a:-webkit-any-link{
     color: #f8f7f9
 }
 
+.green-box-photo-caption-dark {
+    display: flexbox;
+    padding: 1%;
+    margin: 1.5%;
+    margin-top: 3%;
+    width: 100%;
+    background-color: #90BE6D;
+    color: #f8f7f9
+}
+
 .retrieval-button {
     border-radius: 4px;
-    background-color: #90BE6D;
-    color: white;
+    background-color: #ABE37D;
+    color: black;
     border: none;
 }
 
