@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from datetime import datetime
 from .models import User, Car
-from .forms import UserForm, LoginForm, UpdateStranded
+from .forms import UserForm, LoginForm, UpdateStranded, ClockHours
 
 
 def index(request):
@@ -60,13 +60,9 @@ def strandedCar(request, car_id):
     context = {'car': car, 'userData': userData, 'updateStranded' : updateStranded}
 
     if request.method == "POST":
-        # if 'notifyUser' in request.POST:
-        #     pass
-
         if 'update_stranded' in request.POST:
             car.stranded = False
             car.save(update_fields=['stranded'])
-
     return render(request, 'verdeCarsPages/strandedCar.html', context)
 
 def catalog(request):
@@ -77,7 +73,12 @@ def retrievalList(request):
     return render(request, 'verdeCarsPages/retrievalList.html', {'strandedCars': strandedCars})
 
 def retrievalHome(request):
-    return render(request, 'verdeCarsPages/retrievalHome.html')
+    clockHours = ClockHours
+    context = {'clockHours': clockHours}
+
+    # if request.method == "POST":
+
+    return render(request, 'verdeCarsPages/retrievalHome.html', context)
 
 def adminHome(request):
     return render(request, 'verdeCarsPages/adminHome.html')

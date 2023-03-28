@@ -41,11 +41,22 @@
         </div>
     </nav>
     <div class="main-body">
-        <h1 class="verde-header">Retrieval Specialist woo woo</h1>
-        <p>Clock in here!<p>        
+        
+        <h1 class="verde-header">Retrieval Specialist Home</h1>
+        
+        <div class="retrieval-paragraph">
+            <form method="POST">
+                {% csrf_token %}
+                <p>Add Hours!<p>
+                {{ clockHours.hours }}
+                <button type="submit" class="retrieval-button">Submit</button>
+            </form>
+        </div>
+
     </div>
 
     <!-- You'll need to make a form for them to log hours, it'll update the user data in the database :) -->
+
 
     <div class="footer">
     </div>
