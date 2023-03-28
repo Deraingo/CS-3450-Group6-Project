@@ -54,7 +54,7 @@ def login(request):
     return render(request, 'verdeCarsPages/login.html', context=context)
 
 
-def reservecar(request, car_id):
+def reservecar(request):
     car = get_object_or_404(Car, pk=car_id)
     return render(request, 'verdeCarsPages/reserve-car.html')
 
@@ -81,7 +81,7 @@ def adminHome(request):
     context = {
         'customer_set': User.objects.filter(userType='Customer'),
         'admin_set': User.objects.filter(userType='Customer'),
-        'cust_service_set': User.objects.filter(userType='Customer'),
+        'cust_service_set': User.objects.filter(userType='Customer Service'),
         'retrieval_set': User.objects.filter(userType='Customer'),
     }
     if request.method == "POST":
