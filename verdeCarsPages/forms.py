@@ -27,3 +27,6 @@ class LoginForm(forms.ModelForm):
 
 class UpdateStranded(forms.Form):
     update_stranded = forms.BooleanField(initial=True)
+
+class ClockHours(forms.Form):
+    hours = forms.IntegerField()
