@@ -10,8 +10,9 @@ window.onload = function(){
 
     function rent(carMake, carModel, carYear, carPrice){
         var submitRental = document.createElement("form");
-        submitRental.action = "/reserve-car/";
+        submitRental.action = "/catalog/";
         submitRental.method = "POST";
+        document.body.appendChild(submitRental);
 
         var csrfInput = document.createElement("input");
         csrfInput.type = "hidden";
@@ -37,17 +38,24 @@ window.onload = function(){
         priceInput.type = "hidden";
         priceInput.name = "price";
         priceInput.value = carPrice;
+        
+        var urlInput = document.createElement("input");
+        urlInput.type = "hidden";
+        urlInput.name = "url";
+        //urlInput.value = carUrl;
 
         var rentButton = document.createElement("button");
         rentButton.type = "submit";
         rentButton.innerHTML = "Rent Vehicle";
         rentButton.id = "rent-button";
+        
 
         submitRental.appendChild(csrfInput);
         submitRental.appendChild(makeInput);
         submitRental.appendChild(modelInput);
         submitRental.appendChild(yearInput);
         submitRental.appendChild(priceInput);
+        submitRental.appendChild(urlInput);
         submitRental.appendChild(rentButton);;
 
         var content = document.getElementsByClassName("car-images");
@@ -58,6 +66,7 @@ window.onload = function(){
             var carModel = this.dataset.model;
             var carYear = this.dataset.year;
             var carPrice = this.dataset.price;
+            var carUrl = this.dataset.url;
             rent(carMake, carModel, carYear, carPrice);
 
             this.classList.toggle("active");
@@ -131,4 +140,3 @@ window.onload = function(){
     }
     
 }
-

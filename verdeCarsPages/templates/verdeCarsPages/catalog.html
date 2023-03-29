@@ -52,7 +52,7 @@
                 <div id="low-range-div">
                     <h1 class="verde-header" id="low-range-header">$50</h1>
                     <div class="car-details">
-                        <img class="car-images" src="{% static 'verdeCarsPages/media/HondaCivic.jpg' %}">
+                        <img class="car-images" src="{% static 'verdeCarsPages/media/HondaCivic.jpg' %}" id='one'>
                         <div class="car-info">
                             {% for car in cars %}
                                 {% if car.make == 'Honda' and car.model == 'Civic' and car.year == '2009' %}
@@ -70,7 +70,7 @@
                         </div>
                     </div>
                     <div class="car-details">
-                        <img class="car-images" src="{% static 'verdeCarsPages/media/carolla.jpg' %}">
+                        <img class="car-images" src="{% static 'verdeCarsPages/media/carolla.jpg' %}" id='two'>
                         <div class="car-info">
                             {% for car in cars %}
                                 {% if car.make == 'Toyota' and car.model == 'Carolla' and car.year == '2009' %}
