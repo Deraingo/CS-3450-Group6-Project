@@ -1,5 +1,10 @@
 # README
 
+## Potential Issue When Running
+When running the server there has been some randomness in how it runs.   
+If there is an issue with running a page where it says it does not exist but you are sure it does go to urls.py in the application directory and remove the trailing `/` that should resolve any issues.  
+We are currently trying to find a permanent fix to this 
+
 ## Testing 
 There has been a carFill.py script made to do database management and testing so that we can test different kinds of cars and conditions on the database
 
