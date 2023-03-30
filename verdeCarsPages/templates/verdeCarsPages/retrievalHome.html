@@ -47,7 +47,14 @@
         <div class="retrieval-paragraph">
             <form method="POST">
                 {% csrf_token %}
-                <p>Add Hours!<p>
+
+                <p>Log Hours!<p>
+                <p>Username</p>
+                {{ clockHours.usernm }}
+                <p>Password</p>
+                {{ clockHours.passwd }}
+                <p>Hours</p>
+
                 {{ clockHours.hours }}
                 <button type="submit" class="retrieval-button">Submit</button>
             </form>

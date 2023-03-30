@@ -23,10 +23,11 @@ class Car(models.Model):
     model = models.CharField(max_length=50, default="")
     year = models.CharField(max_length=4, default="0000")
     cost = models.FloatField()
-    rentalStart = models.DateTimeField(default=None, null=True, blank=True)
-    rentalEnd = models.DateTimeField(default=None, null=True, blank=True)
-    checkoutCode = models.IntegerField(default=None, null=True, blank=True)
+    rentalStart = models.DateTimeField()
+    rentalEnd = models.DateTimeField()
+    checkoutCode = models.IntegerField()
     stranded = models.BooleanField(default=False)
+    strandedAddress = models.CharField(max_length=50, default="")
     imageURL = models.CharField(max_length=1000, default="")
 
     def __str__(self):
