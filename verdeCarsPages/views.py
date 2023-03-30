@@ -5,9 +5,12 @@ from django.http import Http404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
+import random
 from datetime import datetime
 from .models import User, Car
-from .forms import UserForm, LoginForm, UpdateStranded, ClockHours
+
+from .forms import UserForm, LoginForm, UpdateStranded, ClockHours, RentCarForm
+
 
 
 def index(request):
@@ -47,10 +50,28 @@ def login(request):
     return render(request, 'verdeCarsPages/login.html', context=context)
 
 def reservecar(request):
+    if request.method == "POST":
+        context = {
+            'cost': request.POST.get('car_price', '8'),
+            'year': request.POST.get('car_year', '8'),
+            'model': request.POST.get('car_model', '8'),
+            'make': request.POST.get('car_make', '8'),
+            #'csrf': request.POST.get('csrfmiddlewaretoken', '8'),
+
+        }
+        return render(request, 'verdeCarsPages/reserve-car.html', context)
+
+    #car = get_object_or_404(Car, pk=car_id)
     return render(request, 'verdeCarsPages/reserve-car.html')
 
 def checkoutConfirmation(request):
+    if request.method == "POST":
+        context= {
+            'code': random.randint(1111,9999)
+        }    
+        return render(request, 'verdeCarsPages/checkout-confirmation.html', context)
     return render(request, 'verdeCarsPages/checkout-confirmation.html')
+
 
 def strandedCar(request, car_id):
     car = get_object_or_404(Car, pk=car_id)
@@ -75,6 +96,7 @@ def retrievalHome(request):
     clockHours = ClockHours
     context = {'clockHours': clockHours}
 
+
     if request.method == "POST":
         hoursForm = ClockHours(request.POST or None)
         
@@ -86,7 +108,21 @@ def retrievalHome(request):
                 if savedUser.usernm == userName and savedUser.passwd == passWord:
                     savedUser.hoursWorked = hoursLogged
 
+
     return render(request, 'verdeCarsPages/retrievalHome.html', context)
 
 def adminHome(request):
-    return render(request, 'verdeCarsPages/adminHome.html')
+    context = {
+        'customer_set': User.objects.filter(userType='Customer'),
+        'admin_set': User.objects.filter(userType='Customer'),
+        'cust_service_set': User.objects.filter(userType='Customer Service'),
+        'retrieval_set': User.objects.filter(userType='Customer'),
+    }
+    if request.method == "POST":
+        identity = request.POST['identity']
+        u = User.objects.get(id=identity)
+        u.money=u.money+(u.hoursWorked*10)
+        u.hoursWorked=0
+        u.save()
+    return render(request, 'verdeCarsPages/adminHome.html', context)
+
