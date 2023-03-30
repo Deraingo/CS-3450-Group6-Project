@@ -51,7 +51,6 @@ def login(request):
 
 
 def reservecar(request):
-    car = get_object_or_404(Car, pk=car_id)
     return render(request, 'verdeCarsPages/reserve-car.html')
 
 def checkoutConfirmation(request):

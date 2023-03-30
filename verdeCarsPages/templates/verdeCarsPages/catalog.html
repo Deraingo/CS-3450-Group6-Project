@@ -25,9 +25,6 @@
         <div class="header-buttons">
             <a class="header-link" href="/index">Home</a>
             <a class="header-link current-page" href="/index">Catalog</a>
-            <a class="header-link" href="/index">PlaceHolder</a>
-            <a class="header-link" href="/index">PlaceHolder</a>
-            <a class="header-link" href="/index">PlaceHolder</a>
         </div>
         <div class="user-interface">
             <div class="login-button anchor-option">            
@@ -166,7 +163,7 @@
                         <img class="car-images" src="{% static 'verdeCarsPages/media/mustang.jpg' %}">
                         <div class="car-info">
                             {% for car in cars %}
-                                {% if car.make == 'Fordd' and car.model == 'Mustang' and car.year == '2022' %}
+                                {% if car.make == 'Ford' and car.model == 'Mustang' and car.year == '2022' %}
                                     <div id="car-name">
                                         <b>Car Make And Name: </b> {{car.make}}, {{car.model}}
                                     </div>
