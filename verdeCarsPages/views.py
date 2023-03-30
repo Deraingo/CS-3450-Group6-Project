@@ -75,10 +75,18 @@ def retrievalHome(request):
     clockHours = ClockHours
     context = {'clockHours': clockHours}
 
-    # if request.method == "POST":
+    if request.method == "POST":
+        hoursForm = ClockHours(request.POST or None)
+        
+        if hoursForm.is_valid():
+            userName = hoursForm.cleaned_data.get('usernm')
+            passWord = hoursForm.cleaned_data.get('passwd')
+            hoursLogged = hoursForm.cleaned_data.get('hours')
+            for savedUser in User.objects.all():
+                if savedUser.usernm == userName and savedUser.passwd == passWord:
+                    savedUser.hoursWorked = hoursLogged
 
     return render(request, 'verdeCarsPages/retrievalHome.html', context)
 
 def adminHome(request):
     return render(request, 'verdeCarsPages/adminHome.html')
-
