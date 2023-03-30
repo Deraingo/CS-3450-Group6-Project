@@ -10,6 +10,7 @@
     <meta name="revisit-after" content="5 days" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="text/css" href="{% static 'verdeCarsPages/mainStyle.css' %}" rel="stylesheet" />
+    <link type="text/css" href="{% static 'verdeCarsPages/retrievalList.css' %}" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <title>Home</title>
@@ -17,23 +18,26 @@
 <body>
     <nav class="header-container">
         <div class="header-buttons">
-            <a class="header-link" href="/index">Log Hours</a>
-            <a class="header-link" href="/index">Car Pickup</a>
-            <a class="header-link" href="/index">Checkout Replacement</a>
+            <a class="header-link" href="/retrievalHome">Log Hours</a>
+            <a class="header-link" href="/retrievalList">List</a>
+            <a class="header-link" href="/catalog">Catalog</a>
         </div>
         <div class="user-interface">
             <div class="login-button anchor-option">            
-                <a class="drop-btn login-menu-btn" href="">Logout</a>
+                <a class="drop-btn login-menu-btn" href="/login">Logout</a>
             </div>
         </div>
     </nav>
 
-    {% for item in all %}
-    <br>
-        Make: {{ item.make }}<br/>
-        Model: {{ item.model }}<br/>
-        <hr>
-    {% endfor %}
+    {% if strandedCars %}
+        {% for item in strandedCars %}
+            <div class="retrieval-list">
+                <a href="{% url 'verdeCarsPages:strandedCar' item.id %}">{{ item.make }} {{ item.model }}</a><br/>
+                {{ item.strandedAddress }}<br/>
+                <br/>
+            </div>
+        {% endfor %}
+    {% endif %}
 
     <div class="footer">
     </div>

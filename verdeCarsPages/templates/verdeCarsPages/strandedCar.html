@@ -17,41 +17,40 @@
 <body>
     <nav class="header-container">
         <div class="header-buttons">
-            <a class="header-link" href="/index">Log Hours</a>
-            <a class="header-link" href="/index">Car Pickup</a>
-            <a class="header-link" href="/index">Checkout Replacement</a>
         </div>
         <div class="user-interface">
             <div class="login-button anchor-option">            
-                <a class="drop-btn login-menu-btn" href="">Logout</a>
+                <a class="drop-btn login-menu-btn" href="/login">Logout</a>
             </div>
         </div>
     </nav>
     <div class="retrieval-grid-container">
         <div class="retrieval-left">
             <div class="green-box">
-                <button class="retrieval-button">&lt; Back to List</button>
+                <a href="{% url 'verdeCarsPages:retrievalList' %}">&lt; Back to List</a>
             </div>
-            <img src="https://images.unsplash.com/photo-1587978559983-eab3e6e0a5b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fGdyZWVuJTIwY2FyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=600&q=60" alt="Green Car" class="retrieval-img">
-            <div class="green-box-photo-caption">
-                <p><bold>Make: </bold>Somethin<bold><span class="tab"></span> Model: </bold>Somethin</p>
+            <img src="{{ car.imageURL }}" alt="Green Car" class="retrieval-img">
+            <div class="green-box-photo-caption-dark">
+                <p><bold>Make: </bold>{{ car.make }}<bold><span class="tab"></span> Model: </bold>{{ car.model }}</p>
             </div>
         </div>
         
         <div class="retrieval-right">
-            <p class="retrieval-paragraph">
-                <button class="retrieval-button">Notify</button> customer that help is on the way
-            </p>
-            <div class="green-box">
+            <!-- <p class="retrieval-paragraph">
+                <button class="retrieval-button" method="POST" id="notifyUser">Notify</button> customer that help is on the way
+            </p> -->
+            <div class="green-box-dark">
                 <p>Customer Information</p>
             </div>
+            {% for user in userData %}
             <div class="retrieval-paragraph">
-                <p><bold>Name: </bold>John Doe</p>
-                <p><bold>Email: </bold>john.doe@gmail.com</p>
-                <p><bold>Checkout code: </bold>4375</p>
-                <p><bold>Address: </bold>123 E 456 N City, State 12345</p>
+                <p><bold>Name: </bold>{{ user.fname }} {{ user.lname }}</p>
+                <p><bold>Phone Number: </bold>{{ user.phoneNumber }}</p>
+                <p><bold>Checkout code: </bold>{{ user.checkoutCode }}</p>
+                <p><bold>Address: </bold>{{ car.strandedAddress }}</p>
             </div>
-            <div class="green-box">
+            {% endfor %}
+            <div class="green-box-dark">
                 <p>Retrieval</p>
             </div>
             <div class="retrieval-paragraph">
@@ -59,14 +58,15 @@
                     By selecting the button below, I verify that the car has been 
                     retrieved and returned to the rental store.
                 </p>
-                <button class="retrieval-button">Retrieved</button>
+                <form method="POST" id="updateRetrieved">
+                    {% csrf_token %}
+                    {{ updateStranded.update_stranded.as_hidden }}
+                    <button type="submit" class="retrieval-button">Retrieved</button>
+                </form>
             </div>
         </div>
     </div>
-
-
     <div class="footer">
     </div>
-
 </body>
 </html>
