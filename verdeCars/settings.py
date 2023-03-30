@@ -28,6 +28,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 DEBUG = True
 
+# APPEND_SLASH = False
+
 ALLOWED_HOSTS = []
 
 MEDIA_URL = '/media/'
@@ -37,13 +39,14 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static/verdeCarsPages/media')
 # Application definition
 
 INSTALLED_APPS = [
+    'verdeCarsPages',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'verdeCarsPages',
+    
 ]
 
 MIDDLEWARE = [
@@ -56,7 +59,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'verdeCars.urls'
+ROOT_URLCONF = 'verdeCarsPages.urls'
 
 TEMPLATES = [
     {

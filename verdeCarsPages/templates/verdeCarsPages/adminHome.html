@@ -16,6 +16,21 @@
     <link rel="stylesheet" href="mainStyle.css">
 </head>
 <body>
+<style>
+.person {
+  background-color: aqua;
+    text-align: center;
+}
+    ul li:nth-child(odd) {
+	background-color: lightgray;
+}
+
+</style>
+<div class="header">
+<nav class="header-container">
+        <div class="header-buttons">
+            <a class="header-link" href="/adminHome">Home</a>
+            <a class="header-link" href="/catalog">Catalog</a>
 <div class="header">
 <nav class="header-container">
         <div class="header-buttons">
@@ -33,7 +48,6 @@
     </nav>
 </div>
 
-
     
 <h2>Employees</h2>
 {% for user in retrieval_set %}
@@ -45,6 +59,16 @@
                  <fieldset>
                     <input type="hidden" name="identity" id="identity" value="{{user.id}}">
                 </fieldset>
+                <input type="submit" value="Pay">
+        </form>
+   </div>
+    <br/>
+    
+ {% endfor %}
+{% for user in cust_service_set %}
+      <div style="background-color: #C9E3AC">
+        <p>{{user.lname}}, {{user.fname}}, {{user.userType}}<div style=text-align:  > Hours worked since last payed: {{user.hoursWorked}}  &emsp; Money: {{user.money}}</div>
+        <br/>
                 <input type="submit" value="Post">
             </form>
         </div>
@@ -61,13 +85,18 @@
                  <fieldset>
                     <input type="hidden" name="identity" id="identity" value="{{user.id}}">
                 </fieldset>
+                <input type="submit" value="Pay">
+        </form>
+   </div>
+    <br/>
+    {% endfor %}
+
                 <input type="submit" value="Post">
             </form>
         </div>
         <br/>
 
  {% endfor %}
-    
 
  
 </body>

@@ -39,7 +39,9 @@ def login(request):
                     if user_data == savedUser.usernm and pass_data == savedUser.passwd:
                         savedUserType = savedUser.userType
                         # FOR ALL: SEND THE USER TO THE HOMEPAGE OF THEIR RESPECTIVE USER TYPE
-                        return render(request, 'verdeCarsPages/index.html', context=context) # delete this and replace it with the homepage for their user type :)
+            return render(request, 'verdeCarsPages/index.html', context=context) # delete this and replace it with the homepage for their user type :)
+            # else:
+            #     return render(request, 'verdeCarsPages/login.html', context=context)
         
         if 'create_user' in request.POST:
 
@@ -47,23 +49,36 @@ def login(request):
             if new_user_form.is_valid():
                 new_user_form.save()
 
+
     return render(request, 'verdeCarsPages/login.html', context=context)
 
 def reservecar(request):
+    print(request)
     if request.method == "POST":
-        context = {
-            'cost': request.POST.get('car_price', '8'),
-            'year': request.POST.get('car_year', '8'),
-            'model': request.POST.get('car_model', '8'),
-            'make': request.POST.get('car_make', '8'),
-            #'csrf': request.POST.get('csrfmiddlewaretoken', '8'),
+        make = request.POST.get("make")
+        model = request.POST.get("model")
+        year = request.POST.get("year")
+        cost = request.POST.get("price")
+        print(cost)
+        # Do something with the car info here
+        return render(request, "verdeCarsPages/reserve-car.html", {"car": {"make": make, "model": model, "year": year, "cost": cost}})
+    else:
+        return render(request, "verdeCarsPages/reserve-car.html")
 
-        }
-        return render(request, 'verdeCarsPages/reserve-car.html', context)
 
-    #car = get_object_or_404(Car, pk=car_id)
-    return render(request, 'verdeCarsPages/reserve-car.html')
-
+def reservecar(request):
+    print(request)
+    if request.method == "POST":
+        make = request.POST.get("make")
+        model = request.POST.get("model")
+        year = request.POST.get("year")
+        cost = request.POST.get("price")
+        print(cost)
+        # Do something with the car info here
+        return render(request, "verdeCarsPages/reserve-car.html", {"car": {"make": make, "model": model, "year": year, "cost": cost}})
+    else:
+        return render(request, "verdeCarsPages/reserve-car.html")
+    
 def checkoutConfirmation(request):
     if request.method == "POST":
         context= {
@@ -86,7 +101,8 @@ def strandedCar(request, car_id):
     return render(request, 'verdeCarsPages/strandedCar.html', context)
 
 def catalog(request):
-    return render(request, 'verdeCarsPages/catalog.html')
+    cars = Car.objects.all()
+    return render(request, 'verdeCarsPages/catalog.html', {'cars': cars})
 
 def retrievalList(request):
     strandedCars = Car.objects.filter(stranded=True)

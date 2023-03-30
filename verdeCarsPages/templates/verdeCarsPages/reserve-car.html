@@ -25,7 +25,6 @@
                 <a class="header-link" href="/index">PlaceHolder</a>
                 <a class="header-link" href="/index">PlaceHolder</a>
                 <a class="header-link" href="/index">PlaceHolder</a>
-
             </div>
             <div class="user-interface">
                 <div class="login-button anchor-option">
@@ -59,10 +58,9 @@
 </style>
 
 
-<img src= '{{url}}' />
-         
 
-<p>Make:{{make}} &nbsp; Model:{{model}} &nbsp; Year:{{year}} &nbsp; Price:{{cost}}</p></div>
+<img src= {{car.imageURL}}>
+<p>Model: {{car.model}} Year: {{car.year}} Price: {{car.cost}}</p></div>
 <div class="column2">
 <p>Please read and agree to our terms and conditions:</p>
     <ul>
