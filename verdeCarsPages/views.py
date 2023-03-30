@@ -5,6 +5,7 @@ from django.http import Http404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
+import random
 from datetime import datetime
 from .models import User, Car
 from .forms import UserForm, LoginForm, RentCarForm #UpdateStranded, ClockHours
@@ -62,7 +63,13 @@ def reservecar(request):
     return render(request, 'verdeCarsPages/reserve-car.html')
 
 def checkoutConfirmation(request):
+    if request.method == "POST":
+        context= {
+            'code': random.randint(1111,9999)
+        }    
+        return render(request, 'verdeCarsPages/checkout-confirmation.html', context)
     return render(request, 'verdeCarsPages/checkout-confirmation.html')
+
 
 def strandedCar(request, car_id):
     car = get_object_or_404(Car, pk=car_id)
