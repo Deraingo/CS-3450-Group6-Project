@@ -24,23 +24,29 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: don't run with debug turned on in production!
 #test
+# SECRET_KEY
 
 DEBUG = True
 
+# APPEND_SLASH = False
+
 ALLOWED_HOSTS = []
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/verdeCarsPages/media')
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'verdeCarsPages',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'verdeCarsPages',
+    
 ]
 
 MIDDLEWARE = [
@@ -53,7 +59,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'verdeCars.urls'
+ROOT_URLCONF = 'verdeCarsPages.urls'
 
 TEMPLATES = [
     {
@@ -103,7 +109,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+APPEND_SLASH = False
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 

@@ -1,0 +1,131 @@
+3.1.23 -----------------------------------
+
+Daniel
+1. started adding js to catalogue page
+2. have catalogue page all the way done
+3. other homework
+
+Blaine
+1. fell into a rabbit hole about an idea of having a search bar on customer service page with frequently asked question; got absolutely nothing done
+2. ^^ should be implemented by friday, might take longer
+3. other homework
+
+Ann Marie
+1. nothing :( sorry
+2. get authentication working; start work on other retrieval specialist page :)
+3. other homework
+
+
+3.7.23 --------------------------------------
+
+Ann Marie
+1. I finally got the login working! wooooo hooo! I've also worked a little bit on the retrievalList page (which displays to the retrieval specialist the cars that have broken down) and gotten it to load things from the database.
+I also updated the database kind of a lot. I realized that the car database model didn't store the car's make or model, or address, or year, so I added all that in
+I also defined str for both database models so that they'll appear more readably on the admin page
+And I updated the user class to have a phone number field
+2. What I want to do before next scrum: link retrievalList and retrievalPage so that clicking on a car will take you to a new page with that car's info on it, and adding buttons to update the database when a car has been retrieved
+3. other homework, going home for the break (woo hoo 🙂)
+
+(whoops it looks like I never got this written down vvv)
+Daniel
+
+Sarah
+
+Blaine
+
+
+3.15.2023 ---------------------------
+
+Ann Marie
+1. Nothing, my bad
+2. Get button working to update database and say car is no longer stranded
+3. Got a job and been busy busy getting that set up
+
+Daniel
+1. Got working on a button to search dynamically, form tag around each button as you click on the car image, found a good video though
+2. have that ^^ implemented; catalog page will tell if a car is rented or not when you click on a car
+3. work work, being sick
+
+Sarah
+1. put dynamic info. in checkout page, got kinda stuck with that; started working on database stuff
+2. get all the users to show up ^^
+3. motivation
+
+Blaine
+no show
+
+
+3.20.23 -----------------------------
+to discuss: plan for assigning all cars to admin from the outset?
+Notes: we just want something that works
+
+
+Daniel:
+1. got JS done to make form when button pushed in catalog page
+2. get this ^^ page done (make sure it checks if the vehicle has already rented, and if it has, disable pressing 'rent'); start helping with other pages around the website, prolly work on the homepage
+3. other homework
+
+Ann Marie:
+1. noticed problem of linking car and user together (resolved now, yay :)
+2. make database changes on separate branch and push to sprint, and then pull that, get customer info to populate on stranded car pages, displaying hours and pay for specialist; add hours worked in database changes
+3. geo field trip to canyonlands and price
+
+Sarah:
+1. tried to figure out the checking out / reserving car page; getting info in there, how to do that; working on admin page -> displays the users, once we have a way for employees to have hours in the database admin should be able to pay them from that page
+2. work on making a function to actually pay all the employees (for admin page); figure out the reservation page a bit more
+3. no trouble really, just not enough time
+
+
+3.22.23 -----------------------------------------
+
+Ann Marie
+1. Database changes, got strandedCar pulling user info
+2. finish retrieval pages, help with other stuff needed
+3. leaving town tomorrow, other than that no :)
+
+Daniel
+1. Started working on the catalog page, got car info to automatically load using django forms
+2. Get it so that if a car's not available, it just won't show up there ^^; have catalog page done, start working on homepage and whatever else we need to get done
+3. Doing the research to figure out how to dynamically load
+
+Sarah
+1. Started working on the function to let the admin pay people, got part of it working, broke it whoops; went through jira and tried to update tasks and such
+2. get the function ^^ working again, have full functionality on admin page and also on reservation/checkout page
+3. somehow screwed up branch, it's fixed now though :)
+
+Blaine (no-show)
+
+3.27.23 ---------------------------------------
+
+Ann Marie:
+1. Nothing :(
+2. finish up retrieval specialist pages
+3. was in vegas for t swift concert :) yee hee
+
+Daniel
+1. insert script, catalog dynamically filled, changed database schema a lil bit
+2. finish up catalog page
+3. physics exam, other homework
+
+Sarah
+1. got the function working so that the admin can pay the employees; get reservation page solidified in how it'll look so it's ready for dynamic stuff; admin page pretty much done
+2. get pages finished up before meeting tomorrow: reservation page more functional; think of other things needed on the admin page (page that shows how much revenue earned)
+3. homework, classes, fun stuff
+
+
+3.29.23 --------------------------------
+
+Daniel:
+1. debugging broken code :( made a form with JS
+2. get something working to submit for the sprint tonight, finish the form
+3. code was broken, trying to figure out what car_id is
+
+Sarah:
+1. made the admin page look nicer; trying to figure out how to get data from the catalog page to the vehicle reservation page and the form, etc.
+2. finish up that ^^
+3. been sick :(
+
+Ann Marie:
+1. got started on retrieval specialist adding hours, haven't figured that out totally yet
+2. finish up this ^^ (push it up first, then finish out the rest of it with sprint number 6, not this one)
+3. been sick :( kinda busy, working
