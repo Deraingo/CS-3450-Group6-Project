@@ -34,10 +34,17 @@ Our tool stack will consist of our:
 
 ## Build instructions
 
-* Generate Secret Key 
+* Add the Secret Key to settings.py
     * Required for modifying server
 * Run the following Database migrations:
     * 0001_inital.py
+    * 0002_alter_car_rentalend_alter_car_rentalstart.py
+    * 0003_car_strandedaddress.py
+    * 0004_alter_user_phonenumber.py
+    * 0004_car_renter.py
+    * 0005_alter_user_phonenumber.py
+    * 0006_user_checkoutcode_user_hoursworked.py
+    * 0007_merge_20230320_1933.py
 * `python manage.py runserver` to start the server
 
 

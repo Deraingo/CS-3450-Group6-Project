@@ -49,7 +49,7 @@ def main():
         'cost': 75.0,
         'stranded': False,
         'imageURL': '/media/skyline.jpg'},  
-
+        
         {'make': 'Ford',
         'model': 'Mustang',
         'year': '2022',

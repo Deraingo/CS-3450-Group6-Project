@@ -58,6 +58,7 @@
 </style>
 
 
+
 <img src= {{car.imageURL}}>
 <p>Model: {{car.model}} Year: {{car.year}} Price: {{car.cost}}</p></div>
 <div class="column2">
@@ -73,7 +74,7 @@ by insurance will be the responsibility of the customer</li>
 
 <input type="checkbox" id="agree" name="agree" value="" onclick="enableButton()">
 <label for="agree"> I agree to the terms and conditions</label><br>
-<form action="/reserve-car/" method="POST" >
+<form action="/checkout-confirmation/" method="POST" >
     {% csrf_token %}
     <fieldset>
         <label for="author">Date of Reservation:</label><br>
@@ -84,7 +85,7 @@ by insurance will be the responsibility of the customer</li>
         <input type="number" name="payment" id="payment">
     </fieldset>
     <fieldset>
-        <input type="number" name="payment" id="payment" value="4">
+        <input type="hidden" name="carcode" id="carcode" value="4">
     </fieldset>
     <fieldset>
         <label for="content">Billing address</label><br>
