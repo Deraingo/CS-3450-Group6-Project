@@ -50,9 +50,20 @@ def login(request):
     return render(request, 'verdeCarsPages/login.html', context=context)
 
 
-def reservecar(request):
-    return render(request, 'verdeCarsPages/reserve-car.html')
 
+def reservecar(request):
+    print(request)
+    if request.method == "POST":
+        make = request.POST.get("make")
+        model = request.POST.get("model")
+        year = request.POST.get("year")
+        cost = request.POST.get("price")
+        print(cost)
+        # Do something with the car info here
+        return render(request, "verdeCarsPages/reserve-car.html", {"car": {"make": make, "model": model, "year": year, "cost": cost}})
+    else:
+        return render(request, "verdeCarsPages/reserve-car.html")
+    
 def checkoutConfirmation(request):
     return render(request, 'verdeCarsPages/checkout-confirmation.html')
 

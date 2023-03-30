@@ -1,5 +1,8 @@
 # README
 
+## Testing 
+There has been a carFill.py script made to do database management and testing so that we can test different kinds of cars and conditions on the database
+
 ## An explanation of the organization and name scheme for the workspace 
 The VerdeCars web app will be stored in a Github repository titled CS-3450-Group6-Project.  
 

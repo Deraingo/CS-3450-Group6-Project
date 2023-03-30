@@ -59,7 +59,7 @@
 
 
 <img src= {{car.imageURL}}>
-<p>Model:{{car.model}} Year:{{car.year}} Price:{{car.cost}}</p></div>
+<p>Model: {{car.model}} Year: {{car.year}} Price: {{car.cost}}</p></div>
 <div class="column2">
 <p>Please read and agree to our terms and conditions:</p>
     <ul>
@@ -73,15 +73,18 @@ by insurance will be the responsibility of the customer</li>
 
 <input type="checkbox" id="agree" name="agree" value="" onclick="enableButton()">
 <label for="agree"> I agree to the terms and conditions</label><br>
-<form action="{% url 'verdeCarsPages:checkout-confirmation' car.id %}" method="post">
+<form action="/reserve-car/" method="POST" >
     {% csrf_token %}
     <fieldset>
-        <label for="author">Your name:</label><br>
-        <input type="text" name="author" id="author">
+        <label for="author">Date of Reservation:</label><br>
+        <input type="date" name="author" id="author">
     </fieldset>
     <fieldset>
         <label for="email">Payment Information:</label><br>
         <input type="number" name="payment" id="payment">
+    </fieldset>
+    <fieldset>
+        <input type="number" name="payment" id="payment" value="4">
     </fieldset>
     <fieldset>
         <label for="content">Billing address</label><br>
@@ -89,7 +92,8 @@ by insurance will be the responsibility of the customer</li>
     </fieldset>
         <input type="submit" value="Reserve">
 </form>
-<p><br/> Date of reservation:</p>
+
+<!--
 <input type="date" id="start" name="trip-start"
        value="2018-07-22"
        min="2018-01-01" max="2018-12-31">
@@ -97,12 +101,13 @@ by insurance will be the responsibility of the customer</li>
 <input type="number" id="money">
 <p>Billing address: <br/> </p> 
 <input type="text">
+
 <br/><br/><br/>
  <button class="retrieval-button" onclick = "confirmPayment()" type="button" id="reserve" disabled>Reserve</button> 
      <p id="error"></p>
      </div>
  </div> 
-    
+ -->   
 
 <script>
     function enableButton() {
