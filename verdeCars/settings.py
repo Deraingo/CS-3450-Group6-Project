@@ -23,7 +23,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: don't run with debug turned on in production!
 #test
-# SECRET_KEY
 
 DEBUG = True
 

@@ -39,7 +39,7 @@ def login(request):
                     if user_data == savedUser.usernm and pass_data == savedUser.passwd:
                         savedUserType = savedUser.userType
                         if savedUserType == "Customer":
-                            return render(request, 'verdeCarsPages/index.html', context=context)
+                            return render(request, 'verdeCarsPages/customerHome.html', context=context)
                         # elif savedUserType == "Customer Service":
                         #     return render(request, 'verdeCarsPages/')
                         elif savedUserType == "Retrieval Specialist":
@@ -136,3 +136,5 @@ def adminHome(request):
         u.save()
     return render(request, 'verdeCarsPages/adminHome.html', context)
 
+def customerHome(request):
+    return render(request, 'verdeCarsPages/customerHome.html')
