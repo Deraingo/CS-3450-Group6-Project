@@ -38,10 +38,17 @@ def login(request):
                 for savedUser in User.objects.all():
                     if user_data == savedUser.usernm and pass_data == savedUser.passwd:
                         savedUserType = savedUser.userType
-                        # FOR ALL: SEND THE USER TO THE HOMEPAGE OF THEIR RESPECTIVE USER TYPE
-            return render(request, 'verdeCarsPages/index.html', context=context) # delete this and replace it with the homepage for their user type :)
-            # else:
-            #     return render(request, 'verdeCarsPages/login.html', context=context)
+                        if savedUserType == "Customer":
+                            return render(request, 'verdeCarsPages/index.html', context=context)
+                        # elif savedUserType == "Customer Service":
+                        #     return render(request, 'verdeCarsPages/')
+                        elif savedUserType == "Retrieval Specialist":
+                            return render(request, 'verdeCarsPages/retrievalHome.html', context=context)
+                        elif savedUserType == "Admin":
+                            return render(request, 'verdeCarsPages/adminHome.html', context=context)
+                        else:
+                            # Prolly alert the user that they've got an invalid user type, but idk
+                            return render(request, 'verdeCarsPages/login.html', context=context)
         
         if 'create_user' in request.POST:
 
@@ -51,19 +58,6 @@ def login(request):
 
 
     return render(request, 'verdeCarsPages/login.html', context=context)
-
-def reservecar(request):
-    print(request)
-    if request.method == "POST":
-        make = request.POST.get("make")
-        model = request.POST.get("model")
-        year = request.POST.get("year")
-        cost = request.POST.get("price")
-        print(cost)
-        # Do something with the car info here
-        return render(request, "verdeCarsPages/reserve-car.html", {"car": {"make": make, "model": model, "year": year, "cost": cost}})
-    else:
-        return render(request, "verdeCarsPages/reserve-car.html")
 
 
 def reservecar(request):

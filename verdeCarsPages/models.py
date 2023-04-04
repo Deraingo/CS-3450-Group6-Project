@@ -7,7 +7,7 @@ class User(models.Model):
     phoneNumber = models.CharField(max_length=12, default="000-000-0000")
     usernm = models.CharField(max_length=50)
     passwd = models.CharField(max_length=50)
-    userType = models.CharField(max_length=50, default="Customer")
+    userType = models.CharField(max_length=50, default="Customer") # Official user types are "Customer", "Customer Service", "Retrieval Specialist", or "Admin"
     money = models.FloatField(default=0.0)
     hoursWorked = models.IntegerField(default=0)
     checkoutCode = models.IntegerField(default=0000)

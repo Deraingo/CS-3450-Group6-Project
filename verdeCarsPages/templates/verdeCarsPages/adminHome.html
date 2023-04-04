@@ -67,7 +67,7 @@
  {% endfor %}
 {% for user in cust_service_set %}
       <div style="background-color: #C9E3AC">
-        <p>{{user.lname}}, {{user.fname}}, {{user.userType}}<div style=text-align:  > Hours worked since last payed: {{user.hoursWorked}}  &emsp; Money: {{user.money}}</div>
+        <p>{{user.lname}}, {{user.fname}}, {{user.userType}}<div style=text-align: > Hours worked since last payed: {{user.hoursWorked}}  &emsp; Money: {{user.money}}</div>
         <br/>
                 <input type="submit" value="Post">
             </form>
@@ -79,7 +79,7 @@
 {% for user in cust_service_set %}
     <div style='background-color: #C9E3AC'>
         <p>{{user.lname}}, {{user.fname}}</p>
-        <p>Hours worked: {{user.hoursWorked}} &ensp; Money: {{user.money}</p>
+        <p>Hours worked: {{user.hoursWorked}} &ensp; Money: {{user.money}}</p>
             <form action="{% url 'verdeCarsPages:adminHome' %}" method="post">
                 {% csrf_token %}
                  <fieldset>
@@ -95,9 +95,6 @@
             </form>
         </div>
         <br/>
-
- {% endfor %}
-
  
 </body>
 </html>
