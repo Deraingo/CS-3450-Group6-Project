@@ -16,4 +16,5 @@ urlpatterns = [
     path('retrievalList/', views.retrievalList, name='retrievalList'),
     path('retrievalHome/', views.retrievalHome, name='retrievalHome'),
     path('adminHome/', views.adminHome, name='adminHome'),
+    path('requestRetrieval/', views.requestRetrieval, name="requestRetrieval"),
 ]

@@ -90,3 +90,6 @@ def retrievalHome(request):
 
 def adminHome(request):
     return render(request, 'verdeCarsPages/adminHome.html')
+
+def requestRetrieval(request):
+    return render(request, 'verdeCarsPages/requestRetrieval.html')

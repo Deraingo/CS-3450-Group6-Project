@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="Verde Cars" />
+    <meta name="author" content="Group 6 CS3450 USU- 2023" />
+    <meta name="language" content="en" />
+    <meta name="robots" content="follow, all" />
+    <meta name="revisit-after" content="5 days" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <link type="text/css" href="{% static 'verdeCarsPages/mainStyle.css' %}" rel="stylesheet" />
+    <link type="text/css" href="{% static 'verdeCarsPages/index.css' %}" rel="stylesheet" />
+
+    <link type="text/css" href="{% static 'verdeCarsPages/catalog.css' %}" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    
+    <title>Home</title>
+</head>
+<body>
+    <nav class="header-container">
+        <div class="header-buttons">
+            <a class="header-link current-page" href="/index">Home</a>
+            <a class="header-link" href="/catalog">Catalog</a>
+            <a class="header-link" href="/index">Request Retrieval</a>
+        </div>
+        <div class="user-interface">
+            <div class="login-button anchor-option">            
+                <a class="drop-btn login-menu-btn" href="/login">Login</a>
+            </div>
+        </div>
+    </nav>
+    <div class="main-body">
+        <h1 class="verde-header">Rental car broke down? ...</h1>
+        <p>Don't fret! We have our very own Car Retrieval Services&#8482; to pick up your broken-down car and bring you a new one! Just fill out the form below, and our Retrieval Specialist will come to your location and get things taken care of:<p>
+        
+    </div>
+
+    <div class="footer">
+    </div>
+
+</body>
+</html>
