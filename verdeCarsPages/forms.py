@@ -29,6 +29,8 @@ class UpdateStranded(forms.Form):
     update_stranded = forms.BooleanField(initial=True)
 
 class ClockHours(forms.ModelForm):
-    usernm = forms.CharField()
-    passwd = forms.CharField()
-    hours = forms.IntegerField()
+    # clock_hours = forms.BooleanField(initial=True)
+    class Meta:
+        model = User
+        fields = ['usernm', 'passwd', 'hoursWorked']
+        exclude = ['fname', 'lname', 'phoneNumber', 'userType', 'money', 'checkoutCode']

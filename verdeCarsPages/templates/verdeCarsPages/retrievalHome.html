@@ -44,20 +44,39 @@
         
         <h1 class="verde-header">Retrieval Specialist Home</h1>
         
+        {% for item in all %}
+            {% if item.userType == 'Retrieval Specialist' %}
+                <b>{{ item.fname }} {{ item.lname }} ({{ item.userType }})</b><br/>
+                user: {{ item.usernm }}<br/>
+                pass: {{ item.passwd }}<br/><br/>
+                hours: {{ item.hoursWorked }}
+                <hr>
+            {% endif %}
+        {% endfor %}
+
+        {% block content %}
         <div class="retrieval-paragraph">
-            <form method="POST">
+            <form class="login-form" method="POST">
                 {% csrf_token %}
                 <p>Log Hours!<p>
-                <p>Username</p>
-                {{ clockHours.usernm }}
-                <p>Password</p>
-                {{ clockHours.passwd }}
-                <p>Hours</p>
-                {{ clockHours.hours }}
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" class="form-control" name="usernm">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" name="passwd">
+                </div>
+                <div class="form-group">
+                    <label>Hours</label>
+                    <input type="number" class="form-control" name="hoursWorked">
+                </div>
                 <button type="submit" class="retrieval-button">Submit</button>
             </form>
         </div>
+        {% endblock content %}
 
+    </br>
     </div>
 
     <!-- You'll need to make a form for them to log hours, it'll update the user data in the database :) -->
