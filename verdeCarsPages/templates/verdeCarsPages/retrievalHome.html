@@ -44,36 +44,41 @@
         
         <h1 class="verde-header">Retrieval Specialist Home</h1>
         
-        {% for item in all %}
-            {% if item.userType == 'Retrieval Specialist' %}
-                <b>{{ item.fname }} {{ item.lname }} ({{ item.userType }})</b><br/>
-                user: {{ item.usernm }}<br/>
-                pass: {{ item.passwd }}<br/><br/>
-                hours: {{ item.hoursWorked }}
-                <hr>
-            {% endif %}
-        {% endfor %}
-
         {% block content %}
-        <div class="retrieval-paragraph">
-            <form class="login-form" method="POST">
-                {% csrf_token %}
-                <p>Log Hours!<p>
-                <div class="form-group">
-                    <label>Username</label>
-                    <input type="text" class="form-control" name="usernm">
+
+        <div class="retrieval-grid-container">
+            <div class="retrieval-left">
+                <div class="retrieval-paragraph">
+                    <form class="login-form" method="POST">
+                        {% csrf_token %}
+                        <div class="green-box">
+                            <h2>Log Hours!</h2>
+                        </div>
+                        <div class="retrieval-paragraph">
+                            <div class="form-group">
+                                <label>Username</label>
+                                <input type="text" class="form-control" name="usernm">
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="password" class="form-control" name="passwd">
+                            </div>
+                            <div class="form-group">
+                                <label>Hours</label>
+                                <input type="number" class="form-control" name="hoursWorked">
+                            </div>
+                            </br>
+                            <button type="submit" class="retrieval-button">Submit</button>
+                        </div>
+                        
+                    </form>
                 </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" class="form-control" name="passwd">
-                </div>
-                <div class="form-group">
-                    <label>Hours</label>
-                    <input type="number" class="form-control" name="hoursWorked">
-                </div>
-                <button type="submit" class="retrieval-button">Submit</button>
-            </form>
+            </div>
+            <div class="retrieval-right">
+                <img src="{% static 'verdeCarsPages/images/retrieved-car.jpg' %}" alt="renaissance oil painting of a person picking up a green car" title="you rock, you retrieval specialist you" height="400px">
+            </div>
         </div>
+        
         {% endblock content %}
 
     </br>
