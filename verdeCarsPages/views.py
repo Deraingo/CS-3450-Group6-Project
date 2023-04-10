@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from datetime import datetime
 from .models import User, Car
-from .forms import UserForm, LoginForm, UpdateStranded, ClockHours
+from .forms import UserForm, LoginForm, UpdateStranded, ClockHours, RequestRetrieval
 
 
 def index(request):
@@ -54,14 +54,20 @@ def checkoutConfirmation(request):
 
 def strandedCar(request, car_id):
     car = get_object_or_404(Car, pk=car_id)
-    userData = User.objects.filter(checkoutCode=str(car.checkoutCode)).values()
+    user = User.objects.filter(checkoutCode=str(car.checkoutCode))
+    userData = user.values()
     updateStranded = UpdateStranded()
     context = {'car': car, 'userData': userData, 'updateStranded' : updateStranded}
 
     if request.method == "POST":
         if 'update_stranded' in request.POST:
             car.stranded = False
-            car.save(update_fields=['stranded'])
+            car.strandedAddress = ""
+            car.save()
+
+            # if car.insured == False:
+            #     user.money = 
+
     return render(request, 'verdeCarsPages/strandedCar.html', context)
 
 def catalog(request):
@@ -94,4 +100,19 @@ def adminHome(request):
     return render(request, 'verdeCarsPages/adminHome.html')
 
 def requestRetrieval(request):
-    return render(request, 'verdeCarsPages/requestRetrieval.html')
+    requestRetrieval = RequestRetrieval()
+    context = {'requestRetrieval': requestRetrieval}
+
+    if request.method == "POST":
+        retrievalForm = RequestRetrieval(request.POST or None)
+
+        if retrievalForm.is_valid():
+            checkoutCode = retrievalForm.cleaned_data.get('checkoutCode')
+            strandedAddress = retrievalForm.cleaned_data.get('strandedAddress')
+            for savedCar in Car.objects.all():
+                if savedCar.checkoutCode == checkoutCode:
+                    savedCar.stranded = True
+                    savedCar.strandedAddress = strandedAddress
+                    savedCar.save()
+
+    return render(request, 'verdeCarsPages/requestRetrieval.html', context)

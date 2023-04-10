@@ -1,5 +1,5 @@
 from django import forms
-from .models import User
+from .models import User, Car
 class UserForm(forms.ModelForm):
     create_user = forms.BooleanField(initial=True)
     class Meta:
@@ -34,3 +34,9 @@ class ClockHours(forms.ModelForm):
         model = User
         fields = ['usernm', 'passwd', 'hoursWorked']
         exclude = ['fname', 'lname', 'phoneNumber', 'userType', 'money', 'checkoutCode']
+
+class RequestRetrieval(forms.ModelForm):
+    class Meta:
+        model = Car
+        fields = ['stranded', 'strandedAddress', 'checkoutCode']
+        exclude = ['make', 'model', 'year', 'cost', 'rentalStart', 'rentalEnd', 'imageURL']
