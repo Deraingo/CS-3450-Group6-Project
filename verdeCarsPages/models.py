@@ -29,6 +29,7 @@ class Car(models.Model):
     stranded = models.BooleanField(default=False)
     strandedAddress = models.CharField(max_length=50, default="")
     imageURL = models.CharField(max_length=1000, default="")
+    insured = models.BooleanField(default=False)
 
     def __str__(self):
         return self.make + " " + self.model + ", " + str(self.year)
