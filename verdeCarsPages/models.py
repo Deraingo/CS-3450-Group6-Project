@@ -7,7 +7,7 @@ class User(models.Model):
     phoneNumber = models.CharField(max_length=12, default="000-000-0000")
     usernm = models.CharField(max_length=50)
     passwd = models.CharField(max_length=50)
-    userType = models.CharField(max_length=50, default="Customer")
+    userType = models.CharField(max_length=50, default="Customer") # Official user types are "Customer", "Customer Service", "Retrieval Specialist", or "Admin"
     money = models.FloatField(default=0.0)
     hoursWorked = models.IntegerField(default=0)
     checkoutCode = models.IntegerField(default=0000)
@@ -23,12 +23,13 @@ class Car(models.Model):
     model = models.CharField(max_length=50, default="")
     year = models.CharField(max_length=4, default="0000")
     cost = models.FloatField()
-    rentalStart = models.DateTimeField()
-    rentalEnd = models.DateTimeField()
-    checkoutCode = models.IntegerField()
+    rentalStart = models.DateTimeField(default=None, null=True, blank=True)
+    rentalEnd = models.DateTimeField(default=None, null=True, blank=True)
+    checkoutCode = models.IntegerField(default=None, null=True, blank=True)
     stranded = models.BooleanField(default=False)
     strandedAddress = models.CharField(max_length=50, default="")
     imageURL = models.CharField(max_length=1000, default="")
+    insured = models.BooleanField(default=False)
 
     def __str__(self):
         return self.make + " " + self.model + ", " + str(self.year)

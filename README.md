@@ -1,5 +1,13 @@
 # README
 
+## Potential Issue When Running
+When running the server there has been some randomness in how it runs.   
+If there is an issue with running a page where it says it does not exist but you are sure it does go to urls.py in the application directory and remove the trailing `/` that should resolve any issues.  
+We are currently trying to find a permanent fix to this 
+
+## Testing 
+There has been a carFill.py script made to do database management and testing so that we can test different kinds of cars and conditions on the database
+
 ## An explanation of the organization and name scheme for the workspace 
 The VerdeCars web app will be stored in a Github repository titled CS-3450-Group6-Project.  
 
@@ -26,10 +34,17 @@ Our tool stack will consist of our:
 
 ## Build instructions
 
-* Generate Secret Key 
+* Add the Secret Key to settings.py
     * Required for modifying server
 * Run the following Database migrations:
     * 0001_inital.py
+    * 0002_alter_car_rentalend_alter_car_rentalstart.py
+    * 0003_car_strandedaddress.py
+    * 0004_alter_user_phonenumber.py
+    * 0004_car_renter.py
+    * 0005_alter_user_phonenumber.py
+    * 0006_user_checkoutcode_user_hoursworked.py
+    * 0007_merge_20230320_1933.py
 * `python manage.py runserver` to start the server
 
 
@@ -44,3 +59,6 @@ System tests have not been developed yet
 
 ## Other development notes, as needed
 None yet
+
+
+endSprint5
