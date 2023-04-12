@@ -29,10 +29,12 @@ class LoginForm(forms.ModelForm):
 class UpdateStranded(forms.Form):
     update_stranded = forms.BooleanField(initial=True)
 
-class ClockHours(forms.Form):
-    usernm = forms.CharField()
-    passwd = forms.CharField()
-    hours = forms.IntegerField()
+class ClockHours(forms.ModelForm):
+    # clock_hours = forms.BooleanField(initial=True)
+    class Meta:
+        model = User
+        fields = ['usernm', 'passwd', 'hoursWorked']
+        exclude = ['fname', 'lname', 'phoneNumber', 'userType', 'money', 'checkoutCode']
     
 class RentCarForm(forms.ModelForm):
     #rental_day = forms.DateField()
@@ -51,5 +53,3 @@ class RentCarForm(forms.ModelForm):
             #   raise ValidationError(_('Not enough'))
             
         # return data
-
-
