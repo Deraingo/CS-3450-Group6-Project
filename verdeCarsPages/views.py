@@ -5,9 +5,10 @@ from django.http import Http404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
+import random
 from datetime import datetime
 from .models import User, Car
-from .forms import UserForm, LoginForm, UpdateStranded, ClockHours, RequestRetrieval
+from .forms import UserForm, LoginForm, UpdateStranded, ClockHours
 
 
 def index(request):
@@ -35,8 +36,17 @@ def login(request):
                 for savedUser in User.objects.all():
                     if user_data == savedUser.usernm and pass_data == savedUser.passwd:
                         savedUserType = savedUser.userType
-                        # FOR ALL: SEND THE USER TO THE HOMEPAGE OF THEIR RESPECTIVE USER TYPE
-                        return render(request, 'verdeCarsPages/index.html', context=context) # delete this and replace it with the homepage for their user type :)
+                        if savedUserType == "Customer":
+                            return render(request, 'verdeCarsPages/customerHome.html', context=context)
+                        # elif savedUserType == "Customer Service":
+                        #     return render(request, 'verdeCarsPages/')
+                        elif savedUserType == "Retrieval Specialist":
+                            return render(request, 'verdeCarsPages/retrievalHome.html', context=context)
+                        elif savedUserType == "Admin":
+                            return render(request, 'verdeCarsPages/adminHome.html', context=context)
+                        else:
+                            # Prolly alert the user that they've got an invalid user type, but idk
+                            return render(request, 'verdeCarsPages/login.html', context=context)
         
         if 'create_user' in request.POST:
 
@@ -44,13 +54,31 @@ def login(request):
             if new_user_form.is_valid():
                 new_user_form.save()
 
+
     return render(request, 'verdeCarsPages/login.html', context=context)
 
-def reservecar(request):
-    return render(request, 'verdeCarsPages/reserve-car.html')
 
+def reservecar(request):
+    print(request)
+    if request.method == "POST":
+        make = request.POST.get("make")
+        model = request.POST.get("model")
+        year = request.POST.get("year")
+        cost = request.POST.get("price")
+        print(cost)
+        # Do something with the car info here
+        return render(request, "verdeCarsPages/reserve-car.html", {"car": {"make": make, "model": model, "year": year, "cost": cost}})
+    else:
+        return render(request, "verdeCarsPages/reserve-car.html")
+    
 def checkoutConfirmation(request):
+    if request.method == "POST":
+        context= {
+            'code': random.randint(1111,9999)
+        }    
+        return render(request, 'verdeCarsPages/checkout-confirmation.html', context)
     return render(request, 'verdeCarsPages/checkout-confirmation.html')
+
 
 def strandedCar(request, car_id):
     car = get_object_or_404(Car, pk=car_id)
@@ -71,7 +99,8 @@ def strandedCar(request, car_id):
     return render(request, 'verdeCarsPages/strandedCar.html', context)
 
 def catalog(request):
-    return render(request, 'verdeCarsPages/catalog.html')
+    cars = Car.objects.all()
+    return render(request, 'verdeCarsPages/catalog.html', {'cars': cars})
 
 def retrievalList(request):
     strandedCars = Car.objects.filter(stranded=True)
@@ -81,6 +110,7 @@ def retrievalHome(request):
     clockHours = ClockHours()
     allUsers = User.objects.all()
     context = {'clockHours': clockHours, 'all': allUsers}
+
 
     if request.method == "POST":
         hoursForm = ClockHours(request.POST or None)
@@ -94,25 +124,11 @@ def retrievalHome(request):
                     savedUser.hoursWorked += hoursLogged
                     savedUser.save()
 
+
     return render(request, 'verdeCarsPages/retrievalHome.html', context)
 
 def adminHome(request):
     return render(request, 'verdeCarsPages/adminHome.html')
 
 def requestRetrieval(request):
-    requestRetrieval = RequestRetrieval()
-    context = {'requestRetrieval': requestRetrieval}
-
-    if request.method == "POST":
-        retrievalForm = RequestRetrieval(request.POST or None)
-
-        if retrievalForm.is_valid():
-            checkoutCode = retrievalForm.cleaned_data.get('checkoutCode')
-            strandedAddress = retrievalForm.cleaned_data.get('strandedAddress')
-            for savedCar in Car.objects.all():
-                if savedCar.checkoutCode == checkoutCode:
-                    savedCar.stranded = True
-                    savedCar.strandedAddress = strandedAddress
-                    savedCar.save()
-
-    return render(request, 'verdeCarsPages/requestRetrieval.html', context)
+    return render(request, 'verdeCarsPages/requestRetrieval.html')
