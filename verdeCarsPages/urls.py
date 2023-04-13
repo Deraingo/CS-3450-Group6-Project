@@ -19,3 +19,4 @@ urlpatterns = [
     path('adminHome/', views.adminHome, name='adminHome'),
     path('requestRetrieval/', views.requestRetrieval, name="requestRetrieval"),
     path('customerHome', views.customerHome, name='customerHome'),
+]

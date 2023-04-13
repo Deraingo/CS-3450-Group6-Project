@@ -38,17 +38,10 @@ def login(request):
                 for savedUser in User.objects.all():
                     if user_data == savedUser.usernm and pass_data == savedUser.passwd:
                         savedUserType = savedUser.userType
-                        if savedUserType == "Customer":
-                            return render(request, 'verdeCarsPages/customerHome.html', context=context)
-                        # elif savedUserType == "Customer Service":
-                        #     return render(request, 'verdeCarsPages/')
-                        elif savedUserType == "Retrieval Specialist":
-                            return render(request, 'verdeCarsPages/retrievalHome.html', context=context)
-                        elif savedUserType == "Admin":
-                            return render(request, 'verdeCarsPages/adminHome.html', context=context)
-                        else:
-                            # Prolly alert the user that they've got an invalid user type, but idk
-                            return render(request, 'verdeCarsPages/login.html', context=context)
+                        # FOR ALL: SEND THE USER TO THE HOMEPAGE OF THEIR RESPECTIVE USER TYPE
+            return render(request, 'verdeCarsPages/index.html', context=context) # delete this and replace it with the homepage for their user type :)
+            # else:
+            #     return render(request, 'verdeCarsPages/login.html', context=context)
         
         if 'create_user' in request.POST:
 
@@ -58,7 +51,6 @@ def login(request):
 
 
     return render(request, 'verdeCarsPages/login.html', context=context)
-
 
 def reservecar(request):
     print(request)
@@ -72,7 +64,8 @@ def reservecar(request):
         return render(request, "verdeCarsPages/reserve-car.html", {"car": {"make": make, "model": model, "year": year, "cost": cost}})
     else:
         return render(request, "verdeCarsPages/reserve-car.html")
-    
+
+ 
 def checkoutConfirmation(request):
     if request.method == "POST":
         context= {
@@ -103,9 +96,8 @@ def retrievalList(request):
     return render(request, 'verdeCarsPages/retrievalList.html', {'strandedCars': strandedCars})
 
 def retrievalHome(request):
-    clockHours = ClockHours()
-    allUsers = User.objects.all()
-    context = {'clockHours': clockHours, 'all': allUsers}
+    clockHours = ClockHours
+    context = {'clockHours': clockHours}
 
 
     if request.method == "POST":
@@ -114,19 +106,15 @@ def retrievalHome(request):
         if hoursForm.is_valid():
             userName = hoursForm.cleaned_data.get('usernm')
             passWord = hoursForm.cleaned_data.get('passwd')
-            hoursLogged = hoursForm.cleaned_data.get('hoursWorked')
+            hoursLogged = hoursForm.cleaned_data.get('hours')
             for savedUser in User.objects.all():
                 if savedUser.usernm == userName and savedUser.passwd == passWord:
-                    savedUser.hoursWorked += hoursLogged
-                    savedUser.save()
+                    savedUser.hoursWorked = hoursLogged
 
 
     return render(request, 'verdeCarsPages/retrievalHome.html', context)
 
 def adminHome(request):
-    return render(request, 'verdeCarsPages/adminHome.html')
-
-def requestRetrieval(request):
     context = {
         'customer_set': User.objects.filter(userType='Customer'),
         'admin_set': User.objects.filter(userType='Customer'),
@@ -143,3 +131,7 @@ def requestRetrieval(request):
 
 def customerHome(request):
     return render(request, 'verdeCarsPages/customerHome.html')
+
+
+def requestRetrieval(request):
+    return render(request, 'verdeCarsPages/requestRetrieval.html')
