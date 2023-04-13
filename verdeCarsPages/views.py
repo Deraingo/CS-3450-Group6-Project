@@ -65,20 +65,7 @@ def reservecar(request):
     else:
         return render(request, "verdeCarsPages/reserve-car.html")
 
-
-def reservecar(request):
-    print(request)
-    if request.method == "POST":
-        make = request.POST.get("make")
-        model = request.POST.get("model")
-        year = request.POST.get("year")
-        cost = request.POST.get("price")
-        print(cost)
-        # Do something with the car info here
-        return render(request, "verdeCarsPages/reserve-car.html", {"car": {"make": make, "model": model, "year": year, "cost": cost}})
-    else:
-        return render(request, "verdeCarsPages/reserve-car.html")
-    
+ 
 def checkoutConfirmation(request):
     if request.method == "POST":
         context= {
@@ -141,3 +128,6 @@ def adminHome(request):
         u.hoursWorked=0
         u.save()
     return render(request, 'verdeCarsPages/adminHome.html', context)
+
+def customerHome(request):
+    return render(request, 'verdeCarsPages/customerHome.html')
