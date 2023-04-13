@@ -9,7 +9,7 @@ import random
 from datetime import datetime
 from .models import User, Car
 
-from .forms import UserForm, LoginForm, UpdateStranded, ClockHours, RentCarForm
+from .forms import UserForm, LoginForm, UpdateStranded, ClockHours, RentCarForm, RequestRetrieval
 
 
 
@@ -38,10 +38,17 @@ def login(request):
                 for savedUser in User.objects.all():
                     if user_data == savedUser.usernm and pass_data == savedUser.passwd:
                         savedUserType = savedUser.userType
-                        # FOR ALL: SEND THE USER TO THE HOMEPAGE OF THEIR RESPECTIVE USER TYPE
-            return render(request, 'verdeCarsPages/index.html', context=context) # delete this and replace it with the homepage for their user type :)
-            # else:
-            #     return render(request, 'verdeCarsPages/login.html', context=context)
+                        if savedUserType == "Customer":
+                            return render(request, 'verdeCarsPages/customerHome.html')
+                        # else if savedUserType == "Customer Service":
+                        #     return render(request, 'verdeCarsPages/')
+                        elif savedUserType == "Retrieval Specialist":
+                            return render(request, 'verdeCarsPages/retrievalHome.html')
+                        elif savedUserType == "Admin":
+                            return render(request, 'verdeCarsPages/adminHome.html')
+                        else:
+                            return render(request, 'verdeCarsPages/index.html', context=context) # delete this and replace it with the homepage for their user type :)
+
         
         if 'create_user' in request.POST:
 
@@ -84,7 +91,8 @@ def strandedCar(request, car_id):
     if request.method == "POST":
         if 'update_stranded' in request.POST:
             car.stranded = False
-            car.save(update_fields=['stranded'])
+            car.strandedAddress = ""
+            car.save()
     return render(request, 'verdeCarsPages/strandedCar.html', context)
 
 def catalog(request):
@@ -110,6 +118,7 @@ def retrievalHome(request):
             for savedUser in User.objects.all():
                 if savedUser.usernm == userName and savedUser.passwd == passWord:
                     savedUser.hoursWorked = hoursLogged
+                    savedUser.save()
 
 
     return render(request, 'verdeCarsPages/retrievalHome.html', context)
@@ -131,3 +140,25 @@ def adminHome(request):
 
 def customerHome(request):
     return render(request, 'verdeCarsPages/customerHome.html')
+
+
+def requestRetrieval(request):
+
+    if request.method == "POST":
+            requestRetrieval = RequestRetrieval(request.POST or None)
+            if requestRetrieval.is_valid():
+                checkoutCode = requestRetrieval.cleaned_data.get('checkoutCode')
+                strandedAddress = requestRetrieval.cleaned_data.get('strandedAddress')
+
+                for car in Car.objects.all():
+                    if checkoutCode == car.checkoutCode:
+                        car.stranded = True
+                        car.strandedAddress = strandedAddress
+                        car.save()
+
+                for savedUser in User.objects.all():
+                    if checkoutCode == savedUser.checkoutCode:
+                        savedUser.money -= 300
+                        savedUser.save()
+
+    return render(request, 'verdeCarsPages/requestRetrieval.html')

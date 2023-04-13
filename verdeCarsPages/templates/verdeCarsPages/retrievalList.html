@@ -32,7 +32,7 @@
     {% if strandedCars %}
         {% for item in strandedCars %}
             <div class="retrieval-list">
-                <a href="{% url 'verdeCarsPages:strandedCar' item.id %}">{{ item.make }} {{ item.model }}</a><br/>
+                <a href="{% url 'strandedCar' item.id %}">{{ item.make }} {{ item.model }}</a><br/>
                 {{ item.strandedAddress }}<br/>
                 <br/>
             </div>
