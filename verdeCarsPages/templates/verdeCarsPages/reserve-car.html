@@ -59,8 +59,35 @@
 
 
 
-<img src= {{car.imageURL}}>
-<p>Model: {{car.model}} Year: {{car.year}} Price: {{car.cost}}</p></div>
+{% if car.make == 'Honda' and car.model == 'Civic' and car.year == '2009'%}
+    <img src= "{% static 'verdeCarsPages/media/HondaCivic.jpg' %}" alt="Car Image">
+{% elif car.make == 'Toyota' and car.model == 'Carolla' and car.year == '2009'%}
+    <img src= "{% static 'verdeCarsPages/media/carolla.jpg' %}" alt="Car Image">
+{% elif car.make == 'Toyota' and car.model == 'Camry' and car.year == '2008'%}
+    <img src= "{% static 'verdeCarsPages/media/camry.jpg' %}" alt="Car Image">
+{% elif car.make == 'Toyota' and car.model == 'Supra' and car.year == '2009' %}
+    <img src= "{% static 'verdeCarsPages/media/supra.jpg' %}" alt="Car Image">
+{% elif car.make == 'Honda' and car.model == 'Civic' and car.year == '2022' %}
+    <img src= "{% static 'verdeCarsPages/media/civic2022.jpg' %}" alt="Car Image">
+{% elif car.make == 'Nissan' and car.model == 'Skyline' and car.year == '2012' %}
+    <img src= "{% static 'verdeCarsPages/media/skyline.jpg' %}" alt="Car Image">
+{% elif car.make == 'Ford' and car.model == 'Mustang' and car.year == '2022' %}
+    <img src= "{% static 'verdeCarsPages/media/mustang.jpg' %}" alt="Car Image">
+{% elif car.make == 'Audi' and car.model == 'RS5' and car.year == '2022' %}
+    <img src= "{% static 'verdeCarsPages/media/audiRs5.jpg' %}" alt="Car Image">
+{% elif car.make == 'Lamborghini' and car.model == 'Huracan' and car.year == '2021' %}
+    <img src= "{% static 'verdeCarsPages/media/lambo.jpg.jpg' %}" alt="Car Image">
+{% elif car.make == 'Mercedes' and car.model == 'GTR AMG' and car.year == '2019' %}
+    <img src= "{% static 'verdeCarsPages/media/mercedesAmgGtr.jpg' %}" alt="Car Image">
+{% elif car.make == 'Porsche' and car.model == 'Taycan' and car.year == '2022' %}
+    <img src= "{% static 'verdeCarsPages/media/porscheTaycan.jpg' %}" alt="Car Image">
+{% elif car.make == 'Ferarri' and car.model == '296 GTS' and car.year == '2022' %}
+    <img src= "{% static 'verdeCarsPages/media/ferarri.jpg' %}" alt="Car Image">
+{% endif %}
+
+
+
+<p><b>Model:</b> {{car.model}} <b>Year:</b> {{car.year}} <b>Price:</b> {{car.cost}}</p></div>
 <div class="column2">
 <p>Please read and agree to our terms and conditions:</p>
     <ul>

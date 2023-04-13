@@ -51,9 +51,9 @@
                     <div class="car-details">
                         <div class="car-info">
                             {% for car in cars %}
-                                {% if car.make == 'Honda' and car.model == 'Civic' and car.year == '2009' %}
+                                {% if car.make == 'Honda' and car.model == 'Civic' and car.year == '2009' and not car.isRented %}
                                     <div class="car-details">
-                                        <img class="car-images" src="{% static 'verdeCarsPages/media/HondaCivic.jpg' %}" data-make="{{car.make}}" data-model="{{car.model}}" data-year="{{car.year}}" data-price="{{car.cost}}">
+                                        <img class="car-images" src="{% static 'verdeCarsPages/media/HondaCivic.jpg' %}" data-make="{{car.make}}" data-model="{{car.model}}" data-year="{{car.year}}" data-cost="{{car.cost}}" data-imageUrl="{{car.imageUrl}}" data-carIsRented="{{car.isRented}}" >
                                         <div class="car-info">
                                             <div id="car-name">
                                                 <b>Car Make And Name: </b> {{car.make}}, {{car.model}}
@@ -73,9 +73,9 @@
                     <div class="car-details">
                         <div class="car-info">
                             {% for car in cars %}
-                                {% if car.make == 'Toyota' and car.model == 'carolla' and car.year == '2009' %}
+                                {% if car.make == 'Toyota' and car.model == 'Carolla' and car.year == '2009' and not car.isRented %}
                                     <div class="car-details">
-                                        <img class="car-images" src="{% static 'verdeCarsPages/media/carolla.jpg' %}" data-make="{{car.make}}" data-model="{{car.model}}" data-year="{{car.year}}" data-price="{{car.cost}}">
+                                        <img class="car-images" src="{% static 'verdeCarsPages/media/carolla.jpg' %}" data-make="{{car.make}}" data-model="{{car.model}}" data-year="{{car.year}}" data-cost="{{car.cost}}" data-imageUrl="{{car.imageUrl}}" data-carIsRented="{{car.isRented}}">
                                         <div class="car-info">
                                             <div id="car-name">
                                                 <b>Car Make And Name: </b> {{car.make}}, {{car.model}}
@@ -95,9 +95,9 @@
                     <div class="car-details">
                         <div class="car-info">
                             {% for car in cars %}
-                                {% if car.make == 'Toyota' and car.model == 'Camry' and car.year == '2008' %}
+                                {% if car.make == 'Toyota' and car.model == 'Camry' and car.year == '2008' and not car.isRented %}
                                     <div class="car-details">
-                                        <img class="car-images" src="{% static 'verdeCarsPages/media/camry.jpg' %}" data-make="{{car.make}}" data-model="{{car.model}}" data-year="{{car.year}}" data-price="{{car.cost}}">
+                                        <img class="car-images" src="{% static 'verdeCarsPages/media/camry.jpg' %}" data-make="{{car.make}}" data-model="{{car.model}}" data-year="{{car.year}}" data-cost="{{car.cost}}"  data-imageUrl="{{car.imageUrl}}" data-carIsRented="{{car.isRented}}">
                                         <div class="car-info">
                                             <div id="car-name">
                                                 <b>Car Make And Name: </b> {{car.make}}, {{car.model}}
@@ -117,9 +117,9 @@
                     <div class="car-details">
                         <div class="car-info">
                             {% for car in cars %}
-                                {% if car.make == 'Toyota' and car.model == 'Supra' and car.year == '2009' %}
+                                {% if car.make == 'Toyota' and car.model == 'Supra' and car.year == '2009' and not car.isRented %}
                                     <div class="car-details">
-                                        <img class="car-images" src="{% static 'verdeCarsPages/media/supra.jpg' %}" data-make="{{car.make}}" data-model="{{car.model}}" data-year="{{car.year}}" data-price="{{car.cost}}">
+                                        <img class="car-images" src="{% static 'verdeCarsPages/media/supra.jpg' %}" data-make="{{car.make}}" data-model="{{car.model}}" data-year="{{car.year}}" data-cost="{{car.cost}}"  data-imageUrl="{{car.imageUrl}}" data-carIsRented="{{car.isRented}}">
                                         <div class="car-info">
                                             <div id="car-name">
                                                 <b>Car Make And Name: </b> {{car.make}}, {{car.model}}
@@ -142,9 +142,9 @@
                     <div class="car-details">
                         <div class="car-info">
                             {% for car in cars %}
-                                {% if car.make == 'Honda' and car.model == 'Civic' and car.year == '2022' %}
+                                {% if car.make == 'Honda' and car.model == 'Civic' and car.year == '2022' and not car.isRented %}
                                     <div class="car-details">
-                                        <img class="car-images" src="{% static 'verdeCarsPages/media/civic2022.jpg' %}" data-make="{{car.make}}" data-model="{{car.model}}" data-year="{{car.year}}" data-price="{{car.cost}}">
+                                        <img class="car-images" src="{% static 'verdeCarsPages/media/civic2022.jpg' %}" data-make="{{car.make}}" data-model="{{car.model}}" data-year="{{car.year}}" data-cost="{{car.cost}}"  data-imageUrl="{{car.imageUrl}}" data-carIsRented="{{car.isRented}}">
                                         <div class="car-info">
                                             <div id="car-name">
                                                 <b>Car Make And Name: </b> {{car.make}}, {{car.model}}
@@ -164,9 +164,9 @@
                     <div class="car-details">
                         <div class="car-info">
                             {% for car in cars %}
-                                {% if car.make == 'Nissan' and car.model == 'Skyline' and car.year == '2012' %}
+                                {% if car.make == 'Nissan' and car.model == 'Skyline' and car.year == '2012' and not car.isRented %}
                                     <div class="car-details">
-                                        <img class="car-images" src="{% static 'verdeCarsPages/media/skyline.jpg' %}" data-make="{{car.make}}" data-model="{{car.model}}" data-year="{{car.year}}" data-price="{{car.cost}}">
+                                        <img class="car-images" src="{% static 'verdeCarsPages/media/skyline.jpg' %}" data-make="{{car.make}}" data-model="{{car.model}}" data-year="{{car.year}}" data-cost="{{car.cost}}"  data-imageUrl="{{car.imageUrl}}" data-carIsRented="{{car.isRented}}">
                                         <div class="car-info">
                                             <div id="car-name">
                                                 <b>Car Make And Name: </b> {{car.make}}, {{car.model}}
@@ -186,9 +186,9 @@
                     <div class="car-details">
                         <div class="car-info">
                             {% for car in cars %}
-                                {% if car.make == 'Ford' and car.model == 'Mustang' and car.year == '2022' %}
+                                {% if car.make == 'Ford' and car.model == 'Mustang' and car.year == '2022' and not car.isRented %}
                                     <div class="car-details">
-                                        <img class="car-images" src="{% static 'verdeCarsPages/media/mustang.jpg' %}" data-make="{{car.make}}" data-model="{{car.model}}" data-year="{{car.year}}" data-price="{{car.cost}}">
+                                        <img class="car-images" src="{% static 'verdeCarsPages/media/mustang.jpg' %}" data-make="{{car.make}}" data-model="{{car.model}}" data-year="{{car.year}}" data-cost="{{car.cost}}"  data-imageUrl="{{car.imageUrl}}" data-carIsRented="{{car.isRented}}">
                                         <div class="car-info">
                                             <div id="car-name">
                                                 <b>Car Make And Name: </b> {{car.make}}, {{car.model}}
@@ -208,9 +208,9 @@
                     <div class="car-details">
                         <div class="car-info">
                             {% for car in cars %}
-                                {% if car.make == 'Audi' and car.model == 'RS5' and car.year == '2022' %}
+                                {% if car.make == 'Audi' and car.model == 'RS5' and car.year == '2022' and not car.isRented %}
                                     <div class="car-details">
-                                        <img class="car-images" src="{% static 'verdeCarsPages/media/audiRs5.jpg' %}" data-make="{{car.make}}" data-model="{{car.model}}" data-year="{{car.year}}" data-price="{{car.cost}}">
+                                        <img class="car-images" src="{% static 'verdeCarsPages/media/audiRs5.jpg' %}" data-make="{{car.make}}" data-model="{{car.model}}" data-year="{{car.year}}" data-cost="{{car.cost}}"  data-imageUrl="{{car.imageUrl}}" data-carIsRented="{{car.isRented}}">
                                         <div class="car-info">
                                             <div id="car-name">
                                                 <b>Car Make And Name: </b> {{car.make}}, {{car.model}}
@@ -233,9 +233,9 @@
                     <div class="car-details">
                         <div class="car-info">
                             {% for car in cars %}
-                                {% if car.make == 'Lamborghini' and car.model == 'Huracan' and car.year == '2021' %}
+                                {% if car.make == 'Lamborghini' and car.model == 'Huracan' and car.year == '2021' and not car.isRented %}
                                     <div class="car-details">
-                                        <img class="car-images" src="{% static 'verdeCarsPages/media/lambo.jpg' %}" data-make="{{car.make}}" data-model="{{car.model}}" data-year="{{car.year}}" data-price="{{car.cost}}">
+                                        <img class="car-images" src="{% static 'verdeCarsPages/media/lambo.jpg' %}" data-make="{{car.make}}" data-model="{{car.model}}" data-year="{{car.year}}" data-cost="{{car.cost}}"  data-imageUrl="{{car.imageUrl}}" data-carIsRented="{{car.isRented}}">
                                         <div class="car-info">
                                             <div id="car-name">
                                                 <b>Car Make And Name: </b> {{car.make}}, {{car.model}}
@@ -255,9 +255,9 @@
                     <div class="car-details">
                         <div class="car-info">
                             {% for car in cars %}
-                                {% if car.make == 'Mercedes' and car.model == 'GTR AMG' and car.year == '2019' %}
+                                {% if car.make == 'Mercedes' and car.model == 'GTR AMG' and car.year == '2019' and not car.isRented %}
                                     <div class="car-details">
-                                        <img class="car-images" src="{% static 'verdeCarsPages/media/mercedesAmgGtr.jpg' %}" data-make="{{car.make}}" data-model="{{car.model}}" data-year="{{car.year}}" data-price="{{car.cost}}">
+                                        <img class="car-images" src="{% static 'verdeCarsPages/media/mercedesAmgGtr.jpg' %}" data-make="{{car.make}}" data-model="{{car.model}}" data-year="{{car.year}}" data-cost="{{car.cost}}"  data-imageUrl="{{car.imageUrl}}" data-carIsRented="{{car.isRented}}">
                                         <div class="car-info">
                                             <div id="car-name">
                                                 <b>Car Make And Name: </b> {{car.make}}, {{car.model}}
@@ -277,9 +277,9 @@
                     <div class="car-details">
                         <div class="car-info">
                             {% for car in cars %}
-                                {% if car.make == 'Porsche' and car.model == 'Taycan' and car.year == '2022' %}
+                                {% if car.make == 'Porsche' and car.model == 'Taycan' and car.year == '2022' and not car.isRented %}
                                     <div class="car-details">
-                                        <img class="car-images" src="{% static 'verdeCarsPages/media/porscheTaycan.jpg' %}" data-make="{{car.make}}" data-model="{{car.model}}" data-year="{{car.year}}" data-price="{{car.cost}}">
+                                        <img class="car-images" src="{% static 'verdeCarsPages/media/porscheTaycan.jpg' %}" data-make="{{car.make}}" data-model="{{car.model}}" data-year="{{car.year}}" data-cost="{{car.cost}}"  data-imageUrl="{{car.imageUrl}}" data-carIsRented="{{car.isRented}}">
                                         <div class="car-info">
                                             <div id="car-name">
                                                 <b>Car Make And Name: </b> {{car.make}}, {{car.model}}
@@ -300,9 +300,9 @@
                         
                         <div class="car-info">
                             {% for car in cars %}
-                                {% if car.make == 'Ferarri' and car.model == '296 GTS' and car.year == '2022' %}
+                                {% if car.make == 'Ferarri' and car.model == '296 GTS' and car.year == '2022' and not car.isRented %}
                                     <div class="car-details">
-                                        <img class="car-images" src="{% static 'verdeCarsPages/media/ferarri.jpg' %}" data-make="{{car.make}}" data-model="{{car.model}}" data-year="{{car.year}}" data-price="{{car.cost}}">
+                                        <img class="car-images" src="{% static 'verdeCarsPages/media/ferarri.jpg' %}" data-make="{{car.make}}" data-model="{{car.model}}" data-year="{{car.year}}" data-cost="{{car.cost}}"  data-imageUrl="{{car.imageUrl}}" data-carIsRented="{{car.isRented}}">
                                         <div class="car-info">
                                             <div id="car-name">
                                                 <b>Car Make And Name: </b> {{car.make}}, {{car.model}}

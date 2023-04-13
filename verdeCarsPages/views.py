@@ -8,8 +8,9 @@ from django.urls import reverse
 import random
 from datetime import datetime
 from .models import User, Car
+from django.contrib.auth.decorators import login_required
 
-from .forms import UserForm, LoginForm, UpdateStranded, ClockHours, RentCarForm
+from .forms import UserForm, LoginForm, UpdateStranded, ClockHours
 
 
 
@@ -55,27 +56,19 @@ def login(request):
 def reservecar(request):
     print(request)
     if request.method == "POST":
+        
         make = request.POST.get("make")
         model = request.POST.get("model")
         year = request.POST.get("year")
-        cost = request.POST.get("price")
+        imageUrl = request.POST.get("imageUrl")
+        cost = request.POST.get("cost")
         print(cost)
+        print("image: " + str(imageUrl))
+        car = Car.objects.get(make=make, model=model, year=year, cost=cost)
+        car.isRented = True
+        car.save()
         # Do something with the car info here
-        return render(request, "verdeCarsPages/reserve-car.html", {"car": {"make": make, "model": model, "year": year, "cost": cost}})
-    else:
-        return render(request, "verdeCarsPages/reserve-car.html")
-
-
-def reservecar(request):
-    print(request)
-    if request.method == "POST":
-        make = request.POST.get("make")
-        model = request.POST.get("model")
-        year = request.POST.get("year")
-        cost = request.POST.get("price")
-        print(cost)
-        # Do something with the car info here
-        return render(request, "verdeCarsPages/reserve-car.html", {"car": {"make": make, "model": model, "year": year, "cost": cost}})
+        return render(request, "verdeCarsPages/reserve-car.html", {"car": {"make": make, "model": model, "year": year, "cost": cost, 'ImageUrl': imageUrl}})
     else:
         return render(request, "verdeCarsPages/reserve-car.html")
     
@@ -100,9 +93,14 @@ def strandedCar(request, car_id):
             car.save(update_fields=['stranded'])
     return render(request, 'verdeCarsPages/strandedCar.html', context)
 
+
 def catalog(request):
-    cars = Car.objects.all()
-    return render(request, 'verdeCarsPages/catalog.html', {'cars': cars})
+    # if not (request.user.is_authenticated and request.user.userType == 'Customer'):
+    #     return render(request, 'verdeCarsPages/error403.html')
+        
+    # else:
+        cars = Car.objects.all()
+        return render(request, 'verdeCarsPages/catalog.html', {'cars': cars}) 
 
 def retrievalList(request):
     strandedCars = Car.objects.filter(stranded=True)
