@@ -71,7 +71,7 @@ def reservecar(request):
         return render(request, "verdeCarsPages/reserve-car.html", {"car": {"make": make, "model": model, "year": year, "cost": cost, 'ImageUrl': imageUrl}})
     else:
         return render(request, "verdeCarsPages/reserve-car.html")
-    
+
 def checkoutConfirmation(request):
     if request.method == "POST":
         context= {
@@ -140,3 +140,9 @@ def adminHome(request):
         u.save()
     return render(request, 'verdeCarsPages/adminHome.html', context)
 
+def customerHome(request):
+    return render(request, 'verdeCarsPages/customerHome.html')
+
+
+def requestRetrieval(request):
+    return render(request, 'verdeCarsPages/requestRetrieval.html')

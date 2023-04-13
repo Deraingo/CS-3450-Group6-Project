@@ -29,11 +29,14 @@ class LoginForm(forms.ModelForm):
 class UpdateStranded(forms.Form):
     update_stranded = forms.BooleanField(initial=True)
 
-class ClockHours(forms.Form):
-    usernm = forms.CharField()
-    passwd = forms.CharField()
-    hours = forms.IntegerField()
+class ClockHours(forms.ModelForm):
+    # clock_hours = forms.BooleanField(initial=True)
+    class Meta:
+        model = User
+        fields = ['usernm', 'passwd', 'hoursWorked']
+        exclude = ['fname', 'lname', 'phoneNumber', 'userType', 'money', 'checkoutCode']
     
+
 # class RentCarForm(forms.ModelForm):
 #         #rental_day = forms.DateField()
 #         #rental_money = forms.FloatField()
@@ -51,5 +54,16 @@ class ClockHours(forms.Form):
 #                raise ValidationError(_('Not enough'))
                 
 #             return data
-    
 
+    
+    class Meta:
+        model = User
+        fields = []
+        exclude = ['fname', 'lname', 'userType', 'usernm', 'passwd','money']
+    
+    #def clean_payment_amount(self):
+        #data = self.cleaned_data['rental_money']
+        #if data < car_cost:
+            #   raise ValidationError(_('Not enough'))
+            
+        # return data
