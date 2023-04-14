@@ -114,12 +114,12 @@ def retrievalHome(request):
         if hoursForm.is_valid():
             userName = hoursForm.cleaned_data.get('usernm')
             passWord = hoursForm.cleaned_data.get('passwd')
-            hoursLogged = hoursForm.cleaned_data.get('hours')
+            hoursLogged = hoursForm.cleaned_data.get('hoursWorked')
             for savedUser in User.objects.all():
                 if savedUser.usernm == userName and savedUser.passwd == passWord:
-                    savedUser.hoursWorked = hoursLogged
+                    savedUser.hoursWorked += hoursLogged
                     savedUser.save()
-
+                    # return render(request, 'verdeCarsPages/retrievalHome.html', context)
 
     return render(request, 'verdeCarsPages/retrievalHome.html', context)
 
