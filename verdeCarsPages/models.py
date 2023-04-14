@@ -27,8 +27,9 @@ class Car(models.Model):
     rentalEnd = models.DateTimeField(default=None, null=True, blank=True)
     checkoutCode = models.IntegerField(default=None, null=True, blank=True)
     stranded = models.BooleanField(default=False)
-    strandedAddress = models.CharField(max_length=50, default="")
+    strandedAddress = models.CharField(max_length=50, default="", blank=True, null=True)
     imageURL = models.CharField(max_length=1000, default="")
+    isRented = models.BooleanField(default=False)
     insured = models.BooleanField(default=False)
 
     def __str__(self):
