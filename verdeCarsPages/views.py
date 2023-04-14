@@ -8,8 +8,10 @@ from django.urls import reverse
 import random
 from datetime import datetime
 from .models import User, Car
+from django.contrib.auth.decorators import login_required
 
 from .forms import UserForm, LoginForm, UpdateStranded, ClockHours, RentCarForm, RequestRetrieval
+
 
 
 
@@ -38,6 +40,7 @@ def login(request):
                 for savedUser in User.objects.all():
                     if user_data == savedUser.usernm and pass_data == savedUser.passwd:
                         savedUserType = savedUser.userType
+
                         if savedUserType == "Customer":
                             return render(request, 'verdeCarsPages/customerHome.html')
                         # else if savedUserType == "Customer Service":
@@ -47,8 +50,7 @@ def login(request):
                         elif savedUserType == "Admin":
                             return render(request, 'verdeCarsPages/adminHome.html')
                         else:
-                            return render(request, 'verdeCarsPages/index.html', context=context) # delete this and replace it with the homepage for their user type :)
-
+                            return render(request, 'verdeCarsPages/index.html', context=context)
         
         if 'create_user' in request.POST:
 
@@ -62,17 +64,23 @@ def login(request):
 def reservecar(request):
     print(request)
     if request.method == "POST":
+        
         make = request.POST.get("make")
         model = request.POST.get("model")
         year = request.POST.get("year")
-        cost = request.POST.get("price")
+        imageUrl = request.POST.get("imageUrl")
+        cost = request.POST.get("cost")
         print(cost)
+        print("image: " + str(imageUrl))
+        car = Car.objects.get(make=make, model=model, year=year, cost=cost)
+        car.isRented = True
+        car.save()
         # Do something with the car info here
-        return render(request, "verdeCarsPages/reserve-car.html", {"car": {"make": make, "model": model, "year": year, "cost": cost}})
+        return render(request, "verdeCarsPages/reserve-car.html", {"car": {"make": make, "model": model, "year": year, "cost": cost, 'ImageUrl': imageUrl}})
     else:
         return render(request, "verdeCarsPages/reserve-car.html")
 
- 
+
 def checkoutConfirmation(request):
     if request.method == "POST":
         context= {
@@ -95,9 +103,14 @@ def strandedCar(request, car_id):
             car.save()
     return render(request, 'verdeCarsPages/strandedCar.html', context)
 
+
 def catalog(request):
-    cars = Car.objects.all()
-    return render(request, 'verdeCarsPages/catalog.html', {'cars': cars})
+    # if not (request.user.is_authenticated and request.user.userType == 'Customer'):
+    #     return render(request, 'verdeCarsPages/error403.html')
+        
+    # else:
+        cars = Car.objects.all()
+        return render(request, 'verdeCarsPages/catalog.html', {'cars': cars}) 
 
 def retrievalList(request):
     strandedCars = Car.objects.filter(stranded=True)
@@ -114,7 +127,7 @@ def retrievalHome(request):
         if hoursForm.is_valid():
             userName = hoursForm.cleaned_data.get('usernm')
             passWord = hoursForm.cleaned_data.get('passwd')
-            hoursLogged = hoursForm.cleaned_data.get('hoursWorked')
+            hoursLogged = hoursForm.cleaned_data.get('hours')
             for savedUser in User.objects.all():
                 if savedUser.usernm == userName and savedUser.passwd == passWord:
                     savedUser.hoursWorked += hoursLogged
@@ -143,7 +156,6 @@ def customerHome(request):
 
 
 def requestRetrieval(request):
-
     if request.method == "POST":
             requestRetrieval = RequestRetrieval(request.POST or None)
             if requestRetrieval.is_valid():
