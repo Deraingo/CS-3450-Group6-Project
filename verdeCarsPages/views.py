@@ -9,8 +9,10 @@ import random
 from datetime import datetime
 from .models import User, Car
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user_model
 
-from .forms import UserForm, LoginForm, UpdateStranded, ClockHours, RentCarForm, RequestRetrieval
+from .forms import UserForm, LoginForm, UpdateStranded, ClockHours, RequestRetrieval
+from django.contrib.sessions.backends.db import SessionStore
 
 
 
@@ -40,6 +42,8 @@ def login(request):
                 for savedUser in User.objects.all():
                     if user_data == savedUser.usernm and pass_data == savedUser.passwd:
                         savedUserType = savedUser.userType
+                        request.session['user_id'] = savedUser.usernm
+                        request.session['user_type'] = savedUser.userType
 
                         if savedUserType == "Customer":
                             return render(request, 'verdeCarsPages/customerHome.html')
@@ -105,10 +109,11 @@ def strandedCar(request, car_id):
 
 
 def catalog(request):
-    # if not (request.user.is_authenticated and request.user.userType == 'Customer'):
-    #     return render(request, 'verdeCarsPages/error403.html')
-        
-    # else:
+    user_type = request.session.get('user_type')
+    print(user_type)
+    if not (user_type == 'Customer'):
+        return render(request, 'verdeCarsPages/error403.html')
+    else:
         cars = Car.objects.all()
         return render(request, 'verdeCarsPages/catalog.html', {'cars': cars}) 
 
