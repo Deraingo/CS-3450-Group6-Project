@@ -29,6 +29,7 @@ class LoginForm(forms.ModelForm):
 class UpdateStranded(forms.Form):
     update_stranded = forms.BooleanField(initial=True)
 
+
 class ClockHours(forms.ModelForm):
     class Meta:
         model = User
@@ -41,6 +42,7 @@ class RentCarForm(forms.ModelForm):
     #address = forms.CharField()
     #car_cost=forms.FloatField()
         
+
 #         class Meta:
 #             model = User
 #             fields = []
@@ -61,3 +63,7 @@ class RequestRetrieval(forms.ModelForm):
         fields = ['stranded', 'strandedAddress', 'checkoutCode']
         exclude = ['make', 'model', 'year', 'cost', 'rentalStart', 'rentalEnd', 'imageURL']
 
+#class InputMoney(forms.Form):
+#    usernm = forms.CharField()
+#    passwd = forms.CharField()
+#    money = forms.IntegerField()
