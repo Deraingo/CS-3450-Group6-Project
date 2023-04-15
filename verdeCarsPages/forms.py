@@ -34,22 +34,25 @@ class ClockHours(forms.Form):
     passwd = forms.CharField()
     hours = forms.IntegerField()
     
-  class RentCarForm(forms.ModelForm):
-        #rental_day = forms.DateField()
-        #rental_money = forms.FloatField()
-        #address = forms.CharField()
-        #car_cost=forms.FloatField()
+class RentCarForm(forms.ModelForm):
+    #rental_day = forms.DateField()
+    #rental_money = forms.FloatField()
+    #address = forms.CharField()
+    #car_cost=forms.FloatField()
         
-        class Meta:
-            model = User
-            fields = []
-            exclude = ['fname', 'lname', 'userType', 'usernm', 'passwd','money']
+    class Meta:
+        model = User
+        fields = []
+        exclude = ['fname', 'lname', 'userType', 'usernm', 'passwd','money']
         
-        #def clean_payment_amount(self):
-            #data = self.cleaned_data['rental_money']
-            #if data < car_cost:
-             #   raise ValidationError(_('Not enough'))
+    #def clean_payment_amount(self):
+        #data = self.cleaned_data['rental_money']
+        #if data < car_cost:
+            #   raise ValidationError(_('Not enough'))
                 
-           # return data
+        # return data
     
-
+class InputMoney(forms.Form):
+    usernm = forms.CharField()
+    passwd = forms.CharField()
+    money = forms.IntegerField()

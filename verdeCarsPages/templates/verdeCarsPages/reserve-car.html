@@ -74,7 +74,7 @@ by insurance will be the responsibility of the customer</li>
 
 <input type="checkbox" id="agree" name="agree" value="" onclick="enableButton()">
 <label for="agree"> I agree to the terms and conditions</label><br>
-<form action="/checkout-confirmation/" method="POST" >
+<form action="{% url 'checkoutConfirmation' %}" method="POST" >
     {% csrf_token %}
     <fieldset>
         <label for="author">Date of Reservation:</label><br>
@@ -90,6 +90,10 @@ by insurance will be the responsibility of the customer</li>
     <fieldset>
         <label for="content">Billing address</label><br>
         <input type="text" name="content" id="content">
+    </fieldset>
+    <fieldset>
+        <label for="author">Would you like to buy insurance for an additional 50 dollars?</label><br>
+        <input type="checkbox" name="insurance" id="insurance">
     </fieldset>
         <input type="submit" value="Reserve">
 </form>
