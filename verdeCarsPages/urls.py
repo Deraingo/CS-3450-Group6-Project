@@ -16,7 +16,9 @@ urlpatterns = [
     path('catalog', views.catalog, name='catalog'),
     path('retrievalList/', views.retrievalList, name='retrievalList'),
     path('retrievalHome/', views.retrievalHome, name='retrievalHome'),
-    path('adminHome/', views.adminHome, name='adminHome'),
+    path('payEmployees/', views.adminHome, name='adminHome'),
+    path('addMoney/', views.addMoney, name='addMoney'),
     path('requestRetrieval/', views.requestRetrieval, name="requestRetrieval"),
     path('customerHome', views.customerHome, name='customerHome'),
 ]
+

@@ -11,9 +11,9 @@ from .models import User, Car
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 
+
 from .forms import UserForm, LoginForm, UpdateStranded, ClockHours, RequestRetrieval
 from django.contrib.sessions.backends.db import SessionStore
-
 
 
 
@@ -65,6 +65,7 @@ def login(request):
 
     return render(request, 'verdeCarsPages/login.html', context=context)
 
+
 def reservecar(request):
     print(request)
     if request.method == "POST":
@@ -85,11 +86,17 @@ def reservecar(request):
         return render(request, "verdeCarsPages/reserve-car.html")
 
 
+
 def checkoutConfirmation(request):
+    current_user = request.user
+    
     if request.method == "POST":
+        code = random.randint(1111,9999)
         context= {
-            'code': random.randint(1111,9999)
+            'code': code
         }    
+        current_user.checkoutCode = code
+        #car.checkoutCode = code
         return render(request, 'verdeCarsPages/checkout-confirmation.html', context)
     return render(request, 'verdeCarsPages/checkout-confirmation.html')
 
@@ -156,6 +163,7 @@ def adminHome(request):
         u.save()
     return render(request, 'verdeCarsPages/adminHome.html', context)
 
+
 def customerHome(request):
     return render(request, 'verdeCarsPages/customerHome.html')
 
@@ -179,3 +187,30 @@ def requestRetrieval(request):
                         savedUser.save()
 
     return render(request, 'verdeCarsPages/requestRetrieval.html')
+
+def addMoney(request):
+    current_user = request.user
+    inputMoney = InputMoney
+    
+    if request.user.is_authenticated:
+        context = {'inputMoney': inputMoney,
+              'currentMoney': current_user.money}
+    else:
+        context = {'inputMoney': inputMoney,
+              'currentMoney': 0}
+    if request.method == "POST":
+        moneyForm = InputMoney(request.POST or None)
+        
+        if moneyForm.is_valid():
+            userName = hoursForm.cleaned_data.get('usernm')
+            passWord = hoursForm.cleaned_data.get('passwd')
+            moneyInputed = moneyForm.cleaned_data.get('money')
+            for savedUser in User.objects.all():
+                if savedUser.usernm == userName and savedUser.passwd == passWord:
+                    savedUser.money = savedUser.money+moneyInputed
+                    context = {'inputMoney': inputMoney,
+                              'currentMoney': 0}
+            
+
+
+    return render(request, 'verdeCarsPages/add-money.html', context)
