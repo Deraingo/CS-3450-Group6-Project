@@ -1,5 +1,7 @@
 {% load static %}
+
 {% load custom_tags %}
+
 
 <!DOCTYPE html>
 <html>
@@ -32,8 +34,10 @@
 <div class="header">
 <nav class="header-container">
         <div class="header-buttons">
-            <a class="header-link" href="/index">Home</a>
-            <a class="header-link" href="/catalog">Catalog</a>
+
+
+            <a class="header-link" href="/customerHome">Home</a>
+            <a class="header-link" href="/index">PlaceHolder</a>
             <a class="header-link" href="/index">PlaceHolder</a>
             <a class="header-link" href="/index">PlaceHolder</a>
             <a class="header-link" href="/index">PlaceHolder</a>
@@ -45,7 +49,6 @@
         </div>
     </nav>
 </div>
-
 
 <h2>Employees</h2>
 {% for user in retrieval_set %}
@@ -66,12 +69,15 @@
     
  {% endfor %}
 
+
 <!--              
 {% for user in cust_service_set %}
     <div style='background-color: #C9E3AC'>
         <p>{{user.lname}}, {{user.fname}}</p>
+
         <p>Hours worked: {{user.hoursWorked}} &ensp; Money: {{user.money}</p>
             <form action="{% url 'verdeCarsPages:payEmployees' %}" method="post">
+
                 {% csrf_token %}
                  <fieldset>
                     <input type="hidden" name="identity" id="identity" value="{{user.id}}">
@@ -84,5 +90,6 @@
 -->
                 
  
+
 </body>
 </html>
