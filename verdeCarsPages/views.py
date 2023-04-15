@@ -10,7 +10,7 @@ from datetime import datetime
 from .models import User, Car
 from django.contrib.auth.decorators import login_required
 
-from .forms import UserForm, LoginForm, UpdateStranded, ClockHours, RentCarForm, RequestRetrieval, InputMoney
+from .forms import UserForm, LoginForm, UpdateStranded, ClockHours
 
 
 
@@ -72,8 +72,8 @@ def reservecar(request):
         cost = request.POST.get("cost")
         print(cost)
         print("image: " + str(imageUrl))
-        car = Car.objects.get(make=make, model=model, year=year, cost=cost)
-        car.isRented = True
+        car = Car.objects.get(make=make, model=model, year=year)
+        #car.isRented = True
         car.save()
         # Do something with the car info here
         return render(request, "verdeCarsPages/reserve-car.html", {"car": {"make": make, "model": model, "year": year, "cost": cost, 'ImageUrl': imageUrl}})
@@ -84,16 +84,45 @@ def reservecar(request):
 
 def checkoutConfirmation(request):
     current_user = request.user
+    code = random.randint(1111,9999)
+    markInsured = False
     
     if request.method == "POST":
-        code = random.randint(1111,9999)
-        context= {
-            'code': code
-        }    
+        make = request.POST.get("make")
+        model = request.POST.get("model")
+        year = request.POST.get("year")
+        car = Car.objects.get(make=make, model=model, year=year)
+        money = int(request.POST.get("payment"))
+        date = request.POST.get("rentaldate")
+        insured = request.POST.get("insurance")
+        if insured == "on":
+            markInsured = True
+            money = money+50
+    
+    if request.user.is_authenticated:
+        current_user.money = current_user.money - money
         current_user.checkoutCode = code
+        current_user.save()
+        car.rentalStart = date
+        car.rentalEnd = date
+        car.checkoutCode = code
+        car.insured = markInsured
+
+        context= {
+            'code': code,
+            'test': money
+        }    
+        
         #car.checkoutCode = code
         return render(request, 'verdeCarsPages/checkout-confirmation.html', context)
+    else:
+        context= {
+            'code': code,
+            'test': make
+        } 
+        return render(request, 'verdeCarsPages/checkout-confirmation.html', context)
     return render(request, 'verdeCarsPages/checkout-confirmation.html')
+
 
 
 def strandedCar(request, car_id):
@@ -190,8 +219,7 @@ def addMoney(request):
         context = {'inputMoney': inputMoney,
               'currentMoney': current_user.money}
     else:
-        context = {'inputMoney': inputMoney,
-              'currentMoney': 0}
+        return render (request, 'verdeCarsPages/error403.html')
     if request.method == "POST":
         moneyForm = InputMoney(request.POST or None)
         

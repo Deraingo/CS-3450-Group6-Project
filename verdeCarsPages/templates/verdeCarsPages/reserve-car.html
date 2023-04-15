@@ -104,8 +104,12 @@ by insurance will be the responsibility of the customer</li>
 <form action="{% url 'checkoutConfirmation' %}" method="POST" >
     {% csrf_token %}
     <fieldset>
+        <input type="hidden" name="make" id="make" value="{{car.make}}">
+        <input type="hidden" name="model" id="model" value="{{car.model}}">
+        <input type="hidden" name="year" id="year" value="{{car.year}}">
+        <input type="hidden" name="cost" id="cost" value="{{car.cost}}">
         <label for="author">Date of Reservation:</label><br>
-        <input type="date" name="author" id="author">
+        <input type="date" name="rentaldate" id="rentaldate">
     </fieldset>
     <fieldset>
         <label for="email">Payment Information:</label><br>

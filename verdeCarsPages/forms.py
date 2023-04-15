@@ -36,7 +36,7 @@ class ClockHours(forms.ModelForm):
         fields = ['usernm', 'passwd', 'hoursWorked']
         exclude = ['fname', 'lname', 'phoneNumber', 'userType', 'money', 'checkoutCode']
 
-class RentCarForm(forms.ModelForm):
+#class RentCarForm(forms.ModelForm):
     #rental_day = forms.DateField()
     #rental_money = forms.FloatField()
     #address = forms.CharField()
@@ -57,11 +57,11 @@ class RentCarForm(forms.ModelForm):
 
     
     
-class RequestRetrieval(forms.ModelForm):
-    class Meta:
-        model = Car
-        fields = ['stranded', 'strandedAddress', 'checkoutCode']
-        exclude = ['make', 'model', 'year', 'cost', 'rentalStart', 'rentalEnd', 'imageURL']
+#class RequestRetrieval(forms.ModelForm):
+#    class Meta:
+#        model = Car
+#        fields = ['stranded', 'strandedAddress', 'checkoutCode']
+#        exclude = ['make', 'model', 'year', 'cost', 'rentalStart', 'rentalEnd', 'imageURL']
 
 #class InputMoney(forms.Form):
 #    usernm = forms.CharField()
