@@ -138,12 +138,12 @@ def retrievalList(request):
 
 def retrievalHome(request):
     user_type = request.session.get('user_type')
-    user_id = request.session.get('user_id')
-    currentUser = User.objects.get(usernm=user_id)
 
     if not (user_type == 'Retrieval Specialist'):
         return render(request, 'verdeCarsPages/error403.html')
     else:
+        user_id = request.session.get('user_id')
+        currentUser = User.objects.get(usernm=user_id)
         clockHours = ClockHours
         context = {'clockHours': clockHours, 'user_id': user_id, 'user': currentUser}
 
@@ -198,10 +198,11 @@ def requestRetrieval(request):
                             car.strandedAddress = strandedAddress
                             car.save()
 
-                    for savedUser in User.objects.all():
-                        if checkoutCode == savedUser.checkoutCode:
-                            savedUser.money -= 300
-                            savedUser.save()
+                            if car.insured == False:
+                                for savedUser in User.objects.all():
+                                    if checkoutCode == savedUser.checkoutCode:
+                                        savedUser.money -= 300
+                                        savedUser.save()
 
         return render(request, 'verdeCarsPages/requestRetrieval.html')
 
