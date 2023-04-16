@@ -33,8 +33,8 @@ class UpdateStranded(forms.Form):
 class ClockHours(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['usernm', 'passwd', 'hoursWorked']
-        exclude = ['fname', 'lname', 'phoneNumber', 'userType', 'money', 'checkoutCode']
+        fields = ['hoursWorked']
+        exclude = ['fname', 'lname', 'phoneNumber', 'userType', 'money', 'checkoutCode', 'usernm', 'passwd']
 
 
     

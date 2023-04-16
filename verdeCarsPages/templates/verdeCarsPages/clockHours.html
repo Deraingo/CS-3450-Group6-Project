@@ -28,28 +28,49 @@
 <body>
     <nav class="header-container">
         <div class="header-buttons">
-            <a class="header-link current-page" href="/index">Home</a>
-            <a class="header-link" href="/catalog">Catalog</a>
-            <a class="header-link" href="/requestRetrieval">Retrieval Services</a>
+            <a class="header-link" href="/retrievalHome">Home</a>
+            <a class="header-link" href="/retrievalList">List</a>
+            <a class="header-link current-page" href="/clockHours">Clock Hours</a>
         </div>
         <div class="user-interface">
             <div class="login-button anchor-option">            
-                <a class="drop-btn login-menu-btn" href="/login">Login</a>
+                <a class="drop-btn login-menu-btn" href="/login">Logout</a>
             </div>
         </div>
     </nav>
     <div class="main-body">
-        <h1 class="verde-header">Welcome to Verde Cars</h1>
-    </div>
-    <div class="retrieval-grid-container">
-        <div class="retrieval-left">
-            <p>We love our members! From our hearts to you, <emph>thank you</emph> for joining VerdeCars! We provide the best car rental service you'll ever find. Northern Hemisphere, Southern Hemisphere -- scour the globe, you'll never find another company that cares about its customers quite like we do, with rentals on every continent and in every ocean.</p>
-            <p>But don't just take our word for it! Get out there with a spiffy green car and see for yourself!</p>
-        </div>
-        <div class="retrieval-right">
-            <img src="https://images.unsplash.com/photo-1572746189491-4917ac7b824d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="Green Car" class="customerHome-img">
+        
+        <h1 class="verde-header">Clock Hours</h1>
+
+        {% block content %}
+        <div class="retrieval-grid-container">
+            <div class="retrieval-left">
+                <div class="retrieval-paragraph">
+                    <form class="login-form" method="POST">
+                        {% csrf_token %}
+                        <div class="green-box">
+                            <h2>Log Your Hours Below:</h2>
+                        </div>
+                        <div class="retrieval-paragraph">
+                            <div class="form-group">
+                                <input type="number" class="form-control" name="hoursWorked">
+                            </div>
+                            </br>
+                            <button type="submit" class="retrieval-button">Submit</button>
+                        </div>
+                    </form>
+                    <p class="retrieval-paragraph">You have {{ user.hoursWorked }} total hours</p>
+                </div>
+            </div>
+            <div class="retrieval-right">
+                <img src="{% static 'verdeCarsPages/images/retrieved-car.jpg' %}" alt="renaissance oil painting of a person picking up a green car" title="you rock, you retrieval specialist you" height="400px">
+            </div>
+
         </div>
         
+        {% endblock content %}
+
+    </br>
     </div>
 
     <div class="footer">
