@@ -217,10 +217,8 @@ def adminHome(request):
     admin = User.objects.get(userType="Admin")
     context = {
         'earnings': admin.money,
-        'customer_set': User.objects.filter(userType='Customer'),
-        'admin_set': User.objects.filter(userType='Customer'),
         'cust_service_set': User.objects.filter(userType='Customer Service'),
-        'retrieval_set': User.objects.filter(userType='Customer'),
+        'retrieval_set': User.objects.filter(userType='Retrieval Specialist'),
     }
     if request.method == "POST":
         identity = request.POST['identity']
@@ -233,10 +231,8 @@ def adminHome(request):
         admin.save()
         context = {
         'earnings': admin.money,
-        'customer_set': User.objects.filter(userType='Customer'),
-        'admin_set': User.objects.filter(userType='Customer'),
         'cust_service_set': User.objects.filter(userType='Customer Service'),
-        'retrieval_set': User.objects.filter(userType='Customer'),
+        'retrieval_set': User.objects.filter(userType='Retrieval Specialist'),
     }
         return render(request, 'verdeCarsPages/adminHome.html', context)
     return render(request, 'verdeCarsPages/adminHome.html', context)
