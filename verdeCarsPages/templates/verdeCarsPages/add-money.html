@@ -22,9 +22,8 @@
             <div class="header-buttons">
                 <a class="header-link" href="/index">Home</a>
                 <a class="header-link" href="/catalog">Catalog</a>
-                <a class="header-link" href="/addMoney">Money</a>
-                <a class="header-link" href="/index">PlaceHolder</a>
-                <a class="header-link" href="/index">PlaceHolder</a>
+                <a class="header-link" href="/addMoney/">Money</a>
+                <a class="header-link" href="/requestRetrieval">Retrieval Services</a>
             </div>
             <div class="user-interface">
                 <div class="login-button anchor-option">
@@ -39,14 +38,10 @@
                 {% csrf_token %}
 
                 <p>Add Money!<p>
-                <p>Username</p>
-                {{ inputMoney.usernm }}
-                <p>Password</p>
-                {{ inputMoney.passwd }}
-                <p>How much money would you like to add?</p>
-                {{ inputMoney.money }}
-                <button type="submit" id="money" name="money">Submit</button>
+                <label for="email">How much money would you like to add?</label>
+        <input type="number" name="payment" id="payment">                        <input type="submit" value="Reserve">
             </form>
+    <p style="color: crimson">{{error}}</p>
     
 
 </body>

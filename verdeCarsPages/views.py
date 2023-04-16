@@ -83,21 +83,47 @@ def reservecar(request):
 
 
 def checkoutConfirmation(request):
-    current_user = request.user
+    user_id = request.session.get('user_id')
+    current_user = User.objects.get(usernm=user_id)
+    #admin = User.objects.get(usernm=user_id)
     code = random.randint(1111,9999)
     markInsured = False
     
     if request.method == "POST":
+        code = random.randint(1111,9999)
         make = request.POST.get("make")
         model = request.POST.get("model")
         year = request.POST.get("year")
-        car = Car.objects.get(make=make, model=model, year=year)
-        money = int(request.POST.get("payment"))
+        cost = request.POST.get("cost")
+        car = Car.objects.get(make=make, model=model, year=year, cost=cost)
+        url = car.imageURL
+        money = request.POST.get("payment")
+        if money.isdigit() == False:
+                context = {
+                "car": {"make": make, "model": model, "year": year, "cost": cost, 'ImageUrl': url},
+                'error': "Please Enter a valid number"
+                }
+                return render(request, 'verdeCarsPages/reserve-car.html', context)
+        money = int(money)
         date = request.POST.get("rentaldate")
         insured = request.POST.get("insurance")
         if insured == "on":
             markInsured = True
-            money = money+50
+            cost = float(cost)+50
+        if money < float(cost):
+                context = {
+                "car": {"make": make, "model": model, "year": year, "cost": cost, 'ImageUrl': url},
+                'error': "Please Enter enough to pay for your vehicle and any insurance you wish to purchase."
+                }
+                return render(request, 'verdeCarsPages/reserve-car.html', context)
+        if money > int(current_user.money):
+                context = {
+                "car": {"make": make, "model": model, "year": year, "cost": cost, 'ImageUrl': url},
+                'error': "You do not have enough money in your account for this purchase. You can manage and add money in the \"Money\" tab above."
+                }
+                return render(request, 'verdeCarsPages/reserve-car.html', context)
+            
+        
     
     if request.user.is_authenticated:
         current_user.money = current_user.money - money
@@ -110,15 +136,20 @@ def checkoutConfirmation(request):
 
         context= {
             'code': code,
-            'test': money
+            'code': code,
+            'make': make,
+            'year': year
+            #'test': current_user.fname,
+            
         }    
+        current_user.checkoutCode = code
         
         #car.checkoutCode = code
         return render(request, 'verdeCarsPages/checkout-confirmation.html', context)
     else:
         context= {
             'code': code,
-            'test': make
+            'test': 'ki'
         } 
         return render(request, 'verdeCarsPages/checkout-confirmation.html', context)
     return render(request, 'verdeCarsPages/checkout-confirmation.html')
@@ -212,26 +243,31 @@ def requestRetrieval(request):
     return render(request, 'verdeCarsPages/requestRetrieval.html')
 
 def addMoney(request):
-    current_user = request.user
-    inputMoney = InputMoney
+    user_id = request.session.get('user_id')
+    current_user = User.objects.get(usernm=user_id)
+    balance = int(current_user.money)
+    #inputMoney = InputMoney
     
     if request.user.is_authenticated:
-        context = {'inputMoney': inputMoney,
-              'currentMoney': current_user.money}
+        context = {
+            'currentMoney': balance
+        }
+    
+        if request.method == "POST":
+            money = request.POST.get("payment")
+            if money.isdigit() == False:
+                context = {
+                'currentMoney': balance,
+                'error': "Please Enter a valid number"
+                }
+                return render(request, 'verdeCarsPages/add-money.html', context)
+            balance = balance + int(money)
+            current_user.money = balance
+            current_user.save()
+            context = {
+                    'currentMoney': balance}
     else:
         return render (request, 'verdeCarsPages/error403.html')
-    if request.method == "POST":
-        moneyForm = InputMoney(request.POST or None)
-        
-        if moneyForm.is_valid():
-            userName = hoursForm.cleaned_data.get('usernm')
-            passWord = hoursForm.cleaned_data.get('passwd')
-            moneyInputed = moneyForm.cleaned_data.get('money')
-            for savedUser in User.objects.all():
-                if savedUser.usernm == userName and savedUser.passwd == passWord:
-                    savedUser.money = savedUser.money+moneyInputed
-                    context = {'inputMoney': inputMoney,
-                              'currentMoney': 0}
             
 
 
