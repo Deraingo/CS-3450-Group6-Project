@@ -211,9 +211,9 @@ def retrievalHome(request):
     return render(request, 'verdeCarsPages/retrievalHome.html', context)
 
 def adminHome(request):
-    user_type = request.session.get('user_type')
-    if not (user_type == 'Admin'):
-        return render(request, 'verdeCarsPages/error403.html')
+    #user_type = request.session.get('user_type')
+    #if not (user_type == 'Admin'):
+    #    return render(request, 'verdeCarsPages/error403.html')
     admin = User.objects.get(userType="Admin")
     context = {
         'earnings': admin.money,
