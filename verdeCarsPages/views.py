@@ -85,7 +85,7 @@ def reservecar(request):
 def checkoutConfirmation(request):
     user_id = request.session.get('user_id')
     current_user = User.objects.get(usernm=user_id)
-    #admin = User.objects.get(usernm=user_id)
+    admin = User.objects.get(userType="Admin")
     code = random.randint(1111,9999)
     markInsured = False
     
@@ -133,6 +133,8 @@ def checkoutConfirmation(request):
         car.rentalEnd = date
         car.checkoutCode = code
         car.insured = markInsured
+        admin.money = admin.money+money
+        admin.save()
 
         context= {
             'code': code,
@@ -203,7 +205,9 @@ def retrievalHome(request):
     return render(request, 'verdeCarsPages/retrievalHome.html', context)
 
 def adminHome(request):
+    admin = User.objects.get(userType="Admin")
     context = {
+        'earnings': admin.money,
         'customer_set': User.objects.filter(userType='Customer'),
         'admin_set': User.objects.filter(userType='Customer'),
         'cust_service_set': User.objects.filter(userType='Customer Service'),
@@ -212,9 +216,20 @@ def adminHome(request):
     if request.method == "POST":
         identity = request.POST['identity']
         u = User.objects.get(id=identity)
-        u.money=u.money+(u.hoursWorked*10)
+        earned = (u.hoursWorked*10)
+        u.money=u.money+earned
         u.hoursWorked=0
         u.save()
+        admin.money = admin.money - earned
+        admin.save()
+        context = {
+        'earnings': admin.money,
+        'customer_set': User.objects.filter(userType='Customer'),
+        'admin_set': User.objects.filter(userType='Customer'),
+        'cust_service_set': User.objects.filter(userType='Customer Service'),
+        'retrieval_set': User.objects.filter(userType='Customer'),
+    }
+        return render(request, 'verdeCarsPages/adminHome.html', context)
     return render(request, 'verdeCarsPages/adminHome.html', context)
 
 
