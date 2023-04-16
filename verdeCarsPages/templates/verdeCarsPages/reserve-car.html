@@ -106,10 +106,13 @@ by insurance will be the responsibility of the customer</li>
     
 
 
-<input type="checkbox" id="agree" name="agree" value="" onclick="enableButton()">
-<label for="agree"> I agree to the terms and conditions</label><br>
+
 <form action="{% url 'checkoutConfirmation' %}" method="POST" >
     {% csrf_token %}
+    <fieldset>
+        <label for="author">I agree to the terms and conditions</label>
+        <input type="checkbox" name="agree" id="agree">
+    </fieldset>
     <fieldset>
         <input type="hidden" name="make" id="make" value="{{car.make}}">
         <input type="hidden" name="model" id="model" value="{{car.model}}">
@@ -130,7 +133,7 @@ by insurance will be the responsibility of the customer</li>
         <input type="text" name="content" id="content">
     </fieldset>
     <fieldset>
-        <label for="author">Would you like to buy insurance for an additional 50 dollars?</label><br>
+        <label for="author">Would you like to buy insurance for an additional 50 dollars?</label>
         <input type="checkbox" name="insurance" id="insurance">
     </fieldset>
         <input type="submit" class="retrieval-button" value="Reserve">

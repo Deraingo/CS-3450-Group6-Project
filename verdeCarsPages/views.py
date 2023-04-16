@@ -76,7 +76,7 @@ def reservecar(request):
         print(cost)
         print("image: " + str(imageUrl))
         car = Car.objects.get(make=make, model=model, year=year)
-        #car.isRented = True
+        car.isRented = True
         car.save()
         # Do something with the car info here
         return render(request, "verdeCarsPages/reserve-car.html", {"car": {"make": make, "model": model, "year": year, "cost": cost, 'ImageUrl': imageUrl}})
@@ -101,6 +101,7 @@ def checkoutConfirmation(request):
         model = request.POST.get("model")
         year = request.POST.get("year")
         cost = request.POST.get("cost")
+        address = request.POST.get("content")
         car = Car.objects.get(make=make, model=model, year=year, cost=cost)
         url = car.imageURL
         money = request.POST.get("payment")
@@ -113,9 +114,28 @@ def checkoutConfirmation(request):
         money = int(money)
         date = request.POST.get("rentaldate")
         insured = request.POST.get("insurance")
+        agree = request.POST.get("agree")
         if insured == "on":
             markInsured = True
             cost = float(cost)+50
+        if date == "":
+            context = {
+                "car": {"make": make, "model": model, "year": year, "cost": cost, 'ImageUrl': url},
+                'error': "Please select a date"
+                }
+            return render(request, 'verdeCarsPages/reserve-car.html', context)
+        if address == "":
+            context = {
+                "car": {"make": make, "model": model, "year": year, "cost": cost, 'ImageUrl': url},
+                'error': "Please enter a billing address!"
+                }
+            return render(request, 'verdeCarsPages/reserve-car.html', context)
+        if agree != "on":
+                context = {
+                "car": {"make": make, "model": model, "year": year, "cost": cost, 'ImageUrl': url},
+                'error': "You must agree to the terms and conditions before proceeding."
+                }
+                return render(request, 'verdeCarsPages/reserve-car.html', context)
         if money < float(cost):
                 context = {
                 "car": {"make": make, "model": model, "year": year, "cost": cost, 'ImageUrl': url},
@@ -139,6 +159,7 @@ def checkoutConfirmation(request):
         car.rentalEnd = date
         car.checkoutCode = code
         car.insured = markInsured
+        car.save()
         admin.money = admin.money+money
         admin.save()
 
@@ -146,20 +167,15 @@ def checkoutConfirmation(request):
             'code': code,
             'code': code,
             'make': make,
-            'year': year
-            #'test': current_user.fname,
+            'year': year,
             
         }    
-        current_user.checkoutCode = code
         
         #car.checkoutCode = code
         return render(request, 'verdeCarsPages/checkout-confirmation.html', context)
     else:
-        context= {
-            'code': code,
-            'test': 'ki'
-        } 
-        return render(request, 'verdeCarsPages/checkout-confirmation.html', context)
+        return render (request, 'verdeCarsPages/error403.html')
+
     return render(request, 'verdeCarsPages/checkout-confirmation.html')
 
 
@@ -211,9 +227,9 @@ def retrievalHome(request):
     return render(request, 'verdeCarsPages/retrievalHome.html', context)
 
 def adminHome(request):
-    #user_type = request.session.get('user_type')
-    #if not (user_type == 'Admin'):
-    #    return render(request, 'verdeCarsPages/error403.html')
+    user_type = request.session.get('user_type')
+    if not (user_type == 'Admin'):
+        return render(request, 'verdeCarsPages/error403.html')
     admin = User.objects.get(userType="Admin")
     context = {
         'earnings': admin.money,
