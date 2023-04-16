@@ -43,35 +43,26 @@
     <div class="main-body">
         
         <h1 class="verde-header">Retrieval Specialist Home</h1>
-        
+        {{ user_id }}
+        {{ user }}
         {% block content %}
-
         <div class="retrieval-grid-container">
             <div class="retrieval-left">
                 <div class="retrieval-paragraph">
                     <form class="login-form" method="POST">
                         {% csrf_token %}
                         <div class="green-box">
-                            <h2>Log Hours!</h2>
+                            <h2>Log Your Hours Below:</h2>
                         </div>
                         <div class="retrieval-paragraph">
                             <div class="form-group">
-                                <label>Username</label>
-                                <input type="text" class="form-control" name="usernm">
-                            </div>
-                            <div class="form-group">
-                                <label>Password</label>
-                                <input type="password" class="form-control" name="passwd">
-                            </div>
-                            <div class="form-group">
-                                <label>Hours</label>
                                 <input type="number" class="form-control" name="hoursWorked">
                             </div>
                             </br>
                             <button type="submit" class="retrieval-button">Submit</button>
                         </div>
-                        
                     </form>
+                    <p class="retrieval-paragraph">You have {{ user.hoursWorked }} total hours</p>
                 </div>
             </div>
             <div class="retrieval-right">

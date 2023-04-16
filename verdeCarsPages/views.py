@@ -138,25 +138,22 @@ def retrievalList(request):
 
 def retrievalHome(request):
     user_type = request.session.get('user_type')
+    user_id = request.session.get('user_id')
+    currentUser = User.objects.get(usernm=user_id)
+
     if not (user_type == 'Retrieval Specialist'):
         return render(request, 'verdeCarsPages/error403.html')
     else:
         clockHours = ClockHours
-        context = {'clockHours': clockHours}
-
+        context = {'clockHours': clockHours, 'user_id': user_id, 'user': currentUser}
 
         if request.method == "POST":
             hoursForm = ClockHours(request.POST or None)
             
             if hoursForm.is_valid():
-                userName = hoursForm.cleaned_data.get('usernm')
-                passWord = hoursForm.cleaned_data.get('passwd')
-                hoursLogged = hoursForm.cleaned_data.get('hours')
-                for savedUser in User.objects.all():
-                    if savedUser.usernm == userName and savedUser.passwd == passWord:
-                        savedUser.hoursWorked += hoursLogged
-                        savedUser.save()
-                        # return render(request, 'verdeCarsPages/retrievalHome.html', context)
+                hoursLogged = hoursForm.cleaned_data.get('hoursWorked')
+                currentUser.hoursWorked += hoursLogged
+                currentUser.save()
 
         return render(request, 'verdeCarsPages/retrievalHome.html', context)
 
