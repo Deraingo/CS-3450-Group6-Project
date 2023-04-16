@@ -62,6 +62,9 @@ def login(request):
 
 
 def reservecar(request):
+    user_type = request.session.get('user_type')
+    if not (user_type == 'Customer') :
+        return render(request, 'verdeCarsPages/error403.html')
     print(request)
     if request.method == "POST":
         
@@ -83,6 +86,9 @@ def reservecar(request):
 
 
 def checkoutConfirmation(request):
+    user_type = request.session.get('user_type')
+    if not (user_type == 'Customer'):
+        return render(request, 'verdeCarsPages/error403.html')
     user_id = request.session.get('user_id')
     current_user = User.objects.get(usernm=user_id)
     admin = User.objects.get(userType="Admin")
@@ -205,6 +211,9 @@ def retrievalHome(request):
     return render(request, 'verdeCarsPages/retrievalHome.html', context)
 
 def adminHome(request):
+    user_type = request.session.get('user_type')
+    if not (user_type == 'Admin'):
+        return render(request, 'verdeCarsPages/error403.html')
     admin = User.objects.get(userType="Admin")
     context = {
         'earnings': admin.money,
@@ -258,6 +267,9 @@ def requestRetrieval(request):
     return render(request, 'verdeCarsPages/requestRetrieval.html')
 
 def addMoney(request):
+    user_type = request.session.get('user_type')
+    if not (user_type == 'Customer'):
+        return render(request, 'verdeCarsPages/error403.html')
     user_id = request.session.get('user_id')
     current_user = User.objects.get(usernm=user_id)
     balance = int(current_user.money)
