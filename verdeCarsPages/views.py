@@ -142,6 +142,15 @@ def retrievalHome(request):
     if not (user_type == 'Retrieval Specialist'):
         return render(request, 'verdeCarsPages/error403.html')
     else:
+        return render(request, 'verdeCarsPages/retrievalHome.html')
+    
+
+def clockHours(request):
+    user_type = request.session.get('user_type')
+
+    if not (user_type == 'Retrieval Specialist'):
+        return render(request, 'verdeCarsPages/error403.html')
+    else:
         user_id = request.session.get('user_id')
         currentUser = User.objects.get(usernm=user_id)
         clockHours = ClockHours
@@ -155,7 +164,9 @@ def retrievalHome(request):
                 currentUser.hoursWorked += hoursLogged
                 currentUser.save()
 
-        return render(request, 'verdeCarsPages/retrievalHome.html', context)
+        return render(request, 'verdeCarsPages/clockHours.html', context)
+
+
 
 def adminHome(request):
     context = {

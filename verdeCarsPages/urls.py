@@ -19,6 +19,7 @@ urlpatterns = [
     path('payEmployees/', views.adminHome, name='adminHome'),
     path('addMoney/', views.addMoney, name='addMoney'),
     path('requestRetrieval/', views.requestRetrieval, name="requestRetrieval"),
-    path('customerHome', views.customerHome, name='customerHome'),
+    path('customerHome/', views.customerHome, name='customerHome'),
+    path('clockHours', views.clockHours, name='clockHours'),
 ]
 
