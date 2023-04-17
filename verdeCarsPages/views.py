@@ -18,6 +18,7 @@ from django.contrib.sessions.backends.db import SessionStore
 
 
 
+
 def index(request):
     return render(request, 'verdeCarsPages/index.html')
 
@@ -89,17 +90,98 @@ def reservecar(request):
 
 
 def checkoutConfirmation(request):
-    current_user = request.user
+    user_type = request.session.get('user_type')
+    if not (user_type == 'Customer'):
+        return render(request, 'verdeCarsPages/error403.html')
+    user_id = request.session.get('user_id')
+    current_user = User.objects.get(usernm=user_id)
+    admin = User.objects.get(userType="Admin")
+    code = random.randint(1111,9999)
+    markInsured = False
     
     if request.method == "POST":
         code = random.randint(1111,9999)
-        context= {
-            'code': code
-        }    
+        make = request.POST.get("make")
+        model = request.POST.get("model")
+        year = request.POST.get("year")
+        cost = request.POST.get("cost")
+        address = request.POST.get("content")
+        car = Car.objects.get(make=make, model=model, year=year, cost=cost)
+        url = car.imageURL
+        money = request.POST.get("payment")
+        if money.isdigit() == False:
+                context = {
+                "car": {"make": make, "model": model, "year": year, "cost": cost, 'ImageUrl': url},
+                'error': "Please Enter a valid number"
+                }
+                return render(request, 'verdeCarsPages/reserve-car.html', context)
+        money = int(money)
+        date = request.POST.get("rentaldate")
+        insured = request.POST.get("insurance")
+        agree = request.POST.get("agree")
+        if insured == "on":
+            markInsured = True
+            cost = float(cost)+50
+        if date == "":
+            context = {
+                "car": {"make": make, "model": model, "year": year, "cost": cost, 'ImageUrl': url},
+                'error': "Please select a date"
+                }
+            return render(request, 'verdeCarsPages/reserve-car.html', context)
+        if address == "":
+            context = {
+                "car": {"make": make, "model": model, "year": year, "cost": cost, 'ImageUrl': url},
+                'error': "Please enter a billing address!"
+                }
+            return render(request, 'verdeCarsPages/reserve-car.html', context)
+        if agree != "on":
+                context = {
+                "car": {"make": make, "model": model, "year": year, "cost": cost, 'ImageUrl': url},
+                'error': "You must agree to the terms and conditions before proceeding."
+                }
+                return render(request, 'verdeCarsPages/reserve-car.html', context)
+        if money < float(cost):
+                context = {
+                "car": {"make": make, "model": model, "year": year, "cost": cost, 'ImageUrl': url},
+                'error': "Please Enter enough to pay for your vehicle and any insurance you wish to purchase."
+                }
+                return render(request, 'verdeCarsPages/reserve-car.html', context)
+        if money > int(current_user.money):
+                context = {
+                "car": {"make": make, "model": model, "year": year, "cost": cost, 'ImageUrl': url},
+                'error': "You do not have enough money in your account for this purchase. You can manage and add money in the \"Money\" tab above."
+                }
+                return render(request, 'verdeCarsPages/reserve-car.html', context)
+            
+        
+    
+    if request.user.is_authenticated:
+        current_user.money = current_user.money - money
         current_user.checkoutCode = code
+        current_user.save()
+        car.rentalStart = date
+        car.rentalEnd = date
+        car.checkoutCode = code
+        car.insured = markInsured
+        car.save()
+        admin.money = admin.money+money
+        admin.save()
+
+        context= {
+            'code': code,
+            'code': code,
+            'make': make,
+            'year': year,
+            
+        }    
+        
         #car.checkoutCode = code
         return render(request, 'verdeCarsPages/checkout-confirmation.html', context)
+    else:
+        return render (request, 'verdeCarsPages/error403.html')
+
     return render(request, 'verdeCarsPages/checkout-confirmation.html')
+
 
 
 def strandedCar(request, car_id):
@@ -139,41 +221,61 @@ def retrievalList(request):
 
 def retrievalHome(request):
     user_type = request.session.get('user_type')
+
     if not (user_type == 'Retrieval Specialist'):
         return render(request, 'verdeCarsPages/error403.html')
     else:
-        clockHours = ClockHours
-        context = {'clockHours': clockHours}
+        return render(request, 'verdeCarsPages/retrievalHome.html')
+    
 
+def clockHours(request):
+    user_type = request.session.get('user_type')
+
+    if not (user_type == 'Retrieval Specialist'):
+        return render(request, 'verdeCarsPages/error403.html')
+    else:
+        user_id = request.session.get('user_id')
+        currentUser = User.objects.get(usernm=user_id)
+        clockHours = ClockHours
+        context = {'clockHours': clockHours, 'user_id': user_id, 'user': currentUser}
 
         if request.method == "POST":
             hoursForm = ClockHours(request.POST or None)
             
             if hoursForm.is_valid():
-                userName = hoursForm.cleaned_data.get('usernm')
-                passWord = hoursForm.cleaned_data.get('passwd')
-                hoursLogged = hoursForm.cleaned_data.get('hours')
-                for savedUser in User.objects.all():
-                    if savedUser.usernm == userName and savedUser.passwd == passWord:
-                        savedUser.hoursWorked += hoursLogged
-                        savedUser.save()
-                        # return render(request, 'verdeCarsPages/retrievalHome.html', context)
+                hoursLogged = hoursForm.cleaned_data.get('hoursWorked')
+                currentUser.hoursWorked += hoursLogged
+                currentUser.save()
 
-        return render(request, 'verdeCarsPages/retrievalHome.html', context)
+        return render(request, 'verdeCarsPages/clockHours.html', context)
+
+
 
 def adminHome(request):
+    user_type = request.session.get('user_type')
+    if not (user_type == 'Admin'):
+        return render(request, 'verdeCarsPages/error403.html')
+    admin = User.objects.get(userType="Admin")
     context = {
-        'customer_set': User.objects.filter(userType='Customer'),
-        'admin_set': User.objects.filter(userType='Customer'),
+        'earnings': admin.money,
         'cust_service_set': User.objects.filter(userType='Customer Service'),
-        'retrieval_set': User.objects.filter(userType='Customer'),
+        'retrieval_set': User.objects.filter(userType='Retrieval Specialist'),
     }
     if request.method == "POST":
         identity = request.POST['identity']
         u = User.objects.get(id=identity)
-        u.money=u.money+(u.hoursWorked*10)
+        earned = (u.hoursWorked*10)
+        u.money=u.money+earned
         u.hoursWorked=0
         u.save()
+        admin.money = admin.money - earned
+        admin.save()
+        context = {
+        'earnings': admin.money,
+        'cust_service_set': User.objects.filter(userType='Customer Service'),
+        'retrieval_set': User.objects.filter(userType='Retrieval Specialist'),
+    }
+        return render(request, 'verdeCarsPages/adminHome.html', context)
     return render(request, 'verdeCarsPages/adminHome.html', context)
 
 
@@ -202,37 +304,45 @@ def requestRetrieval(request):
                             car.strandedAddress = strandedAddress
                             car.save()
 
-                    for savedUser in User.objects.all():
-                        if checkoutCode == savedUser.checkoutCode:
-                            savedUser.money -= 300
-                            savedUser.save()
+                            if car.insured == False:
+                                for savedUser in User.objects.all():
+                                    if checkoutCode == savedUser.checkoutCode:
+                                        savedUser.money -= 300
+                                        savedUser.save()
 
         return render(request, 'verdeCarsPages/requestRetrieval.html')
 
 def addMoney(request):
-    current_user = request.user
-    # inputMoney = InputMoney()
-    
-    # if request.user.is_authenticated:
-    #     context = {'inputMoney': inputMoney,
-    #           'currentMoney': current_user.money}
-    # else:
-    #     context = {'inputMoney': inputMoney,
-    #           'currentMoney': 0}
-    # if request.method == "POST":
-    #     moneyForm = InputMoney(request.POST or None)
-        
-    #     if moneyForm.is_valid():
-    #         userName = hoursForm.cleaned_data.get('usernm')
-    #         passWord = hoursForm.cleaned_data.get('passwd')
-    #         moneyInputed = moneyForm.cleaned_data.get('money')
-    #         for savedUser in User.objects.all():
-    #             if savedUser.usernm == userName and savedUser.passwd == passWord:
-    #                 savedUser.money = savedUser.money+moneyInputed
-    #                 context = {'inputMoney': inputMoney,
-    #                           'currentMoney': 0}
-            
 
+    user_type = request.session.get('user_type')
+    if not (user_type == 'Customer'):
+        return render(request, 'verdeCarsPages/error403.html')
+    user_id = request.session.get('user_id')
+    current_user = User.objects.get(usernm=user_id)
+    balance = int(current_user.money)
+    #inputMoney = InputMoney
+    
+    if request.user.is_authenticated:
+        context = {
+            'currentMoney': balance
+        }
+    
+        if request.method == "POST":
+            money = request.POST.get("payment")
+            if money.isdigit() == False:
+                context = {
+                'currentMoney': balance,
+                'error': "Please Enter a valid number"
+                }
+                return render(request, 'verdeCarsPages/add-money.html', context)
+            balance = balance + int(money)
+            current_user.money = balance
+            current_user.save()
+            context = {
+                    'currentMoney': balance}
+    else:
+        return render (request, 'verdeCarsPages/error403.html')
+            
     return render(request, 'verdeCarsPages/add-money.html')
     # return render(request, 'verdeCarsPages/add-money.html', context)
 

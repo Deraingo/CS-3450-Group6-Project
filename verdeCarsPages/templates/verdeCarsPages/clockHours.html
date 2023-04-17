@@ -28,12 +28,9 @@
 <body>
     <nav class="header-container">
         <div class="header-buttons">
-            <a class="header-link current-page" href="/retrievalHome">Retrieval Home</a>
+            <a class="header-link" href="/retrievalHome">Home</a>
             <a class="header-link" href="/retrievalList">List</a>
-            <a class="header-link" href="/clockHours">Clock Hours</a>
-
-            <!-- <a class="header-link" href="/index">PlaceHolder</a> -->
-            <!-- <a class="header-link" href="/index">PlaceHolder</a> -->
+            <a class="header-link current-page" href="/clockHours">Clock Hours</a>
         </div>
         <div class="user-interface">
             <div class="login-button anchor-option">            
@@ -43,12 +40,26 @@
     </nav>
     <div class="main-body">
         
-        <h1 class="verde-header">Retrieval Specialist Home</h1>
-        
+        <h1 class="verde-header">Clock Hours</h1>
+
+        {% block content %}
         <div class="retrieval-grid-container">
             <div class="retrieval-left">
                 <div class="retrieval-paragraph">
-                    <p>We have the deepest gratitude and appreciation to all the retrieval specialist employees who work tirelessly to go pick up and replace broken down rental cars. Your hard work and dedication are truly commendable, and you play an essential role in ensuring that our rental car fleet is always in the best possible condition for our customers. You face difficult challenges on a daily basis, and we are truly grateful for your professionalism, expertise, and unwavering commitment to our customers. Thank you for all that you do, and for making our rental car service the best it can be!</p>
+                    <form class="login-form" method="POST">
+                        {% csrf_token %}
+                        <div class="green-box">
+                            <h2>Log Your Hours Below:</h2>
+                        </div>
+                        <div class="retrieval-paragraph">
+                            <div class="form-group">
+                                <input type="number" class="form-control" name="hoursWorked">
+                            </div>
+                            </br>
+                            <button type="submit" class="retrieval-button">Submit</button>
+                        </div>
+                    </form>
+                    <p class="retrieval-paragraph">You have {{ user.hoursWorked }} total hours</p>
                 </div>
             </div>
             <div class="retrieval-right">
@@ -56,6 +67,9 @@
             </div>
 
         </div>
+        
+        {% endblock content %}
+
     </br>
     </div>
 
