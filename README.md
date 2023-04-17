@@ -40,16 +40,9 @@ Our tool stack will consist of our:
 
 * Add the Secret Key to settings.py
     * Required for modifying server
-* Run the following Database migrations:
-    * 0001_inital.py
-    * 0002_alter_car_rentalend_alter_car_rentalstart.py
-    * 0003_car_strandedaddress.py
-    * 0004_alter_user_phonenumber.py
-    * 0004_car_renter.py
-    * 0005_alter_user_phonenumber.py
-    * 0006_user_checkoutcode_user_hoursworked.py
-    * 0007_merge_20230320_1933.py
+* Run `python manage.py migrate`
 * `python manage.py runserver` to start the server
+* It should be noted that the valid User types are "Customer", "Customer Service", "Retrieval Specialist", and "Admin"
 
 
 
@@ -63,3 +56,4 @@ System tests have not been developed yet
 
 ## Other development notes, as needed
 None yet
+
