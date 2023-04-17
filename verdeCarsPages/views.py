@@ -68,22 +68,24 @@ def login(request):
 
 
 def reservecar(request):
-    print(request)
-    if request.method == "POST":
-        
-        make = request.POST.get("make")
-        model = request.POST.get("model")
-        year = request.POST.get("year")
-        imageUrl = request.POST.get("imageUrl")
-        cost = request.POST.get("cost")
-        car = Car.objects.get(make=make, model=model, year=year, cost=cost)
-        car.isRented = True
-        car.save()
-        # Do something with the car info here
-        return render(request, "verdeCarsPages/reserve-car.html", {"car": {"make": make, "model": model, "year": year, "cost": cost, 'ImageUrl': imageUrl}})
+    user_type = request.session.get('user_type')
+    if not (user_type == 'Customer') :
+        return render(request, 'verdeCarsPages/error403.html')
     else:
-        return render(request, "verdeCarsPages/reserve-car.html")
-
+        if request.method == "POST":
+        
+            make = request.POST.get("make")
+            model = request.POST.get("model")
+            year = request.POST.get("year")
+            imageUrl = request.POST.get("imageUrl")
+            cost = request.POST.get("cost")
+            car = Car.objects.get(make=make, model=model, year=year, cost=cost)
+            car.isRented = True
+            car.save()
+            # Do something with the car info here
+            return render(request, "verdeCarsPages/reserve-car.html", {"car": {"make": make, "model": model, "year": year, "cost": cost, 'ImageUrl': imageUrl}})
+        else:
+            return render(request, "verdeCarsPages/reserve-car.html")
 
 
 def checkoutConfirmation(request):
