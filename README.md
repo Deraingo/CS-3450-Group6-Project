@@ -1,5 +1,8 @@
 # README
 
+## Link to the powerpoint on this project:
+https://docs.google.com/presentation/d/1JRnQyBxS2UT89FsGWP7gUmssqfQrxzCK0izTyRyLzfc/edit?usp=sharing 
+
 ## Potential Issue When Running
 When running the server there has been some randomness in how it runs.   
 If there is an issue with running a page where it says it does not exist but you are sure it does go to urls.py in the application directory and remove the trailing `/` that should resolve any issues.  
