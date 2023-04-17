@@ -46,7 +46,6 @@ window.addEventListener('DOMContentLoaded', function(){
 
     function rent(carMake, carModel, carYear, carCost, carImage, carElement, carIsRented) {
         var openContent = carElement.nextElementSibling;
-        console.log(carImage)
         var submitRental = document.createElement("form");
         submitRental.action = "/reserve-car/";
         submitRental.method = "POST";

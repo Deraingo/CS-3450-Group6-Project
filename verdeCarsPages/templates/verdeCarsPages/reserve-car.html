@@ -2,179 +2,120 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="description" content="Verde Cars" />
-    <meta name="author" content="Group 6 CS3450 USU- 2023" />
-    <meta name="language" content="en" />
-    <meta name="robots" content="follow, all" />
-    <meta name="revisit-after" content="5 days" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link type="text/css" href= "{% static 'verdeCarsPages/mainStyle.css' %}"rel="stylesheet" />
-    <link type="text/css" href= "{% static 'verdeCarsPages/reserveCar.css' %}"rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-    <title>Reserve</title>
-</head>
-<body>
-    <div class="header">
-        <nav class="header-container">
-            <div class="header-buttons">
-                <a class="header-link" href="/customerHome">Home</a>
-                <a class="header-link" href="/catalog">Catalog</a>
-                <a class="header-link" href="/index">PlaceHolder</a>
-                <a class="header-link" href="/index">PlaceHolder</a>
-                <a class="header-link" href="/index">PlaceHolder</a>
-            </div>
-            <div class="user-interface">
-                <div class="login-button anchor-option">
-                    <a class="drop-btn login-menu-btn" href="">Login</a>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="description" content="Verde Cars" />
+        <meta name="author" content="Group 6 CS3450 USU- 2023" />
+        <meta name="language" content="en" />
+        <meta name="robots" content="follow, all" />
+        <meta name="revisit-after" content="5 days" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link type="text/css" href= "{% static 'verdeCarsPages/mainStyle.css' %}"rel="stylesheet" />
+        <link type="text/css" href= "{% static 'verdeCarsPages/reserveCar.css' %}"rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+        <script src="{% static 'verdeCarsPages/js/reserveCar.js' %}"></script>
+        <title>Reserve</title>
+    </head>
+    <body>
+        <div class="header">
+            <nav class="header-container">
+                <div class="header-buttons">
+                    <a id="homeButton" class="header-link" href="/customerHome">Home</a>
+                    <a id="catalogButton" class="header-link" href="/catalog">Catalog</a>
+                </div>
+                <div class="user-interface">
+                    <div class="login-button anchor-option">
+                        <a class="drop-btn login-menu-btn" href="/login">Login</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="main-body">
+            <div class="row no-gutter">
+                <div class="col-sm-6">
+                    <div class="car-details">
+                        <div class="car-info">
+                            <div class="car-details">
+                                {% if car.make == 'Honda' and car.model == 'Civic' and car.year == '2009'%}
+                                    <img class="car-images" src= "{% static 'verdeCarsPages/media/HondaCivic.jpg' %}" alt="Car Image">
+                                {% elif car.make == 'Toyota' and car.model == 'Carolla' and car.year == '2009'%}
+                                    <img class="car-images" src= "{% static 'verdeCarsPages/media/carolla.jpg' %}" alt="Car Image">
+                                {% elif car.make == 'Toyota' and car.model == 'Camry' and car.year == '2008'%}
+                                    <img class="car-images" src= "{% static 'verdeCarsPages/media/camry.jpg' %}" alt="Car Image">
+                                {% elif car.make == 'Toyota' and car.model == 'Supra' and car.year == '2009' %}
+                                    <img class="car-images" src= "{% static 'verdeCarsPages/media/supra.jpg' %}" alt="Car Image">
+                                {% elif car.make == 'Honda' and car.model == 'Civic' and car.year == '2022' %}
+                                    <img class="car-images" src= "{% static 'verdeCarsPages/media/civic2022.jpg' %}" alt="Car Image">
+                                {% elif car.make == 'Nissan' and car.model == 'Skyline' and car.year == '2012' %}
+                                    <img class="car-images" src= "{% static 'verdeCarsPages/media/skyline.jpg' %}" alt="Car Image">
+                                {% elif car.make == 'Ford' and car.model == 'Mustang' and car.year == '2022' %}
+                                    <img class="car-images" src= "{% static 'verdeCarsPages/media/mustang.jpg' %}" alt="Car Image">
+                                {% elif car.make == 'Audi' and car.model == 'RS5' and car.year == '2022' %}
+                                    <img class="car-images" src= "{% static 'verdeCarsPages/media/audiRs5.jpg' %}" alt="Car Image">
+                                {% elif car.make == 'Lamborghini' and car.model == 'Huracan' and car.year == '2021' %}
+                                    <img class="car-images" src= "{% static 'verdeCarsPages/media/lambo.jpg.jpg' %}" alt="Car Image">
+                                {% elif car.make == 'Mercedes' and car.model == 'GTR AMG' and car.year == '2019' %}
+                                <img class="car-images" src= "{% static 'verdeCarsPages/media/mercedesAmgGtr.jpg' %}" alt="Car Image">
+                                {% elif car.make == 'Porsche' and car.model == 'Taycan' and car.year == '2022' %}
+                                    <img class="car-images" src= "{% static 'verdeCarsPages/media/porscheTaycan.jpg' %}" alt="Car Image">
+                                {% elif car.make == 'Ferarri' and car.model == '296 GTS' and car.year == '2022' %}
+                                    <img class="car-images" src= "{% static 'verdeCarsPages/media/ferarri.jpg' %}" alt="Car Image">
+                                {% endif %}
+                                <div id="car-id" class="car-info" data-car-make="{{ car.make }}" data-car-model="{{ car.model }}" data-car-year="{{ car.year }}">
+                                    <div id="car-name">
+                                        <b>Car Make And Name: </b> {{car.make}}, {{car.model}}
+                                    </div>
+                                    <div id="car-year">
+                                        <b>Year: </b> {{car.year}}
+                                    </div>
+                                    <div id="car-price">
+                                        <b>Price: </b> ${{car.cost}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-sm-6">
+                    <p>Please read and agree to our terms and conditions:</p>
+                        <ul>
+                    <li>A late fee will be charged if customer fails
+                    to return the car on time</li>
+                    <li>Any accidents or breakdowns not covered
+                    by insurance will be the responsibility of the customer</li>
+                    </ul>
+                        
+
+
+                    <input type="checkbox" id="agree" name="agree" value="">
+                    <label for="agree"> I agree to the terms and conditions</label><br>
+                    <form action="{% url 'checkoutConfirmation' %}" method="POST" >
+                        {% csrf_token %}
+                        <fieldset>
+                            <label for="author">Date of Reservation:</label><br>
+                            <input type="date" name="author" id="author">
+                        </fieldset>
+                        <fieldset>
+                            <label for="email">Payment Information:</label><br>
+                            <input type="number" name="payment" id="payment">
+                        </fieldset>
+                        <fieldset>
+                            <input type="hidden" name="carcode" id="carcode" value="4">
+                        </fieldset>
+                        <fieldset>
+                            <label for="content">Billing address</label><br>
+                            <input type="text" name="content" id="content">
+                        </fieldset>
+                        <fieldset>
+                            <label for="author">Would you like to buy insurance for an additional 50 dollars?</label><br>
+                            <input type="checkbox" name="insurance" id="insurance">
+                        </fieldset>
+                            <input id="submit" type="submit" value="Reserve">
+                    </form>
                 </div>
             </div>
-        </nav>
-    </div>
-
- <div class="row">
-  <div class="column1">
-  
-<style>
-.column1 {
-  padding: 90px;
-  float: left;
-  width: 55%;
-}
-
-.column2 {
-  padding: 90px;
-  float: left;
-  width: 45%;
-}
-
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-</style>
-
-
-
-{% if car.make == 'Honda' and car.model == 'Civic' and car.year == '2009'%}
-    <img src= "{% static 'verdeCarsPages/media/HondaCivic.jpg' %}" alt="Car Image">
-{% elif car.make == 'Toyota' and car.model == 'Carolla' and car.year == '2009'%}
-    <img src= "{% static 'verdeCarsPages/media/carolla.jpg' %}" alt="Car Image">
-{% elif car.make == 'Toyota' and car.model == 'Camry' and car.year == '2008'%}
-    <img src= "{% static 'verdeCarsPages/media/camry.jpg' %}" alt="Car Image">
-{% elif car.make == 'Toyota' and car.model == 'Supra' and car.year == '2009' %}
-    <img src= "{% static 'verdeCarsPages/media/supra.jpg' %}" alt="Car Image">
-{% elif car.make == 'Honda' and car.model == 'Civic' and car.year == '2022' %}
-    <img src= "{% static 'verdeCarsPages/media/civic2022.jpg' %}" alt="Car Image">
-{% elif car.make == 'Nissan' and car.model == 'Skyline' and car.year == '2012' %}
-    <img src= "{% static 'verdeCarsPages/media/skyline.jpg' %}" alt="Car Image">
-{% elif car.make == 'Ford' and car.model == 'Mustang' and car.year == '2022' %}
-    <img src= "{% static 'verdeCarsPages/media/mustang.jpg' %}" alt="Car Image">
-{% elif car.make == 'Audi' and car.model == 'RS5' and car.year == '2022' %}
-    <img src= "{% static 'verdeCarsPages/media/audiRs5.jpg' %}" alt="Car Image">
-{% elif car.make == 'Lamborghini' and car.model == 'Huracan' and car.year == '2021' %}
-    <img src= "{% static 'verdeCarsPages/media/lambo.jpg.jpg' %}" alt="Car Image">
-{% elif car.make == 'Mercedes' and car.model == 'GTR AMG' and car.year == '2019' %}
-    <img src= "{% static 'verdeCarsPages/media/mercedesAmgGtr.jpg' %}" alt="Car Image">
-{% elif car.make == 'Porsche' and car.model == 'Taycan' and car.year == '2022' %}
-    <img src= "{% static 'verdeCarsPages/media/porscheTaycan.jpg' %}" alt="Car Image">
-{% elif car.make == 'Ferarri' and car.model == '296 GTS' and car.year == '2022' %}
-    <img src= "{% static 'verdeCarsPages/media/ferarri.jpg' %}" alt="Car Image">
-{% endif %}
-
-
-
-<p><b>Model:</b> {{car.model}} <b>Year:</b> {{car.year}} <b>Price:</b> {{car.cost}}</p></div>
-<div class="column2">
-<p>Please read and agree to our terms and conditions:</p>
-    <ul>
-<li>A late fee will be charged if customer fails
-to return the car on time</li>
-<li>Any accidents or breakdowns not covered
-by insurance will be the responsibility of the customer</li>
-</ul>
-    
-
-
-<input type="checkbox" id="agree" name="agree" value="" onclick="enableButton()">
-<label for="agree"> I agree to the terms and conditions</label><br>
-<form action="{% url 'checkoutConfirmation' %}" method="POST" >
-    {% csrf_token %}
-    <fieldset>
-        <label for="author">Date of Reservation:</label><br>
-        <input type="date" name="author" id="author">
-    </fieldset>
-    <fieldset>
-        <label for="email">Payment Information:</label><br>
-        <input type="number" name="payment" id="payment">
-    </fieldset>
-    <fieldset>
-        <input type="hidden" name="carcode" id="carcode" value="4">
-    </fieldset>
-    <fieldset>
-        <label for="content">Billing address</label><br>
-        <input type="text" name="content" id="content">
-    </fieldset>
-    <fieldset>
-        <label for="author">Would you like to buy insurance for an additional 50 dollars?</label><br>
-        <input type="checkbox" name="insurance" id="insurance">
-    </fieldset>
-        <input type="submit" value="Reserve">
-</form>
-
-<!--
-<input type="date" id="start" name="trip-start"
-       value="2018-07-22"
-       min="2018-01-01" max="2018-12-31">
-<P>Payment information:</P>
-<input type="number" id="money">
-<p>Billing address: <br/> </p> 
-<input type="text">
-
-<br/><br/><br/>
- <button class="retrieval-button" onclick = "confirmPayment()" type="button" id="reserve" disabled>Reserve</button> 
-     <p id="error"></p>
-     </div>
- </div> 
- -->   
-
-<script>
-    function enableButton() {
-        if (document.getElementById("reserve").disabled != true) {
-            document.getElementById("reserve").disabled = true;
-        }
-        else {
-            document.getElementById("reserve").disabled = false;
-         }
-         
-     }
-    
-    function confirmation() {
-        window.location='/checkout-confirmation';
-    }
-    
-    function confirmPayment() {
-            if (document.getElementById("money").value == "") {
-                document.getElementById("error").textContent = "Please enter in valid payment information.";
-                console.log("error");
-            } 
-            else if (document.getElementById("money").value == "") {
-                document.getElementById("error").textContent = "You do not have enough money to rent the car. Please add more money to your account and try again.";
-                console.log("error");
-            } 
-            else if (document.getElementById("money").value == "") {
-                document.getElementById("error").textContent = "Please enter in enough to pay for the car.";
-                console.log("error");
-            } 
-            else {
-                confirmation();
-            }
-        }
-  
-
-</script>     
-</body>
+        </div>
+    </body>
 </html> 
