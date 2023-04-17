@@ -10,21 +10,28 @@
     <meta name="robots" content="follow, all" />
     <meta name="revisit-after" content="5 days" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link type="text/css" href= "{% static 'verdeCarsPages/mainStyle.css' %}"rel="stylesheet" />
-    <link type="text/css" href= "{% static 'verdeCarsPages/reserveCar.css' %}"rel="stylesheet" />
+    
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <link type="text/css" href="{% static 'verdeCarsPages/mainStyle.css' %}" rel="stylesheet" />
+    <link type="text/css" href="{% static 'verdeCarsPages/index.css' %}" rel="stylesheet" />
+
+    <link type="text/css" href="{% static 'verdeCarsPages/catalog.css' %}" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <title>Reserve</title>
 </head>
 <body>
-    <div class="header">
-        <nav class="header-container">
+       <nav class="header-container">
             <div class="header-buttons">
                 <a class="header-link" href="/customerHome">Home</a>
-                <a class="header-link" href="/catalog">Catalog</a>
-                <a class="header-link" href="/index">PlaceHolder</a>
-                <a class="header-link" href="/index">PlaceHolder</a>
-                <a class="header-link" href="/index">PlaceHolder</a>
+                <a class="header-link current-page" href="/catalog/">Catalog</a>
+                <a class="header-link" href="/addMoney/">Money</a>
+                <a class="header-link" href="/requestRetrieval/">Retrieval Services</a>
             </div>
             <div class="user-interface">
                 <div class="login-button anchor-option">
@@ -32,7 +39,7 @@
                 </div>
             </div>
         </nav>
-    </div>
+   
 
  <div class="row">
   <div class="column1">
@@ -99,13 +106,20 @@ by insurance will be the responsibility of the customer</li>
     
 
 
-<input type="checkbox" id="agree" name="agree" value="" onclick="enableButton()">
-<label for="agree"> I agree to the terms and conditions</label><br>
+
 <form action="{% url 'checkoutConfirmation' %}" method="POST" >
     {% csrf_token %}
     <fieldset>
+        <label for="author">I agree to the terms and conditions</label>
+        <input type="checkbox" name="agree" id="agree">
+    </fieldset>
+    <fieldset>
+        <input type="hidden" name="make" id="make" value="{{car.make}}">
+        <input type="hidden" name="model" id="model" value="{{car.model}}">
+        <input type="hidden" name="year" id="year" value="{{car.year}}">
+        <input type="hidden" name="cost" id="cost" value="{{car.cost}}">
         <label for="author">Date of Reservation:</label><br>
-        <input type="date" name="author" id="author">
+        <input type="date" name="rentaldate" id="rentaldate">
     </fieldset>
     <fieldset>
         <label for="email">Payment Information:</label><br>
@@ -119,11 +133,13 @@ by insurance will be the responsibility of the customer</li>
         <input type="text" name="content" id="content">
     </fieldset>
     <fieldset>
-        <label for="author">Would you like to buy insurance for an additional 50 dollars?</label><br>
+        <label for="author">Would you like to buy insurance for an additional 50 dollars?</label>
         <input type="checkbox" name="insurance" id="insurance">
     </fieldset>
-        <input type="submit" value="Reserve">
+        <input type="submit" class="retrieval-button" value="Reserve">
 </form>
+<p style="color: crimson">{{error}}</p>
+
 
 <!--
 <input type="date" id="start" name="trip-start"
