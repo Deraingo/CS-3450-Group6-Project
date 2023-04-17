@@ -13,7 +13,7 @@ from django.contrib.auth import get_user_model
 from django.http import JsonResponse
 
 import json
-from .forms import UserForm, LoginForm, UpdateStranded, ClockHours
+from .forms import UserForm, LoginForm, UpdateStranded, ClockHours, RequestRetrieval
 from django.contrib.sessions.backends.db import SessionStore
 
 

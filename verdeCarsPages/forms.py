@@ -23,3 +23,35 @@ class ClockHours(forms.ModelForm):
         fields = ['hoursWorked']
         exclude = ['fname', 'lname', 'phoneNumber', 'userType', 'money', 'checkoutCode', 'usernm', 'passwd']
 
+#class RentCarForm(forms.ModelForm):
+    #rental_day = forms.DateField()
+    #rental_money = forms.FloatField()
+    #address = forms.CharField()
+    #car_cost=forms.FloatField()
+        
+
+#         class Meta:
+#             model = User
+#             fields = []
+#             exclude = ['fname', 'lname', 'userType', 'usernm', 'passwd','money']
+        
+#         def clean_payment_amount(self):
+#             data = self.cleaned_data['rental_money']
+#             if data < car_cost:
+#                raise ValidationError(_('Not enough'))
+                
+#             return data
+
+
+    
+    
+class RequestRetrieval(forms.ModelForm):
+    class Meta:
+        model = Car
+        fields = ['stranded', 'strandedAddress', 'checkoutCode']
+        exclude = ['make', 'model', 'year', 'cost', 'rentalStart', 'rentalEnd', 'imageURL']
+
+#class InputMoney(forms.Form):
+#    usernm = forms.CharField()
+#    passwd = forms.CharField()
+#    money = forms.IntegerField()

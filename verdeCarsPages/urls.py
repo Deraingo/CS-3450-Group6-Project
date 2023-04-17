@@ -20,7 +20,7 @@ urlpatterns = [
     path('addMoney/', views.addMoney, name='addMoney'),
     path('requestRetrieval/', views.requestRetrieval, name="requestRetrieval"),
     path('unrent-car', views.unrentCar, name="unrent-car"),
-    path('customerHome', views.customerHome, name='customerHome'),
+    path('customerHome/', views.customerHome, name='customerHome'),
     path('clockHours', views.clockHours, name='clockHours'),
 ]
 
