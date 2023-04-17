@@ -70,7 +70,7 @@ def login(request):
 
 def reservecar(request):
     user_type = request.session.get('user_type')
-    if not (user_type == 'Customer') :
+    if not (user_type == 'Customer' or user_type == 'Admin') :
         return render(request, 'verdeCarsPages/error403.html')
     else:
         if request.method == "POST":
@@ -92,7 +92,7 @@ def reservecar(request):
 
 def checkoutConfirmation(request):
     user_type = request.session.get('user_type')
-    if not (user_type == 'Customer'):
+    if not (user_type == 'Customer' or user_type == 'Admin'):
         return render(request, 'verdeCarsPages/error403.html')
     user_id = request.session.get('user_id')
     current_user = User.objects.get(usernm=user_id)
@@ -181,13 +181,11 @@ def checkoutConfirmation(request):
     else:
         return render (request, 'verdeCarsPages/error403.html')
 
-    return render(request, 'verdeCarsPages/checkout-confirmation.html')
-
 
 
 def strandedCar(request, car_id):
     user_type = request.session.get('user_type')
-    if not (user_type == 'Retrieval Specialist'):
+    if not (user_type == 'Retrieval Specialist' or user_type == 'Admin'):
         return render(request, 'verdeCarsPages/error403.html')
     else:
         car = get_object_or_404(Car, pk=car_id)
@@ -206,7 +204,7 @@ def strandedCar(request, car_id):
 def catalog(request):
     user_type = request.session.get('user_type')
     print(user_type)
-    if not (user_type == 'Customer'):
+    if not (user_type == 'Customer' or user_type == 'Admin'):
         return render(request, 'verdeCarsPages/error403.html')
     else:
         cars = Car.objects.all()
@@ -214,7 +212,7 @@ def catalog(request):
 
 def retrievalList(request):
     user_type = request.session.get('user_type')
-    if not (user_type == 'Retrieval Specialist'):
+    if not (user_type == 'Retrieval Specialist' or user_type == 'Admin'):
         return render(request, 'verdeCarsPages/error403.html')
     else:
         strandedCars = Car.objects.filter(stranded=True)
@@ -223,7 +221,7 @@ def retrievalList(request):
 def retrievalHome(request):
     user_type = request.session.get('user_type')
 
-    if not (user_type == 'Retrieval Specialist'):
+    if not (user_type == 'Retrieval Specialist' or user_type == 'Admin'):
         return render(request, 'verdeCarsPages/error403.html')
     else:
         return render(request, 'verdeCarsPages/retrievalHome.html')
@@ -232,7 +230,7 @@ def retrievalHome(request):
 def clockHours(request):
     user_type = request.session.get('user_type')
 
-    if not (user_type == 'Retrieval Specialist'):
+    if not (user_type == 'Retrieval Specialist' or user_type == 'Admin'):
         return render(request, 'verdeCarsPages/error403.html')
     else:
         user_id = request.session.get('user_id')
@@ -256,33 +254,34 @@ def adminHome(request):
     user_type = request.session.get('user_type')
     if not (user_type == 'Admin'):
         return render(request, 'verdeCarsPages/error403.html')
-    admin = User.objects.get(userType="Admin")
-    context = {
-        'earnings': admin.money,
-        'cust_service_set': User.objects.filter(userType='Customer Service'),
-        'retrieval_set': User.objects.filter(userType='Retrieval Specialist'),
-    }
-    if request.method == "POST":
-        identity = request.POST['identity']
-        u = User.objects.get(id=identity)
-        earned = (u.hoursWorked*10)
-        u.money=u.money+earned
-        u.hoursWorked=0
-        u.save()
-        admin.money = admin.money - earned
-        admin.save()
+    else: 
+        admin = User.objects.get(userType="Admin")
         context = {
-        'earnings': admin.money,
-        'cust_service_set': User.objects.filter(userType='Customer Service'),
-        'retrieval_set': User.objects.filter(userType='Retrieval Specialist'),
-    }
+            'earnings': admin.money,
+            'cust_service_set': User.objects.filter(userType='Customer Service'),
+            'retrieval_set': User.objects.filter(userType='Retrieval Specialist'),
+        }
+        if request.method == "POST":
+            identity = request.POST['identity']
+            u = User.objects.get(id=identity)
+            earned = (u.hoursWorked*10)
+            u.money=u.money+earned
+            u.hoursWorked=0
+            u.save()
+            admin.money = admin.money - earned
+            admin.save()
+            context = {
+            'earnings': admin.money,
+            'cust_service_set': User.objects.filter(userType='Customer Service'),
+            'retrieval_set': User.objects.filter(userType='Retrieval Specialist'),
+            }
+            # return render(request, 'verdeCarsPages/adminHome.html', context)
         return render(request, 'verdeCarsPages/adminHome.html', context)
-    return render(request, 'verdeCarsPages/adminHome.html', context)
 
 
 def customerHome(request):
     user_type = request.session.get('user_type')
-    if not (user_type == 'Customer'):
+    if not (user_type == 'Customer' or user_type == 'Admin'):
         return render(request, 'verdeCarsPages/error403.html')
     else:
         return render(request, 'verdeCarsPages/customerHome.html')
@@ -314,20 +313,20 @@ def requestRetrieval(request):
         return render(request, 'verdeCarsPages/requestRetrieval.html')
 
 def addMoney(request):
-
     user_type = request.session.get('user_type')
-    if not (user_type == 'Customer'):
-        return render(request, 'verdeCarsPages/error403.html')
     user_id = request.session.get('user_id')
-    current_user = User.objects.get(usernm=user_id)
-    balance = int(current_user.money)
-    #inputMoney = InputMoney
-    
-    if request.user.is_authenticated:
+    if not (user_type == 'Customer' or user_type == 'Admin'):
+        return render(request, 'verdeCarsPages/error403.html')
+    else:
+        user_id = request.session.get('user_id')
+        current_user = User.objects.get(usernm=user_id)
+        balance = int(current_user.money)
+        print("money" + str(balance))
+
         context = {
             'currentMoney': balance
         }
-    
+
         if request.method == "POST":
             money = request.POST.get("payment")
             if money.isdigit() == False:
@@ -341,26 +340,15 @@ def addMoney(request):
             current_user.save()
             context = {
                     'currentMoney': balance}
-    else:
-        return render (request, 'verdeCarsPages/error403.html')
-            
-    return render(request, 'verdeCarsPages/add-money.html')
-    # return render(request, 'verdeCarsPages/add-money.html', context)
+        return render(request, 'verdeCarsPages/add-money.html', context)
 
 
 def unrentCar(request):
-    print(request)
-    print("yaya i fuck bees")
-    
     if request.method == 'POST':
         data = json.loads(request.body)
         make = data.get("make")
         model = data.get("model")
         year = data.get("year")
-        # print(request.content)
-        print(make)
-        print(model)
-        print(year)
         
         # Get the car object from the database
         car = Car.objects.get(make=make, model=model, year=year)

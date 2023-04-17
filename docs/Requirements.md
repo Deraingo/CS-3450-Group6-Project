@@ -55,7 +55,7 @@ This site is for Verde Cars, a rental car business that rents out only green car
 12. When a customer does a search, it should only show them the cars that are available to rent, but it /can/ show cars that the customer can't afford. 
 
 
-###Insurance:
+### Insurance:
 1. Costs $50.00
 2. A customer can opt-out of buying insurance when they rent a car.
 3. If they opt-out, the person at the till will secretly have the car LoJacked and it will break down.
