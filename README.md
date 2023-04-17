@@ -1,8 +1,10 @@
 # README
 
+## Link to the powerpoint on this project:
+https://docs.google.com/presentation/d/1JRnQyBxS2UT89FsGWP7gUmssqfQrxzCK0izTyRyLzfc/edit?usp=sharing 
+
 ## Accessing the Full Site
 To make the website functional, an admin of the website must be created. To do this, the user can use their superuser password to log in to Django’s built-in admin site. From here, they can either create or update a user, setting their UserType to “Admin.” After saving the user, there will be an admin connected to the site that can now keep track of the website’s money.
-
 
 ## Potential Issue When Running
 When running the server there has been some randomness in how it runs.   
