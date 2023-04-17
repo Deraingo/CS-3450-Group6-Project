@@ -8,7 +8,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('admin/', admin.site.urls, name='admin'),
     path('index', views.index, name='index'),
-    path('login/', views.login, name='login'),
+    path('login', views.login, name='login'),
     path('login/<int:form_id>/edit', views.login, name='login'),
     path('reserve-car/', views.reservecar, name='reservecar'),
     path('checkout-confirmation/', views.checkoutConfirmation, name='checkoutConfirmation'),
@@ -19,6 +19,7 @@ urlpatterns = [
     path('adminHome/', views.adminHome, name='adminHome'),
     path('addMoney/', views.addMoney, name='addMoney'),
     path('requestRetrieval/', views.requestRetrieval, name="requestRetrieval"),
+    path('unrent-car', views.unrentCar, name="unrent-car")
     path('customerHome/', views.customerHome, name='customerHome'),
     path('clockHours', views.clockHours, name='clockHours'),
 ]

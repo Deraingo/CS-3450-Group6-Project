@@ -10,8 +10,9 @@ from datetime import datetime
 from .models import User, Car
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
+from django.http import JsonResponse
 
-
+import json
 from .forms import UserForm, LoginForm, UpdateStranded, ClockHours, RequestRetrieval
 from django.contrib.sessions.backends.db import SessionStore
 
@@ -71,23 +72,21 @@ def reservecar(request):
     user_type = request.session.get('user_type')
     if not (user_type == 'Customer') :
         return render(request, 'verdeCarsPages/error403.html')
-    print(request)
-    if request.method == "POST":
-        
-        make = request.POST.get("make")
-        model = request.POST.get("model")
-        year = request.POST.get("year")
-        imageUrl = request.POST.get("imageUrl")
-        cost = request.POST.get("cost")
-        print(cost)
-        print("image: " + str(imageUrl))
-        car = Car.objects.get(make=make, model=model, year=year)
-        car.isRented = True
-        car.save()
-        # Do something with the car info here
-        return render(request, "verdeCarsPages/reserve-car.html", {"car": {"make": make, "model": model, "year": year, "cost": cost, 'ImageUrl': imageUrl}})
     else:
-        return render(request, "verdeCarsPages/reserve-car.html")
+        if request.method == "POST":
+        
+            make = request.POST.get("make")
+            model = request.POST.get("model")
+            year = request.POST.get("year")
+            imageUrl = request.POST.get("imageUrl")
+            cost = request.POST.get("cost")
+            car = Car.objects.get(make=make, model=model, year=year, cost=cost)
+            car.isRented = True
+            car.save()
+            # Do something with the car info here
+            return render(request, "verdeCarsPages/reserve-car.html", {"car": {"make": make, "model": model, "year": year, "cost": cost, 'ImageUrl': imageUrl}})
+        else:
+            return render(request, "verdeCarsPages/reserve-car.html")
 
 
 
@@ -347,3 +346,26 @@ def addMoney(request):
             
     return render(request, 'verdeCarsPages/add-money.html')
     # return render(request, 'verdeCarsPages/add-money.html', context)
+
+
+def unrentCar(request):
+    print(request)
+    print("yaya i fuck bees")
+    
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        make = data.get("make")
+        model = data.get("model")
+        year = data.get("year")
+        # print(request.content)
+        print(make)
+        print(model)
+        print(year)
+        
+        # Get the car object from the database
+        car = Car.objects.get(make=make, model=model, year=year)
+        
+        # Update the isRented field to False
+        car.isRented = False
+        car.save()
+        return JsonResponse({'success': True})
