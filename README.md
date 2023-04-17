@@ -1,6 +1,6 @@
 # README
 
-## Link to the powerpoint on this project:
+## Link to the Powerpoint for This Project:
 https://docs.google.com/presentation/d/1JRnQyBxS2UT89FsGWP7gUmssqfQrxzCK0izTyRyLzfc/edit?usp=sharing 
 
 ## Potential Issue When Running
