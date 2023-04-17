@@ -103,31 +103,7 @@ window.addEventListener('DOMContentLoaded', function(){
             'make': carMake,
             'model': carModel,
             'year': carYear,
-        }));
-        // var submitRental = document.createElement("form");
-        // submitRental.action = "/unrent-car/";
-        // submitRental.method = "POST";
-      
-        // var csrfInput = document.createElement("input");
-        // csrfInput.type = "hidden";
-        // csrfInput.name = "csrfmiddlewaretoken";
-        // csrfInput.value = csrftoken;
-      
-        // var makeInput = document.createElement("input");
-        // makeInput.type = "hidden";
-        // makeInput.name = "make";
-        // makeInput.value = carMake;
-      
-        // var modelInput = document.createElement("input");
-        // modelInput.type = "hidden";
-        // modelInput.name = "model";
-        // modelInput.value = carModel;
-      
-        // var yearInput = document.createElement("input");
-        // yearInput.type = "hidden";
-        // yearInput.name = "year";
-        // yearInput.value = carYear;
-      
+        }));   
     }
 
     function getCookie(name) {

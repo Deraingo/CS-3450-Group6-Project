@@ -89,7 +89,6 @@ def reservecar(request):
             return render(request, "verdeCarsPages/reserve-car.html")
 
 
-
 def checkoutConfirmation(request):
     user_type = request.session.get('user_type')
     if not (user_type == 'Customer'):
