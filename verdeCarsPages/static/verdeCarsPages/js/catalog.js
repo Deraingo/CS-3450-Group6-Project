@@ -4,7 +4,6 @@ window.addEventListener('DOMContentLoaded', function(){
     var lowRange = document.getElementById("low-range");
     var medRange = document.getElementById("med-range");
     var higRange = document.getElementById("high-range");  
-    // rent()
     lowRange.addEventListener("click", setPriceRange);
     medRange.addEventListener("click", setPriceRange);
     higRange.addEventListener("click", setPriceRange);
@@ -13,32 +12,39 @@ window.addEventListener('DOMContentLoaded', function(){
     var i;
     for (i = 0; i < content.length; i++) {
         content[i].addEventListener("click", function () {
-            // console.log(carMake, carModel, carYear, carPrice);
             var carMake = this.dataset.make;
             var carModel = this.dataset.model;
             var carYear = this.dataset.year;
-            var carPrice = this.dataset.price;
-            console.log(carMake, carModel, carPrice, carYear);
+            var carCost = this.dataset.cost;
+            var carImage = this.dataset.imageUrl;
+            var carIsRented = this.getAttribute('data-carIsRented'); 
+            console.log(carMake, carModel, carCost, carYear, carImage, carIsRented);
 
-            if(this === selectedCar){
-                selectedCar.classList.toggle("active")
-                var openContent = this.nextElementSibling;
-                openContent.removeChild(openContent.lastChild);
-                selectedCar = null
-            } else if (selectedCar === null){
-                selectedCar = this
-                selectedCar.classList.toggle("active");
-                rent(carMake, carModel, carYear, carPrice, this); // Add this line to call the rent function
+            if(carIsRented === 'True'){
+                alert("This Car Is Unavailable")
             } else {
-                selectedCar.classList.toggle("active");
-                selectedCar = this;
-                selectedCar.classList.toggle("actice");
-                var oldOpenContent = selectedCar.nextElementSibling;
+                if(this === selectedCar){
+                    selectedCar.classList.toggle("active")
+                    var openContent = this.nextElementSibling;
+                    openContent.removeChild(openContent.lastChild);
+                    selectedCar = null
+                } 
+                else if (selectedCar === null){
+                    selectedCar = this
+                    selectedCar.classList.toggle("active");
+                    rent(carMake, carModel, carYear, carCost, carImage, this, carIsRented); // Add this line to call the rent function
+                } else {
+                    selectedCar.classList.toggle("active");
+                    selectedCar = this;
+                    selectedCar.classList.toggle("actice");
+                    var oldOpenContent = selectedCar.nextElementSibling;
+                }
             }
+            
         });
     }
 
-    function rent(carMake, carModel, carYear, carPrice, carElement) {
+    function rent(carMake, carModel, carYear, carCost, carImage, carElement, carIsRented) {
         var openContent = carElement.nextElementSibling;
         var submitRental = document.createElement("form");
         submitRental.action = "/reserve-car/";
@@ -67,19 +73,31 @@ window.addEventListener('DOMContentLoaded', function(){
         var priceInput = document.createElement("input");
         priceInput.type = "hidden";
         priceInput.name = "cost";
-        priceInput.value = carPrice;
+        priceInput.value = carCost;
+
+        var imageInput = document.createElement("input");
+        imageInput.type = "hidden";
+        imageInput.name = "imageUrl";
+        imageInput.value = carImage
       
         var rentButton = document.createElement("button");
         rentButton.type = "submit";
         rentButton.innerHTML = "Rent Vehicle";
         rentButton.id = "rent-button";
+
+        var isRented = document.createElement("input");
+        isRented.type = "hidden";
+        isRented.name = "isRented";
+        isRented.value = carIsRented
       
         submitRental.appendChild(csrfInput);
         submitRental.appendChild(makeInput);
         submitRental.appendChild(modelInput);
         submitRental.appendChild(yearInput);
         submitRental.appendChild(priceInput);
+        submitRental.appendChild(imageInput);
         submitRental.appendChild(rentButton);
+        submitRental.appendChild(isRented);
         openContent.appendChild(submitRental);
     }
 

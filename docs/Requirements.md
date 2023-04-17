@@ -25,11 +25,9 @@ This site is for Verde Cars, a rental car business that rents out only green car
 
 ### Automobile Retrieval specialist
 1. Can see what address a stuck customer is at.
-2. Can notify customer that they're on their way to pick up car.
-3. Can report a car as having been picked up and taken back to the shop.
-5. Can check out cars to give customers a replacement
-6. 4. Can log the amount of hours they've worked.
-7. Paid $15/hr 
+2. Can report a car as having been picked up and taken back to the shop.
+3. Can log the amount of hours they've worked.
+4. Paid $15/hr 
 
 ### Admin
 1. Can add a new vehicle. (Profe said we could give the admin a library of pictures to choose from of new cars to add.)
@@ -55,7 +53,7 @@ This site is for Verde Cars, a rental car business that rents out only green car
 12. When a customer does a search, it should only show them the cars that are available to rent, but it /can/ show cars that the customer can't afford. 
 
 
-###Insurance:
+### Insurance:
 1. Costs $50.00
 2. A customer can opt-out of buying insurance when they rent a car.
 3. If they opt-out, the person at the till will secretly have the car LoJacked and it will break down.

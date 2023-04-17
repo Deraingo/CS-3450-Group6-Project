@@ -8,8 +8,14 @@ from django.urls import reverse
 import random
 from datetime import datetime
 from .models import User, Car
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user_model
+from django.http import JsonResponse
 
-from .forms import UserForm, LoginForm, UpdateStranded, ClockHours, RentCarForm
+import json
+from .forms import UserForm, LoginForm, UpdateStranded, ClockHours, RequestRetrieval
+from django.contrib.sessions.backends.db import SessionStore
+
 
 
 
@@ -38,10 +44,19 @@ def login(request):
                 for savedUser in User.objects.all():
                     if user_data == savedUser.usernm and pass_data == savedUser.passwd:
                         savedUserType = savedUser.userType
-                        # FOR ALL: SEND THE USER TO THE HOMEPAGE OF THEIR RESPECTIVE USER TYPE
-            return render(request, 'verdeCarsPages/index.html', context=context) # delete this and replace it with the homepage for their user type :)
-            # else:
-            #     return render(request, 'verdeCarsPages/login.html', context=context)
+                        request.session['user_id'] = savedUser.usernm
+                        request.session['user_type'] = savedUser.userType
+
+                        if savedUserType == "Customer":
+                            return render(request, 'verdeCarsPages/customerHome.html')
+                        # else if savedUserType == "Customer Service":
+                        #     return render(request, 'verdeCarsPages/')
+                        elif savedUserType == "Retrieval Specialist":
+                            return render(request, 'verdeCarsPages/retrievalHome.html')
+                        elif savedUserType == "Admin":
+                            return render(request, 'verdeCarsPages/adminHome.html')
+                        else:
+                            return render(request, 'verdeCarsPages/index.html', context=context)
         
         if 'create_user' in request.POST:
 
@@ -52,93 +67,292 @@ def login(request):
 
     return render(request, 'verdeCarsPages/login.html', context=context)
 
-def reservecar(request):
-    print(request)
-    if request.method == "POST":
-        make = request.POST.get("make")
-        model = request.POST.get("model")
-        year = request.POST.get("year")
-        cost = request.POST.get("price")
-        print(cost)
-        # Do something with the car info here
-        return render(request, "verdeCarsPages/reserve-car.html", {"car": {"make": make, "model": model, "year": year, "cost": cost}})
-    else:
-        return render(request, "verdeCarsPages/reserve-car.html")
-
 
 def reservecar(request):
-    print(request)
-    if request.method == "POST":
-        make = request.POST.get("make")
-        model = request.POST.get("model")
-        year = request.POST.get("year")
-        cost = request.POST.get("price")
-        print(cost)
-        # Do something with the car info here
-        return render(request, "verdeCarsPages/reserve-car.html", {"car": {"make": make, "model": model, "year": year, "cost": cost}})
+    user_type = request.session.get('user_type')
+    if not (user_type == 'Customer' or user_type == 'Admin') :
+        return render(request, 'verdeCarsPages/error403.html')
     else:
-        return render(request, "verdeCarsPages/reserve-car.html")
-    
+        if request.method == "POST":
+        
+            make = request.POST.get("make")
+            model = request.POST.get("model")
+            year = request.POST.get("year")
+            imageUrl = request.POST.get("imageUrl")
+            cost = request.POST.get("cost")
+            car = Car.objects.get(make=make, model=model, year=year, cost=cost)
+            car.isRented = True
+            car.save()
+            # Do something with the car info here
+            return render(request, "verdeCarsPages/reserve-car.html", {"car": {"make": make, "model": model, "year": year, "cost": cost, 'ImageUrl': imageUrl}})
+        else:
+            return render(request, "verdeCarsPages/reserve-car.html")
+
+
 def checkoutConfirmation(request):
+    user_type = request.session.get('user_type')
+    if not (user_type == 'Customer' or user_type == 'Admin'):
+        return render(request, 'verdeCarsPages/error403.html')
+    user_id = request.session.get('user_id')
+    current_user = User.objects.get(usernm=user_id)
+    admin = User.objects.get(userType="Admin")
+    code = random.randint(1111,9999)
+    markInsured = False
+    
     if request.method == "POST":
+        code = random.randint(1111,9999)
+        make = request.POST.get("make")
+        model = request.POST.get("model")
+        year = request.POST.get("year")
+        cost = request.POST.get("cost")
+        address = request.POST.get("content")
+        car = Car.objects.get(make=make, model=model, year=year, cost=cost)
+        url = car.imageURL
+        money = request.POST.get("payment")
+        if money.isdigit() == False:
+                context = {
+                "car": {"make": make, "model": model, "year": year, "cost": cost, 'ImageUrl': url},
+                'error': "Please Enter a valid number"
+                }
+                return render(request, 'verdeCarsPages/reserve-car.html', context)
+        money = int(money)
+        date = request.POST.get("rentaldate")
+        insured = request.POST.get("insurance")
+        agree = request.POST.get("agree")
+        if insured == "on":
+            markInsured = True
+            cost = float(cost)+50
+        if date == "":
+            context = {
+                "car": {"make": make, "model": model, "year": year, "cost": cost, 'ImageUrl': url},
+                'error': "Please select a date"
+                }
+            return render(request, 'verdeCarsPages/reserve-car.html', context)
+        if address == "":
+            context = {
+                "car": {"make": make, "model": model, "year": year, "cost": cost, 'ImageUrl': url},
+                'error': "Please enter a billing address!"
+                }
+            return render(request, 'verdeCarsPages/reserve-car.html', context)
+        if agree != "on":
+                context = {
+                "car": {"make": make, "model": model, "year": year, "cost": cost, 'ImageUrl': url},
+                'error': "You must agree to the terms and conditions before proceeding."
+                }
+                return render(request, 'verdeCarsPages/reserve-car.html', context)
+        if money < float(cost):
+                context = {
+                "car": {"make": make, "model": model, "year": year, "cost": cost, 'ImageUrl': url},
+                'error': "Please Enter enough to pay for your vehicle and any insurance you wish to purchase."
+                }
+                return render(request, 'verdeCarsPages/reserve-car.html', context)
+        if money > int(current_user.money):
+                context = {
+                "car": {"make": make, "model": model, "year": year, "cost": cost, 'ImageUrl': url},
+                'error': "You do not have enough money in your account for this purchase. You can manage and add money in the \"Money\" tab above."
+                }
+                return render(request, 'verdeCarsPages/reserve-car.html', context)
+            
+        
+    
+    if request.user.is_authenticated:
+        current_user.money = current_user.money - money
+        current_user.checkoutCode = code
+        current_user.save()
+        car.rentalStart = date
+        car.rentalEnd = date
+        car.checkoutCode = code
+        car.insured = markInsured
+        car.save()
+        admin.money = admin.money+money
+        admin.save()
+
         context= {
-            'code': random.randint(1111,9999)
+            'code': code,
+            'code': code,
+            'make': make,
+            'year': year,
+            
         }    
+        
+        #car.checkoutCode = code
         return render(request, 'verdeCarsPages/checkout-confirmation.html', context)
-    return render(request, 'verdeCarsPages/checkout-confirmation.html')
+    else:
+        return render (request, 'verdeCarsPages/error403.html')
+
 
 
 def strandedCar(request, car_id):
-    car = get_object_or_404(Car, pk=car_id)
-    userData = User.objects.filter(checkoutCode=str(car.checkoutCode)).values()
-    updateStranded = UpdateStranded()
-    context = {'car': car, 'userData': userData, 'updateStranded' : updateStranded}
+    user_type = request.session.get('user_type')
+    if not (user_type == 'Retrieval Specialist' or user_type == 'Admin'):
+        return render(request, 'verdeCarsPages/error403.html')
+    else:
+        car = get_object_or_404(Car, pk=car_id)
+        userData = User.objects.filter(checkoutCode=str(car.checkoutCode)).values()
+        updateStranded = UpdateStranded()
+        context = {'car': car, 'userData': userData, 'updateStranded' : updateStranded}
 
-    if request.method == "POST":
-        if 'update_stranded' in request.POST:
-            car.stranded = False
-            car.save(update_fields=['stranded'])
-    return render(request, 'verdeCarsPages/strandedCar.html', context)
+        if request.method == "POST":
+            if 'update_stranded' in request.POST:
+                car.stranded = False
+                car.strandedAddress = ""
+                car.save()
+        return render(request, 'verdeCarsPages/strandedCar.html', context)
+
 
 def catalog(request):
-    cars = Car.objects.all()
-    return render(request, 'verdeCarsPages/catalog.html', {'cars': cars})
+    user_type = request.session.get('user_type')
+    print(user_type)
+    if not (user_type == 'Customer' or user_type == 'Admin'):
+        return render(request, 'verdeCarsPages/error403.html')
+    else:
+        cars = Car.objects.all()
+        return render(request, 'verdeCarsPages/catalog.html', {'cars': cars}) 
 
 def retrievalList(request):
-    strandedCars = Car.objects.filter(stranded=True)
-    return render(request, 'verdeCarsPages/retrievalList.html', {'strandedCars': strandedCars})
+    user_type = request.session.get('user_type')
+    if not (user_type == 'Retrieval Specialist' or user_type == 'Admin'):
+        return render(request, 'verdeCarsPages/error403.html')
+    else:
+        strandedCars = Car.objects.filter(stranded=True)
+        return render(request, 'verdeCarsPages/retrievalList.html', {'strandedCars': strandedCars})
 
 def retrievalHome(request):
-    clockHours = ClockHours
-    context = {'clockHours': clockHours}
+    user_type = request.session.get('user_type')
+
+    if not (user_type == 'Retrieval Specialist' or user_type == 'Admin'):
+        return render(request, 'verdeCarsPages/error403.html')
+    else:
+        return render(request, 'verdeCarsPages/retrievalHome.html')
+    
+
+def clockHours(request):
+    user_type = request.session.get('user_type')
+
+    if not (user_type == 'Retrieval Specialist' or user_type == 'Admin'):
+        return render(request, 'verdeCarsPages/error403.html')
+    else:
+        user_id = request.session.get('user_id')
+        currentUser = User.objects.get(usernm=user_id)
+        clockHours = ClockHours
+        context = {'clockHours': clockHours, 'user_id': user_id, 'user': currentUser}
+
+        if request.method == "POST":
+            hoursForm = ClockHours(request.POST or None)
+            
+            if hoursForm.is_valid():
+                hoursLogged = hoursForm.cleaned_data.get('hoursWorked')
+                currentUser.hoursWorked += hoursLogged
+                currentUser.save()
+
+        return render(request, 'verdeCarsPages/clockHours.html', context)
 
 
-    if request.method == "POST":
-        hoursForm = ClockHours(request.POST or None)
-        
-        if hoursForm.is_valid():
-            userName = hoursForm.cleaned_data.get('usernm')
-            passWord = hoursForm.cleaned_data.get('passwd')
-            hoursLogged = hoursForm.cleaned_data.get('hours')
-            for savedUser in User.objects.all():
-                if savedUser.usernm == userName and savedUser.passwd == passWord:
-                    savedUser.hoursWorked = hoursLogged
-
-
-    return render(request, 'verdeCarsPages/retrievalHome.html', context)
 
 def adminHome(request):
-    context = {
-        'customer_set': User.objects.filter(userType='Customer'),
-        'admin_set': User.objects.filter(userType='Customer'),
-        'cust_service_set': User.objects.filter(userType='Customer Service'),
-        'retrieval_set': User.objects.filter(userType='Customer'),
-    }
-    if request.method == "POST":
-        identity = request.POST['identity']
-        u = User.objects.get(id=identity)
-        u.money=u.money+(u.hoursWorked*10)
-        u.hoursWorked=0
-        u.save()
-    return render(request, 'verdeCarsPages/adminHome.html', context)
+    user_type = request.session.get('user_type')
+    if not (user_type == 'Admin'):
+        return render(request, 'verdeCarsPages/error403.html')
+    else: 
+        admin = User.objects.get(userType="Admin")
+        context = {
+            'earnings': admin.money,
+            'cust_service_set': User.objects.filter(userType='Customer Service'),
+            'retrieval_set': User.objects.filter(userType='Retrieval Specialist'),
+        }
+        if request.method == "POST":
+            identity = request.POST['identity']
+            u = User.objects.get(id=identity)
+            earned = (u.hoursWorked*10)
+            u.money=u.money+earned
+            u.hoursWorked=0
+            u.save()
+            admin.money = admin.money - earned
+            admin.save()
+            context = {
+            'earnings': admin.money,
+            'cust_service_set': User.objects.filter(userType='Customer Service'),
+            'retrieval_set': User.objects.filter(userType='Retrieval Specialist'),
+            }
+            # return render(request, 'verdeCarsPages/adminHome.html', context)
+        return render(request, 'verdeCarsPages/adminHome.html', context)
 
+
+def customerHome(request):
+    user_type = request.session.get('user_type')
+    if not (user_type == 'Customer' or user_type == 'Admin'):
+        return render(request, 'verdeCarsPages/error403.html')
+    else:
+        return render(request, 'verdeCarsPages/customerHome.html')
+
+
+def requestRetrieval(request):
+    user_type = request.session.get('user_type')
+    if not (user_type == 'Customer'):
+        return render(request, 'verdeCarsPages/error403.html')
+    else:
+        if request.method == "POST":
+                requestRetrieval = RequestRetrieval(request.POST or None)
+                if requestRetrieval.is_valid():
+                    checkoutCode = requestRetrieval.cleaned_data.get('checkoutCode')
+                    strandedAddress = requestRetrieval.cleaned_data.get('strandedAddress')
+
+                    for car in Car.objects.all():
+                        if checkoutCode == car.checkoutCode:
+                            car.stranded = True
+                            car.strandedAddress = strandedAddress
+                            car.save()
+
+                            if car.insured == False:
+                                for savedUser in User.objects.all():
+                                    if checkoutCode == savedUser.checkoutCode:
+                                        savedUser.money -= 300
+                                        savedUser.save()
+
+        return render(request, 'verdeCarsPages/requestRetrieval.html')
+
+def addMoney(request):
+    user_type = request.session.get('user_type')
+    user_id = request.session.get('user_id')
+    if not (user_type == 'Customer' or user_type == 'Admin'):
+        return render(request, 'verdeCarsPages/error403.html')
+    else:
+        user_id = request.session.get('user_id')
+        current_user = User.objects.get(usernm=user_id)
+        balance = int(current_user.money)
+        print("money" + str(balance))
+
+        context = {
+            'currentMoney': balance
+        }
+
+        if request.method == "POST":
+            money = request.POST.get("payment")
+            if money.isdigit() == False:
+                context = {
+                'currentMoney': balance,
+                'error': "Please Enter a valid number"
+                }
+                return render(request, 'verdeCarsPages/add-money.html', context)
+            balance = balance + int(money)
+            current_user.money = balance
+            current_user.save()
+            context = {
+                    'currentMoney': balance}
+        return render(request, 'verdeCarsPages/add-money.html', context)
+
+
+def unrentCar(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        make = data.get("make")
+        model = data.get("model")
+        year = data.get("year")
+        
+        # Get the car object from the database
+        car = Car.objects.get(make=make, model=model, year=year)
+        
+        # Update the isRented field to False
+        car.isRented = False
+        car.save()
+        return JsonResponse({'success': True})

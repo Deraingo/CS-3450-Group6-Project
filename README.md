@@ -1,5 +1,11 @@
 # README
 
+## Link to the Powerpoint for This Project:
+https://docs.google.com/presentation/d/1JRnQyBxS2UT89FsGWP7gUmssqfQrxzCK0izTyRyLzfc/edit?usp=sharing 
+
+## Accessing the Full Site
+To make the website functional, an admin of the website must be created. To do this, the user can use their superuser password to log in to Django’s built-in admin site. From here, they can either create or update a user, setting their UserType to “Admin.” After saving the user, there will be an admin connected to the site that can now keep track of the website’s money.
+
 ## Potential Issue When Running
 When running the server there has been some randomness in how it runs.   
 If there is an issue with running a page where it says it does not exist but you are sure it does go to urls.py in the application directory and remove the trailing `/` that should resolve any issues.  
@@ -36,16 +42,9 @@ Our tool stack will consist of our:
 
 * Add the Secret Key to settings.py
     * Required for modifying server
-* Run the following Database migrations:
-    * 0001_inital.py
-    * 0002_alter_car_rentalend_alter_car_rentalstart.py
-    * 0003_car_strandedaddress.py
-    * 0004_alter_user_phonenumber.py
-    * 0004_car_renter.py
-    * 0005_alter_user_phonenumber.py
-    * 0006_user_checkoutcode_user_hoursworked.py
-    * 0007_merge_20230320_1933.py
+* Run `python manage.py migrate`
 * `python manage.py runserver` to start the server
+* It should be noted that the valid User types are "Customer", "Customer Service", "Retrieval Specialist", and "Admin"
 
 
 
@@ -60,5 +59,3 @@ System tests have not been developed yet
 ## Other development notes, as needed
 None yet
 
-
-endSprint5

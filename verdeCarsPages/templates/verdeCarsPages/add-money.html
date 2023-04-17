@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,27 +23,35 @@
     <link type="text/css" href="{% static 'verdeCarsPages/catalog.css' %}" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-    <title>Confirmation</title>
+    <title>Add Money</title>
 </head>
 <body>
-<div class="header">
-<nav class="header-container">
-        <div class="header-buttons">
-           <a class="header-link" href="/customerHome">Home</a>
-            <a class="header-link current-page" href="/catalog/">Catalog</a>
-            <a class="header-link" href="/addMoney/">Money</a>
-            <a class="header-link" href="/requestRetrieval/">Retrieval Services</a>
-        </div>
-        <div class="user-interface">
-            <div class="login-button anchor-option">            
-                <a class="drop-btn login-menu-btn" href="">Login</a>
+    <div class="header">
+        <nav class="header-container">
+            <div class="header-buttons">
+                <a class="header-link" href="/customerHome">Home</a>
+                <a class="header-link" href="/catalog/">Catalog</a>
+                <a class="header-link current-page" href="/addMoney/">Money</a>
+                <a class="header-link" href="/requestRetrieval/">Retrieval Services</a>
             </div>
-        </div>
-    </nav>
-</div>
+            <div class="user-interface">
+                <div class="login-button anchor-option">
+                    <a class="drop-btn login-menu-btn" href="">Login</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+<H2 class="verde-header">Current Balance </H2>
+<p>Your balance is: ${{currentMoney}}</p>
+<form method="POST">
+                {% csrf_token %}
 
-<h1 class="verde-header">Congratulations!</h1>
-<p>You have successfully reserved the {{year}} {{make}}.</p>
-<p>Your confirmation code is {{code}}. Please give this code to the till worker when you go to pick up the car.</p>
+    <h3 class="verde-header">Add Money!</h3>
+                <label for="email">How much money would you like to add?</label>
+        <input type="number" name="payment" id="payment">                        <input type="submit" class="retrieval-button" value="Add">
+            </form>
+    <p style="color: crimson">{{error}}</p>
+    
+
 </body>
-</html>
+</html> 
