@@ -33,8 +33,8 @@ class UpdateStranded(forms.Form):
 class ClockHours(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['usernm', 'passwd', 'hoursWorked']
-        exclude = ['fname', 'lname', 'phoneNumber', 'userType', 'money', 'checkoutCode']
+        fields = ['hoursWorked']
+        exclude = ['fname', 'lname', 'phoneNumber', 'userType', 'money', 'checkoutCode', 'usernm', 'passwd']
 
 #class RentCarForm(forms.ModelForm):
     #rental_day = forms.DateField()
@@ -54,6 +54,7 @@ class ClockHours(forms.ModelForm):
 #                raise ValidationError(_('Not enough'))
                 
 #             return data
+
 
     
     

@@ -9,8 +9,12 @@ import random
 from datetime import datetime
 from .models import User, Car
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user_model
 
-from .forms import UserForm, LoginForm, UpdateStranded, ClockHours
+
+from .forms import UserForm, LoginForm, UpdateStranded, ClockHours, RequestRetrieval
+from django.contrib.sessions.backends.db import SessionStore
+
 
 
 
@@ -39,6 +43,8 @@ def login(request):
                 for savedUser in User.objects.all():
                     if user_data == savedUser.usernm and pass_data == savedUser.passwd:
                         savedUserType = savedUser.userType
+                        request.session['user_id'] = savedUser.usernm
+                        request.session['user_type'] = savedUser.userType
 
                         if savedUserType == "Customer":
                             return render(request, 'verdeCarsPages/customerHome.html')
@@ -181,50 +187,71 @@ def checkoutConfirmation(request):
 
 
 def strandedCar(request, car_id):
-    car = get_object_or_404(Car, pk=car_id)
-    userData = User.objects.filter(checkoutCode=str(car.checkoutCode)).values()
-    updateStranded = UpdateStranded()
-    context = {'car': car, 'userData': userData, 'updateStranded' : updateStranded}
+    user_type = request.session.get('user_type')
+    if not (user_type == 'Retrieval Specialist'):
+        return render(request, 'verdeCarsPages/error403.html')
+    else:
+        car = get_object_or_404(Car, pk=car_id)
+        userData = User.objects.filter(checkoutCode=str(car.checkoutCode)).values()
+        updateStranded = UpdateStranded()
+        context = {'car': car, 'userData': userData, 'updateStranded' : updateStranded}
 
-    if request.method == "POST":
-        if 'update_stranded' in request.POST:
-            car.stranded = False
-            car.strandedAddress = ""
-            car.save()
-    return render(request, 'verdeCarsPages/strandedCar.html', context)
+        if request.method == "POST":
+            if 'update_stranded' in request.POST:
+                car.stranded = False
+                car.strandedAddress = ""
+                car.save()
+        return render(request, 'verdeCarsPages/strandedCar.html', context)
 
 
 def catalog(request):
-    # if not (request.user.is_authenticated and request.user.userType == 'Customer'):
-    #     return render(request, 'verdeCarsPages/error403.html')
-        
-    # else:
+    user_type = request.session.get('user_type')
+    print(user_type)
+    if not (user_type == 'Customer'):
+        return render(request, 'verdeCarsPages/error403.html')
+    else:
         cars = Car.objects.all()
         return render(request, 'verdeCarsPages/catalog.html', {'cars': cars}) 
 
 def retrievalList(request):
-    strandedCars = Car.objects.filter(stranded=True)
-    return render(request, 'verdeCarsPages/retrievalList.html', {'strandedCars': strandedCars})
+    user_type = request.session.get('user_type')
+    if not (user_type == 'Retrieval Specialist'):
+        return render(request, 'verdeCarsPages/error403.html')
+    else:
+        strandedCars = Car.objects.filter(stranded=True)
+        return render(request, 'verdeCarsPages/retrievalList.html', {'strandedCars': strandedCars})
 
 def retrievalHome(request):
-    clockHours = ClockHours
-    context = {'clockHours': clockHours}
+    user_type = request.session.get('user_type')
+
+    if not (user_type == 'Retrieval Specialist'):
+        return render(request, 'verdeCarsPages/error403.html')
+    else:
+        return render(request, 'verdeCarsPages/retrievalHome.html')
+    
+
+def clockHours(request):
+    user_type = request.session.get('user_type')
+
+    if not (user_type == 'Retrieval Specialist'):
+        return render(request, 'verdeCarsPages/error403.html')
+    else:
+        user_id = request.session.get('user_id')
+        currentUser = User.objects.get(usernm=user_id)
+        clockHours = ClockHours
+        context = {'clockHours': clockHours, 'user_id': user_id, 'user': currentUser}
+
+        if request.method == "POST":
+            hoursForm = ClockHours(request.POST or None)
+            
+            if hoursForm.is_valid():
+                hoursLogged = hoursForm.cleaned_data.get('hoursWorked')
+                currentUser.hoursWorked += hoursLogged
+                currentUser.save()
+
+        return render(request, 'verdeCarsPages/clockHours.html', context)
 
 
-    if request.method == "POST":
-        hoursForm = ClockHours(request.POST or None)
-        
-        if hoursForm.is_valid():
-            userName = hoursForm.cleaned_data.get('usernm')
-            passWord = hoursForm.cleaned_data.get('passwd')
-            hoursLogged = hoursForm.cleaned_data.get('hours')
-            for savedUser in User.objects.all():
-                if savedUser.usernm == userName and savedUser.passwd == passWord:
-                    savedUser.hoursWorked += hoursLogged
-                    savedUser.save()
-                    # return render(request, 'verdeCarsPages/retrievalHome.html', context)
-
-    return render(request, 'verdeCarsPages/retrievalHome.html', context)
 
 def adminHome(request):
     user_type = request.session.get('user_type')
@@ -255,30 +282,40 @@ def adminHome(request):
 
 
 def customerHome(request):
-    return render(request, 'verdeCarsPages/customerHome.html')
+    user_type = request.session.get('user_type')
+    if not (user_type == 'Customer'):
+        return render(request, 'verdeCarsPages/error403.html')
+    else:
+        return render(request, 'verdeCarsPages/customerHome.html')
 
 
 def requestRetrieval(request):
-    if request.method == "POST":
-            requestRetrieval = RequestRetrieval(request.POST or None)
-            if requestRetrieval.is_valid():
-                checkoutCode = requestRetrieval.cleaned_data.get('checkoutCode')
-                strandedAddress = requestRetrieval.cleaned_data.get('strandedAddress')
+    user_type = request.session.get('user_type')
+    if not (user_type == 'Customer'):
+        return render(request, 'verdeCarsPages/error403.html')
+    else:
+        if request.method == "POST":
+                requestRetrieval = RequestRetrieval(request.POST or None)
+                if requestRetrieval.is_valid():
+                    checkoutCode = requestRetrieval.cleaned_data.get('checkoutCode')
+                    strandedAddress = requestRetrieval.cleaned_data.get('strandedAddress')
 
-                for car in Car.objects.all():
-                    if checkoutCode == car.checkoutCode:
-                        car.stranded = True
-                        car.strandedAddress = strandedAddress
-                        car.save()
+                    for car in Car.objects.all():
+                        if checkoutCode == car.checkoutCode:
+                            car.stranded = True
+                            car.strandedAddress = strandedAddress
+                            car.save()
 
-                for savedUser in User.objects.all():
-                    if checkoutCode == savedUser.checkoutCode:
-                        savedUser.money -= 300
-                        savedUser.save()
+                            if car.insured == False:
+                                for savedUser in User.objects.all():
+                                    if checkoutCode == savedUser.checkoutCode:
+                                        savedUser.money -= 300
+                                        savedUser.save()
 
-    return render(request, 'verdeCarsPages/requestRetrieval.html')
+        return render(request, 'verdeCarsPages/requestRetrieval.html')
 
 def addMoney(request):
+
     user_type = request.session.get('user_type')
     if not (user_type == 'Customer'):
         return render(request, 'verdeCarsPages/error403.html')
@@ -308,6 +345,5 @@ def addMoney(request):
     else:
         return render (request, 'verdeCarsPages/error403.html')
             
-
-
-    return render(request, 'verdeCarsPages/add-money.html', context)
+    return render(request, 'verdeCarsPages/add-money.html')
+    # return render(request, 'verdeCarsPages/add-money.html', context)
