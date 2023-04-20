@@ -23,20 +23,21 @@
     <link type="text/css" href="{% static 'verdeCarsPages/catalog.css' %}" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-        <title>Reserve</title>
+    <script src="{% static 'verdeCarsPages/js/reserveCar.js' %}"></script>
+    <title>Reserve</title>
     </head>
     <body>
         <div class="header">
             <nav class="header-container">
                 <div class="header-buttons">
-                    <a class="header-link" href="/customerHome">Home</a>
-                <a class="header-link current-page" href="/catalog/">Catalog</a>
-                <a class="header-link" href="/addMoney/">Money</a>
-                <a class="header-link" href="/requestRetrieval/">Retrieval Services</a>
+                    <a class="header-link" id="homeButton" href="/customerHome/">Home</a>
+                <a class="header-link current-page" id="catalogButton" href="/catalog/">Catalog</a>
+                <a class="header-link" id="addMoney" href="/addMoney/">Money</a>
+                <a class="header-link" id="requestRetrieval" href="/requestRetrieval/">Retrieval Services</a>
                 </div>
                 <div class="user-interface">
                     <div class="login-button anchor-option">
-                        <a class="drop-btn login-menu-btn" href="/login">Login</a>
+                        <a class="drop-btn login-menu-btn" href="/login/">Login</a>
                     </div>
                 </div>
             </nav>
@@ -116,6 +117,18 @@
                         <fieldset>
                             <label for="content">Billing address</label><br>
                             <input type="text" name="content" id="content">
+                        </fieldset>
+                        <fieldset>
+                            <input type="hidden" name="make" value="{{car.make}}">
+                        </fieldset>
+                        <fieldset>
+                            <input type="hidden" name="model" value="{{car.model}}">
+                        </fieldset>
+                        <fieldset>
+                            <input type="hidden" name="year" value="{{car.year}}">
+                        </fieldset>
+                        <fieldset>
+                            <input type="hidden" name="cost" value="{{car.cost}}">
                         </fieldset>
                         <fieldset>
                             <label for="author">Would you like to buy insurance for an additional 50 dollars?</label><br>
