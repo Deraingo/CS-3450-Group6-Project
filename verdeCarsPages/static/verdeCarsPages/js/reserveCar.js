@@ -7,8 +7,12 @@ window.addEventListener('DOMContentLoaded', function(){
     let carCost = carDetails.dataset.carCost;
     let homeButton = document.getElementById('homeButton');
     let catalogButton = document.getElementById('catalogButton');
+    let addMoney = document.getElementById('addMoney');
+    let requestRetrieval = document.getElementById('requestRetrieval');
     homeButton.type="submit";
     catalogButton.type="submit";
+    addMoney.type="submit"
+    requestRetrieval.type="submit"
     let submitButton = document.getElementById("submit");
     let agreeCheckbox = document.getElementById("agree");
     let csrftoken = getCookie('csrftoken');
@@ -23,20 +27,28 @@ window.addEventListener('DOMContentLoaded', function(){
         alert("WARNING: you are about to leave this page your reservation progress will be lost");
         unrentCar(carMake, carModel, carYear);
     });
-    window.addEventListener('popstate', function() {
+    addMoney.addEventListener('click', function(){
         alert("WARNING: you are about to leave this page your reservation progress will be lost");
         unrentCar(carMake, carModel, carYear);
     });
+    requestRetrieval.addEventListener('click', function(){
+        alert("WARNING: you are about to leave this page your reservation progress will be lost");
+        unrentCar(carMake, carModel, carYear);
+    });
+    // window.addEventListener('popstate', function() {
+    //     alert("WARNING: you are about to leave this page your reservation progress will be lost");
+    //     unrentCar(carMake, carModel, carYear);
+    // });
       
-    window.addEventListener('unload', function() {
-        alert("WARNING: you are about to leave this page your reservation progress will be lost");
-        unrentCar(carMake, carModel, carYear);
-    });
+    // window.addEventListener('unload', function() {
+    //     alert("WARNING: you are about to leave this page your reservation progress will be lost");
+    //     unrentCar(carMake, carModel, carYear);
+    // });
 
-    window.addEventListener('beforeunload', function() {
-        alert("WARNING: you are about to leave this page your reservation progress will be lost");
-        unrentCar(carMake, carModel, carYear);
-    });
+    // window.addEventListener('beforeunload', function() {
+    //     alert("WARNING: you are about to leave this page your reservation progress will be lost");
+    //     unrentCar(carMake, carModel, carYear);
+    // });
 
 
     submitButton.disabled = true;

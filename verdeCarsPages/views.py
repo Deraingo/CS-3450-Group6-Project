@@ -90,95 +90,54 @@ def reservecar(request):
 
 
 def checkoutConfirmation(request):
+    user_id = request.session.get('user_id')
+    current_user = user_id
+    code = random.randint(1111,9999)
+    markInsured = False
     user_type = request.session.get('user_type')
     if not (user_type == 'Customer' or user_type == 'Admin'):
         return render(request, 'verdeCarsPages/error403.html')
-    user_id = request.session.get('user_id')
-    current_user = User.objects.get(usernm=user_id)
-    admin = User.objects.get(userType="Admin")
-    code = random.randint(1111,9999)
-    markInsured = False
-    
-    if request.method == "POST":
-        code = random.randint(1111,9999)
-        make = request.POST.get("make")
-        model = request.POST.get("model")
-        year = request.POST.get("year")
-        cost = request.POST.get("cost")
-        address = request.POST.get("content")
-        car = Car.objects.get(make=make, model=model, year=year, cost=cost)
-        url = car.imageURL
-        money = request.POST.get("payment")
-        if money.isdigit() == False:
-                context = {
-                "car": {"make": make, "model": model, "year": year, "cost": cost, 'ImageUrl': url},
-                'error': "Please Enter a valid number"
-                }
-                return render(request, 'verdeCarsPages/reserve-car.html', context)
-        money = int(money)
-        date = request.POST.get("rentaldate")
-        insured = request.POST.get("insurance")
-        agree = request.POST.get("agree")
-        if insured == "on":
-            markInsured = True
-            cost = float(cost)+50
-        if date == "":
-            context = {
-                "car": {"make": make, "model": model, "year": year, "cost": cost, 'ImageUrl': url},
-                'error': "Please select a date"
-                }
-            return render(request, 'verdeCarsPages/reserve-car.html', context)
-        if address == "":
-            context = {
-                "car": {"make": make, "model": model, "year": year, "cost": cost, 'ImageUrl': url},
-                'error': "Please enter a billing address!"
-                }
-            return render(request, 'verdeCarsPages/reserve-car.html', context)
-        if agree != "on":
-                context = {
-                "car": {"make": make, "model": model, "year": year, "cost": cost, 'ImageUrl': url},
-                'error': "You must agree to the terms and conditions before proceeding."
-                }
-                return render(request, 'verdeCarsPages/reserve-car.html', context)
-        if money < float(cost):
-                context = {
-                "car": {"make": make, "model": model, "year": year, "cost": cost, 'ImageUrl': url},
-                'error': "Please Enter enough to pay for your vehicle and any insurance you wish to purchase."
-                }
-                return render(request, 'verdeCarsPages/reserve-car.html', context)
-        if money > int(current_user.money):
-                context = {
-                "car": {"make": make, "model": model, "year": year, "cost": cost, 'ImageUrl': url},
-                'error': "You do not have enough money in your account for this purchase. You can manage and add money in the \"Money\" tab above."
-                }
-                return render(request, 'verdeCarsPages/reserve-car.html', context)
-            
-        
-    
-    if request.user.is_authenticated:
-        current_user.money = current_user.money - money
-        current_user.checkoutCode = code
-        current_user.save()
-        car.rentalStart = date
-        car.rentalEnd = date
-        car.checkoutCode = code
-        car.insured = markInsured
-        car.save()
-        admin.money = admin.money+money
-        admin.save()
-
-        context= {
-            'code': code,
-            'code': code,
-            'make': make,
-            'year': year,
-            
-        }    
-        
-        #car.checkoutCode = code
-        return render(request, 'verdeCarsPages/checkout-confirmation.html', context)
     else:
-        return render (request, 'verdeCarsPages/error403.html')
+        
+        
+        if request.method == "POST":
+            code = random.randint(1111,9999)
+            make = request.POST.get("make")
+            model = request.POST.get("model")
+            year = request.POST.get("year")
+            cost = request.POST.get("cost")
+            address = request.POST.get("content")
+            money = request.POST.get("payment")
+            money = int(money)
+            date = request.POST.get("rentaldate")
+            insured = request.POST.get("insurance")
+            currentUser = User.objects.get(usernm=user_id)
+            currentUser.money = float(currentUser.money) - float(cost)
+            currentUser.save()
+
+            
+            if insured == "on":
+                markInsured == True
+                cost = float(cost)+50
+            if date == "":
+                context = {
+                    "car": {"make": make, "model": model, "year": year, "cost": cost},
+                    'error': "Please select a date"
+                    }
+                return render(request, 'verdeCarsPages/reserve-car.html', context)
+            if address == "":
+                context = {
+                    "car": {"make": make, "model": model, "year": year, "cost": cost},
+                    'error': "Please enter a billing address!"
+                    }
+                return render(request, 'verdeCarsPages/reserve-car.html', context)
+            if money < float(cost):
+                    context = {
+                    "car": {"make": make, "model": model, "year": year, "cost": cost},
+                    'error': "Please Enter enough to pay for your vehicle and any insurance you wish to purchase."
+                    }
+                    return render(request, 'verdeCarsPages/reserve-car.html', context) 
+            return render(request, 'verdeCarsPages/checkout-confirmation.html', {"car": {"make": make, "model": model, "year": year, "cost": cost, 'code': code}})
 
 
 
